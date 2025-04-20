@@ -80,11 +80,12 @@
 }
 .teacher-layout {
   display: flex;
-  gap: 20px;
-  max-width: 1000px;
-  align-items: center;
+  gap: 30px;
+  width: 100px); 
+  margin-left: -120px;       
+  margin-right: -120px;
+  padding: 25px 40px;
   background-color: white;
-  padding: 20px;
   border-radius: 12px;
   border: 4px solid red;
   box-shadow: 0 0 10px rgba(0,0,0,1);
@@ -104,6 +105,25 @@
   font-size: 20px;
 }
 
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .member {
+    padding: 10px;
+  }
+  .member img {
+    height: auto;
+  }
+}
 </style>
 </head>
 <body>
@@ -125,7 +145,7 @@
 <div class="info">
 <h3>Nguyễn Thị Hưng</h3>
 <p><strong>Ngày sinh:</strong> 09/01/1973</p>
-<p>“Lưu giữ thật kỹ những khoảnh khắc này bạn nhé.”</p>
+<p>“Mỗi học trò là một mảnh ghép trong trái tim cô. Ngày hôm nay, các em khôn lớn rời đi, cô thấy lòng mình vừa tự hào, vừa nghèn nghẹn. Dẫu có đi bao xa, chỉ mong khi các em ngoảnh lại, vẫn thấy hình bóng một người cô lặng lẽ dõi theo.”</p>
 </div>
 </div>
 </div>
