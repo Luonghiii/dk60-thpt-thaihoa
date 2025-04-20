@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Thành viên lớp DK60</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+  background-image: url('bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  transition: background-position 0.1s ease;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+header {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+nav {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.Teacher {
+  grid-column: 1 / -1;
+  max-width:900px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.teacher-layout {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  width: 500px;
+  margin: auto;
+  padding: 25px 40px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  border: 4px solid red;
+  box-shadow: 0 0 10px rgba(0,0,0,1);
+}
+.teacher-layout img {
+  width: 220px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 4px double #e91e63;
+}
+
+.teacher-layout .info h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.Teacher img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+}
+
+.member {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 15px;
+  border-radius: 10px;
+  border: 4px solid black;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,1);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.member:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.member img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 4px double black;
+}
+
+.member .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.member:hover .overlay {
+  opacity: 1;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .member {
+    padding: 10px;
+  }
+  .member img {
+    height: auto;
+  }
+}
+footer {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px'  
+    border-radius: 8px;		
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+<h1>🎓 Trang web của tôi</h1>
+</header>
+<nav>
+<ul>
+<li><a href="index.html">Trang Chủ</a></li>
+<li><a href="about.html">Giới Thiệu</a></li>
+<li><a href="contact.html">Liên Hệ</a></li>
+<li><a href="thanh-vien-lop.html">Thành Viên</a></li>
+</ul>
+</nav>
+<h2>📘 Dưới đây là danh sách những thành viên trong tập thể DK60 - Nơi không gì là không thể :3</h2>
+<div class="container">
+<div class="Teacher">
+<div class="teacher-layout">
+<img alt="Nguyễn Thị Hưng" src="images/teachers/Cô Hưng.jpg"/>
+<div class="info">
+<h3>Nguyễn Thị Hưng</h3>
+<p><strong>Ngày sinh:</strong> 09/01/1973</p>
+<p>“Mỗi học trò là một mảnh ghép trong trái tim cô. Ngày hôm nay, các em khôn lớn rời đi, cô thấy lòng mình vừa tự hào, vừa nghèn nghẹn. Dẫu có đi bao xa, chỉ mong khi các em ngoảnh lại, vẫn thấy hình bóng một người cô lặng lẽ dõi theo.”</p>
+</div>
+</div>
+</div>
+<div class="member">
+<img alt="Hồ Nhật Anh" onclick="openLightbox(0)" src="images/members/Nhật Anh.jpg" style="cursor: pointer;"/>
+<h3>Hồ Nhật Anh</h3>
+<p><strong>Ngày sinh:</strong> 21/08/2007</p>
+<p>“Cả lớp học này từng là thế giới nhỏ của tớ.”</p>
+<div class="overlay">Hồ Nhật Anh – ““Cả lớp học này từng là thế giới nhỏ của tớ.””</div></div>
+<div class="member">
+<img alt="Lê Thị Vân Anh" onclick="openLightbox(1)" src="images/members/Vân Anh.jpg" style="cursor: pointer;"/>
+<h3>Lê Thị Vân Anh</h3>
+<p><strong>Ngày sinh:</strong> 24/07/2007</p>
+<p>“Sẽ chẳng còn ai gõ vào vai bảo tớ: ‘Ê, mai kiểm tra đó!’ nữa.”</p>
+<div class="overlay">Lê Thị Vân Anh – ““Sẽ chẳng còn ai gõ vào vai bảo tớ: ‘Ê, mai kiểm tra đó!’ nữa.””</div></div>
+<div class="member">
+<img alt="Nguyễn Thị Kim Anh" onclick="openLightbox(2)" src="images/members/Kim Anh.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Thị Kim Anh</h3>
+<p><strong>Ngày sinh:</strong> 22/10/2007</p>
+<p>“Khi tớ viết những dòng này, tớ đã bắt đầu nhớ lớp mình rồi.”</p>
+<div class="overlay">Nguyễn Thị Kim Anh – ““Khi tớ viết những dòng này, tớ đã bắt đầu nhớ lớp mình rồi.””</div></div>
+<div class="member">
+<img alt="Nguyễn Thị Trúc Anh" onclick="openLightbox(3)" src="images/members/Trúc Anh.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Thị Trúc Anh</h3>
+<p><strong>Ngày sinh:</strong> 03/03/2007</p>
+<p>“Tớ chưa kịp nói với cậu rằng: cảm ơn vì đã ở bên tớ suốt những ngày cuối cùng ấy.”</p>
+<div class="overlay">Nguyễn Thị Trúc Anh – ““Tớ chưa kịp nói với cậu rằng: cảm ơn vì đã ở bên tớ suốt những ngày cuối cùng ấy.””</div></div>
+<div class="member">
+<img alt="Mai Thị Ngọc Ánh" onclick="openLightbox(4)" src="images/members/Ngọc Ánh.jpg" style="cursor: pointer;"/>
+<h3>Mai Thị Ngọc Ánh</h3>
+<p><strong>Ngày sinh:</strong> 13/12/2007</p>
+<p>“3 năm không dài, nhưng đủ để thương một tập thể!”</p>
+<div class="overlay">Mai Thị Ngọc Ánh – ““3 năm không dài, nhưng đủ để thương một tập thể!””</div></div>
+<div class="member">
+<img alt="Nguyễn Thị Nguyệt Ánh" onclick="openLightbox(5)" src="images/members/Nguyệt Ánh.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Thị Nguyệt Ánh</h3>
+<p><strong>Ngày sinh:</strong> 01/11/2007</p>
+<p>“Lưu giữ thật kỹ những khoảnh khắc này bạn nhé.”</p>
+<div class="overlay">Nguyễn Thị Nguyệt Ánh – ““Lưu giữ thật kỹ những khoảnh khắc này bạn nhé.””</div></div>
+<div class="member">
+<img alt="Đàm Minh Châu" onclick="openLightbox(6)" src="images/members/Minh châu.jpg" style="cursor: pointer;"/>
+<h3>Đàm Minh Châu</h3>
+<p><strong>Ngày sinh:</strong> 13/12/2007</p>
+<p>“Cảm ơn vì đã cùng nhau tạo nên ký ức thật đẹp.”</p>
+<div class="overlay">Đàm Minh Châu – ““Cảm ơn vì đã cùng nhau tạo nên ký ức thật đẹp.””</div></div>
+<div class="member">
+<img alt="Hoàng Ngọc Bảo Châu" onclick="openLightbox(7)" src="images/members/Bảo Châu.jpg" style="cursor: pointer;"/>
+<h3>Hoàng Ngọc Bảo Châu</h3>
+<p><strong>Ngày sinh:</strong> 07/08/2007</p>
+<p>“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”</p>
+<div class="overlay">Hoàng Ngọc Bảo Châu – ““Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.””</div></div>
+<div class="member">
+<img alt="Nguyễn Đức Cường" onclick="openLightbox(8)" src="images/members/Đức Cường.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Đức Cường</h3>
+<p><strong>Ngày sinh:</strong> 19/02/2007</p>
+<p>“Tớ không nhớ hết các tiết học, nhưng tớ nhớ cảm giác ngồi cạnh các cậu.”</p>
+<div class="overlay">Nguyễn Đức Cường – ““Tớ không nhớ hết các tiết học, nhưng tớ nhớ cảm giác ngồi cạnh các cậu.””</div></div>
+<div class="member">
+<img alt="Hoàng Thị Kim Dung" onclick="openLightbox(9)" src="images/members/Kim Dung.jpg" style="cursor: pointer;"/>
+<h3>Hoàng Thị Kim Dung</h3>
+<p><strong>Ngày sinh:</strong> 21/08/2007</p>
+<p>“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”</p>
+<div class="overlay">Hoàng Thị Kim Dung – ““Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!””</div></div>
+<div class="member">
+<img alt="Ngô Thị Thùy Dương" onclick="openLightbox(10)" src="images/members/Thuỳ Dương.jpg" style="cursor: pointer;"/>
+<h3>Ngô Thị Thùy Dương</h3>
+<p><strong>Ngày sinh:</strong> 02/09/2007</p>
+<p>“Lớp mình không chỉ học cùng nhau – mà đã sống thanh xuân cùng nhau.”</p>
+<div class="overlay">Ngô Thị Thùy Dương – ““Lớp mình không chỉ học cùng nhau – mà đã sống thanh xuân cùng nhau.””</div></div>
+<div class="member">
+<img alt="Tạ Đức Dương" onclick="openLightbox(11)" src="images/members/Đức Dương.jpg" style="cursor: pointer;"/>
+<h3>Tạ Đức Dương</h3>
+<p><strong>Ngày sinh:</strong> 07/01/2007</p>
+<p>“DK60 – một thanh xuân rực rỡ không thể nào quên.”</p>
+<div class="overlay">Tạ Đức Dương – ““DK60 – một thanh xuân rực rỡ không thể nào quên.””</div></div>
+<div class="member">
+<img alt="Hoàng Văn Thành Đạt" onclick="openLightbox(12)" src="images/members/Thành Đạt.jpg" style="cursor: pointer;"/>
+<h3>Hoàng Văn Thành Đạt</h3>
+<p><strong>Ngày sinh:</strong> 05/06/2007</p>
+<p>“Tớ sẽ nhớ cả những tiếng cười lúc trốn học, và cả những lúc bị gọi lên bảng run như cầy sấy.”</p>
+<div class="overlay">Hoàng Văn Thành Đạt – ““Tớ sẽ nhớ cả những tiếng cười lúc trốn học, và cả những lúc bị gọi lên bảng run như cầy sấy.””</div></div>
+<div class="member">
+<img alt="Trần Hương Giang" onclick="openLightbox(13)" src="images/members/Hương Giang.jpg" style="cursor: pointer;"/>
+<h3>Trần Hương Giang</h3>
+<p><strong>Ngày sinh:</strong> 01/09/2007</p>
+<p>“Sau này, mỗi người một ngả – nhưng tớ tin: một phần của tớ sẽ mãi ở lại nơi này.”</p>
+<div class="overlay">Trần Hương Giang – ““Sau này, mỗi người một ngả – nhưng tớ tin: một phần của tớ sẽ mãi ở lại nơi này.””</div></div>
+<div class="member">
+<img alt="Hoàng Văn Hải" onclick="openLightbox(14)" src="images/members/Văn Hải.jpg" style="cursor: pointer;"/>
+<h3>Hoàng Văn Hải</h3>
+<p><strong>Ngày sinh:</strong> 09/02/2007</p>
+<p>“Không ai biết lần cuối là khi nào – cho đến khi nó thật sự đến.”</p>
+<div class="overlay">Hoàng Văn Hải – ““Không ai biết lần cuối là khi nào – cho đến khi nó thật sự đến.””</div></div>
+<div class="member">
+<img alt="Đặng Hồng Hạnh" onclick="openLightbox(15)" src="images/members/Hồng Hạnh.jpg" style="cursor: pointer;"/>
+<h3>Đặng Hồng Hạnh</h3>
+<p><strong>Ngày sinh:</strong> 03/09/2007</p>
+<p>“Mỗi lần nhìn lại áo lớp, tớ lại thấy cả một thời vô tư ở đó.”</p>
+<div class="overlay">Đặng Hồng Hạnh – ““Mỗi lần nhìn lại áo lớp, tớ lại thấy cả một thời vô tư ở đó.””</div></div>
+<div class="member">
+<img alt="Vũ Quốc Huy" onclick="openLightbox(16)" src="images/members/Quốc Huy.jpg" style="cursor: pointer;"/>
+<h3>Vũ Quốc Huy</h3>
+<p><strong>Ngày sinh:</strong> 22/01/2007</p>
+<p>“Tạm biệt nhé – những cái tên đã trở nên thân quen như hơi thở.”</p>
+<div class="overlay">Vũ Quốc Huy – ““Tạm biệt nhé – những cái tên đã trở nên thân quen như hơi thở.””</div></div>
+<div class="member">
+<img alt="Nguyễn Thị Thúy Hường" onclick="openLightbox(17)" src="images/members/Thuý Hường.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Thị Thúy Hường</h3>
+<p><strong>Ngày sinh:</strong> 10/06/2007</p>
+<p>“Tớ từng mong lớn nhanh, nhưng giờ tớ chỉ ước thời gian ngừng lại một chút.”</p>
+<div class="overlay">Nguyễn Thị Thúy Hường – ““Tớ từng mong lớn nhanh, nhưng giờ tớ chỉ ước thời gian ngừng lại một chút.””</div></div>
+<div class="member">
+<img alt="Trần Văn Hữu" onclick="openLightbox(18)" src="images/members/Văn Hữu.jpg" style="cursor: pointer;"/>
+<h3>Trần Văn Hữu</h3>
+<p><strong>Ngày sinh:</strong> 26/06/2007</p>
+<p>“Lớp học sẽ im ắng hơn, không còn tiếng cậu hát nhảm mỗi sáng nữa đâu.”</p>
+<div class="overlay">Trần Văn Hữu – ““Lớp học sẽ im ắng hơn, không còn tiếng cậu hát nhảm mỗi sáng nữa đâu.””</div></div>
+<div class="member">
+<img alt="Ngô Thị Khánh Linh" onclick="openLightbox(19)" src="images/members/Khánh Linh.jpg" style="cursor: pointer;"/>
+<h3>Ngô Thị Khánh Linh</h3>
+<p><strong>Ngày sinh:</strong> 11/11/2007</p>
+<p>“Dù mai này ta bận rộn, có lẽ ta vẫn bất giác nhớ nhau vào một chiều tháng 5.”</p>
+<div class="overlay">Ngô Thị Khánh Linh – ““Dù mai này ta bận rộn, có lẽ ta vẫn bất giác nhớ nhau vào một chiều tháng 5.””</div></div>
+<div class="member">
+<img alt="Phùng Đoàn Đan Linh" onclick="openLightbox(20)" src="images/members/Đan Linh.jpg" style="cursor: pointer;"/>
+<h3>Phùng Đoàn Đan Linh</h3>
+<p><strong>Ngày sinh:</strong> 15/03/2007</p>
+<p>“Tớ chưa từng nghĩ chia tay lại buồn đến vậy…”</p>
+<div class="overlay">Phùng Đoàn Đan Linh – ““Tớ chưa từng nghĩ chia tay lại buồn đến vậy…””</div></div>
+<div class="member">
+<img alt="Nguyễn Xuân Đức Lương" onclick="openLightbox(21)" src="images/members/Đức Lương.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Xuân Đức Lương</h3>
+<p><strong>Ngày sinh:</strong> 29/05/2007</p>
+<p>“Có những người chỉ gặp 3 năm, nhưng nhớ đến cả đời.”</p>
+<div class="overlay">Nguyễn Xuân Đức Lương – ““Có những người chỉ gặp 3 năm, nhưng nhớ đến cả đời.””</div></div>
+<div class="member">
+<img alt="Nguyễn Thị Mai" onclick="openLightbox(22)" src="images/members/Thị Mai.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Thị Mai</h3>
+<p><strong>Ngày sinh:</strong> 11/08/2007</p>
+<p>“Thay vì nói 'giá như', tớ nói 'cảm ơn' – vì cậu đã là một phần của thanh xuân tớ.”</p>
+<div class="overlay">Nguyễn Thị Mai – ““Thay vì nói 'giá như', tớ nói 'cảm ơn' – vì cậu đã là một phần của thanh xuân tớ.””</div></div>
+<div class="member">
+<img alt="Ngô Đình Nguyên" onclick="openLightbox(23)" src="images/members/Đình Nguyên.jpg" style="cursor: pointer;"/>
+<h3>Ngô Đình Nguyên</h3>
+<p><strong>Ngày sinh:</strong> 11/02/2007</p>
+<p>“Mỗi cái tên trong lớp là một mảnh ghép – thiếu ai cũng không trọn vẹn.”</p>
+<div class="overlay">Ngô Đình Nguyên – ““Mỗi cái tên trong lớp là một mảnh ghép – thiếu ai cũng không trọn vẹn.””</div></div>
+<div class="member">
+<img alt="Trần Thị Yến Nhi" onclick="openLightbox(24)" src="images/members/Yến Nhi.jpg" style="cursor: pointer;"/>
+<h3>Trần Thị Yến Nhi</h3>
+<p><strong>Ngày sinh:</strong> 18/03/2007</p>
+<p>“Chúng mình đã từng mơ cùng nhau, từng ôn thi cùng nhau… và giờ thì chia tay cùng nhau.”</p>
+<div class="overlay">Trần Thị Yến Nhi – ““Chúng mình đã từng mơ cùng nhau, từng ôn thi cùng nhau… và giờ thì chia tay cùng nhau.””</div></div>
+<div class="member">
+<img alt="Đặng Thị Hồng Phương" onclick="openLightbox(25)" src="images/members/Hồng Phương.jpg" style="cursor: pointer;"/>
+<h3>Đặng Thị Hồng Phương</h3>
+<p><strong>Ngày sinh:</strong> 16/03/2007</p>
+<p>“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”</p>
+<div class="overlay">Đặng Thị Hồng Phương – ““Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!””</div></div>
+<div class="member">
+<img alt="Đậu Thị Hoài Phương" onclick="openLightbox(26)" src="images/members/Hoài Phương.jpg" style="cursor: pointer;"/>
+<h3>Đậu Thị Hoài Phương</h3>
+<p><strong>Ngày sinh:</strong> 10/10/2007</p>
+<p>“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”</p>
+<div class="overlay">Đậu Thị Hoài Phương – ““Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.””</div></div>
+<div class="member">
+<img alt="Nguyễn Việt Quang" onclick="openLightbox(27)" src="images/members/Việt Quang.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Việt Quang</h3>
+<p><strong>Ngày sinh:</strong> 24/03/2007</p>
+<p>“Cảm ơn vì đã cùng nhau tạo nên ký ức thật đẹp.”</p>
+<div class="overlay">Nguyễn Việt Quang – ““Cảm ơn vì đã cùng nhau tạo nên ký ức thật đẹp.””</div></div>
+<div class="member">
+<img alt="Võ Thị Tú Quyên" onclick="openLightbox(28)" src="images/members/Tú Quyên.jpg" style="cursor: pointer;"/>
+<h3>Võ Thị Tú Quyên</h3>
+<p><strong>Ngày sinh:</strong> 22/05/2007</p>
+<p>“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”</p>
+<div class="overlay">Võ Thị Tú Quyên – ““Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.””</div></div>
+<div class="member">
+<img alt="Trương Thị Phương Thảo" onclick="openLightbox(29)" src="images/members/Phương Thảo.jpg" style="cursor: pointer;"/>
+<h3>Trương Thị Phương Thảo</h3>
+<p><strong>Ngày sinh:</strong> 10/08/2007</p>
+<p>“Dù sau này mỗi đứa một nơi, tớ vẫn nhớ lớp mình lắm!”</p>
+<div class="overlay">Trương Thị Phương Thảo – ““Dù sau này mỗi đứa một nơi, tớ vẫn nhớ lớp mình lắm!””</div></div>
+<div class="member">
+<img alt="Đặng Trần Minh Thư" onclick="openLightbox(30)" src="images/members/Minh Thư.jpg" style="cursor: pointer;"/>
+<h3>Đặng Trần Minh Thư</h3>
+<p><strong>Ngày sinh:</strong> 03/06/2007</p>
+<p>“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”</p>
+<div class="overlay">Đặng Trần Minh Thư – ““Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!””</div></div>
+<div class="member">
+<img alt="Ngô Thị Hà Thương" onclick="openLightbox(31)" src="images/members/Hà Thương.jpg" style="cursor: pointer;"/>
+<h3>Ngô Thị Hà Thương</h3>
+<p><strong>Ngày sinh:</strong> 12/04/2007</p>
+<p>“Mong sau này, khi ai đó nhắc đến DK60, cậu sẽ mỉm cười”</p>
+<div class="overlay">Ngô Thị Hà Thương – ““Mong sau này, khi ai đó nhắc đến DK60, cậu sẽ mỉm cười””</div></div>
+<div class="member">
+<img alt="Trương Thị Huyền Trang" onclick="openLightbox(32)" src="images/members/Huyền Trang.jpg" style="cursor: pointer;"/>
+<h3>Trương Thị Huyền Trang</h3>
+<p><strong>Ngày sinh:</strong> 10/07/2007</p>
+<p>“Một thời để nhớ – một đời để thương!”</p>
+<div class="overlay">Trương Thị Huyền Trang – ““Một thời để nhớ – một đời để thương!””</div></div>
+<div class="member">
+<img alt="Đặng Thái Bảo Trâm" onclick="openLightbox(33)" src="images/members/Bảo Trâm.jpg" style="cursor: pointer;"/>
+<h3>Đặng Thái Bảo Trâm</h3>
+<p><strong>Ngày sinh:</strong> 03/12/2007</p>
+<p>“Tuổi học trò chỉ có một lần – và bạn là một phần trong đó.”</p>
+<div class="overlay">Đặng Thái Bảo Trâm – ““Tuổi học trò chỉ có một lần – và bạn là một phần trong đó.””</div></div>
+<div class="member">
+<img alt="Nguyễn Thị Phương Trinh" onclick="openLightbox(34)" src="images/members/Phương Trinh.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Thị Phương Trinh</h3>
+<p><strong>Ngày sinh:</strong> 05/07/2007</p>
+<p>“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”</p>
+<div class="overlay">Nguyễn Thị Phương Trinh – ““Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.””</div></div>
+<div class="member">
+<img alt="Hồ Lê Thái Uyên" onclick="openLightbox(35)" src="images/members/Thái Uyên.jpg" style="cursor: pointer;"/>
+<h3>Hồ Lê Thái Uyên</h3>
+<p><strong>Ngày sinh:</strong> 05/03/2007</p>
+<p>“3 năm không dài, nhưng đủ để thương một tập thể!”</p>
+<div class="overlay">Hồ Lê Thái Uyên – ““3 năm không dài, nhưng đủ để thương một tập thể!””</div></div>
+<div class="member">
+<img alt="Nguyễn Tố Uyên" onclick="openLightbox(36)" src="images/members/Tố Uyên.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Tố Uyên</h3>
+<p><strong>Ngày sinh:</strong> 04/10/2007</p>
+<p>“Cảm ơn vì đã từng ngồi cạnh nhau – dù chỉ là một tiết học ngắn ngủi.”</p>
+<div class="overlay">Nguyễn Tố Uyên – ““Cảm ơn vì đã từng ngồi cạnh nhau – dù chỉ là một tiết học ngắn ngủi.””</div></div>
+<div class="member">
+<img alt="Võ Trung Quân" onclick="openLightbox(37)" src="images/members/Trung Quân.jpg" style="cursor: pointer;"/>
+<h3>Võ Trung Quân</h3>
+<p><strong>Ngày sinh:</strong> 30/01/2007</p>
+<p>“Lớp mình có thể không hoàn hảo, nhưng là nơi tớ muốn quay lại nhất”</p>
+<div class="overlay">Võ Trung Quân – ““Lớp mình có thể không hoàn hảo, nhưng là nơi tớ muốn quay lại nhất””</div></div>
+<div class="member">
+<img alt="Trương Nguyễn Lệ Quyên" onclick="openLightbox(38)" src="images/members/Lệ Quyên.jpg" style="cursor: pointer;"/>
+<h3>Trương Nguyễn Lệ Quyên</h3>
+<p><strong>Ngày sinh:</strong> 16/11/2007</p>
+<p>“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”</p>
+<div class="overlay">Trương Nguyễn Lệ Quyên – ““Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!””</div></div>
+<div class="member">
+<img alt="Nguyễn Trần Thục Hân" onclick="openLightbox(39)" src="images/members/Thục Hân.jpg" style="cursor: pointer;"/>
+<h3>Nguyễn Trần Thục Hân</h3>
+<p><strong>Ngày sinh:</strong> 05/09/2007</p>
+<p>“Hẹn gặp lại ở tương lai – mỗi đứa đều thành công nhé!”</p>
+<div class="overlay">Nguyễn Trần Thục Hân – ““Hẹn gặp lại ở tương lai – mỗi đứa đều thành công nhé!””</div></div>
+</div>
+<footer>
+      <p>© Made by Luonghiii</p>
+</footer>
+<script>
+document.addEventListener("mousemove", function(e) {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  document.body.style.backgroundPosition = `${50 - x}% ${50 - y}%`;
+});
+</script>
+<!-- Lightbox CSS -->
+<style>
+.lightbox-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 30vw;
+  max-height: 90vh;
+  text-align: center;
+  color: white;
+}
+
+.lightbox-content img {
+  max-height: 70vh;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.2);
+  margin: 0 auto;
+}
+
+.lightbox-info {
+  margin-top: 10px;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  cursor: pointer;
+  user-select: none;
+  padding: 10px;
+  background: rgba(0,0,0,0.3);
+}
+
+.lightbox-prev { left: -40px; }
+.lightbox-next { right: -40px; }
+
+.lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 18px;
+  cursor: pointer;
+  background: rgba(0,0,0,0.3);
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+</style>
+<!-- Lightbox JS -->
+<script>
+let members = [];
+document.querySelectorAll('.member').forEach((el, i) => {
+  const img = el.querySelector("img");
+  const name = el.querySelector("h3")?.innerText || "";
+  const quote = el.querySelectorAll("p")[2]?.innerText || "";
+  const dob = el.querySelectorAll("p")[1]?.innerText || "";
+  members.push({ img: img.src, name, quote, dob });
+
+  img.style.cursor = "pointer";
+  img.addEventListener("click", () => openLightbox(i));
+});
+
+let currentIndex = 0;
+const overlay = document.createElement("div");
+overlay.className = "lightbox-overlay";
+overlay.innerHTML = `
+  <div class="lightbox-content">
+    <div class="lightbox-close" onclick="closeLightbox()">✖</div>
+    <div class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">❮</div>
+    <img id="lightbox-img" src="">
+    <div class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">❯</div>
+    <div class="lightbox-info" id="lightbox-info"></div>
+  </div>`;
+document.body.appendChild(overlay);
+
+function openLightbox(index) {
+  currentIndex = index;
+  updateLightbox();
+  overlay.style.display = "flex";
+}
+
+function closeLightbox() {
+  overlay.style.display = "none";
+}
+
+function navigateLightbox(direction) {
+  currentIndex = (currentIndex + direction + members.length) % members.length;
+  updateLightbox();
+}
+
+function updateLightbox() {
+  const member = members[currentIndex];
+  document.getElementById("lightbox-img").src = member.img;
+  document.getElementById("lightbox-info").innerText = `${member.name} – ${member.dob}\n“${member.quote}”`;
+}
+</script>
+<script>
+const members = [...document.querySelectorAll('.member')].map((el, i) => {
+  const img = el.querySelector("img")?.src || "";
+  const name = el.querySelector("h3")?.innerText || "";
+  const quote = el.querySelectorAll("p")[2]?.innerText || "";
+  const dob = el.querySelectorAll("p")[1]?.innerText || "";
+  return { img, name, quote, dob };
+});
+
+let currentIndex = 0;
+let lightboxInstance = null;
+
+function openLightbox(index) {
+  currentIndex = index;
+  const member = members[currentIndex];
+  const prevIndex = (currentIndex - 1 + members.length) % members.length;
+  const nextIndex = (currentIndex + 1) % members.length;
+
+  lightboxInstance = basicLightbox.create(`
+    <div style='background: rgba(0,0,0,0.95); border-radius: 12px; padding: 20px; max-width: 95vw; max-height: 95vh; text-align: center; color: white;'>
+      <div style='display: flex; justify-content: center;'>
+        <div style='position: relative; display: inline-block; max-width: 600px;'>
+          <img src='${member.img}' alt='${member.name}' style='max-height: 70vh; border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.5); display: block; margin: auto;' id='popup-img'/>
+          <button onclick='openLightbox(${prevIndex})' style='position: absolute; top: 50%%; left: -50px; transform: translateY(-50%%); font-size: 32px; background: rgba(0,0,0,0.3); border: none; color: white; cursor: pointer;'>❮</button>
+          <button onclick='openLightbox(${nextIndex})' style='position: absolute; top: 50%%; right: -50px; transform: translateY(-50%%); font-size: 32px; background: rgba(0,0,0,0.3); border: none; color: white; cursor: pointer;'>❯</button>
+          <div style='margin-top: 15px; text-align: center; max-width: 100%;'>
+            <h3 style='margin-bottom: 8px;'>${member.name}</h3>
+            <p style='font-style: italic; max-width: 100%; word-wrap: break-word; margin: 0 auto;'>${member.dob}<br/>“${member.quote}”</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `, {
+    onShow: () => {
+      document.addEventListener("keydown", handleKeyPress);
+    },
+    onClose: () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    }
+  });
+
+  lightboxInstance.show();
+}
+
+function handleKeyPress(e) {
+  if (e.key === "Escape") {
+    lightboxInstance.close();
+  } else if (e.key === "ArrowLeft") {
+    openLightbox((currentIndex - 1 + members.length) % members.length);
+  } else if (e.key === "ArrowRight") {
+    openLightbox((currentIndex + 1) % members.length);
+  }
+}
+</script>
+</body>
+</html>
