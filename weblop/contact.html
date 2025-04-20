@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liên Hệ</title>
+  <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+      body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          background-color: #f4f4f4;
+      }
+      .container {
+          width: 80%;
+          margin: auto;
+          overflow: hidden;
+          padding: 20px;
+      }
+      header {
+          background-color: #333;
+          color: #fff;
+          text-align: center;
+          padding: 1rem;
+      }
+      nav {
+          background-color: #444;
+          color: white;
+          padding: 10px;
+      }
+      nav ul {
+          list-style: none;
+          display: flex;
+          justify-content: center;
+      }
+      nav ul li {
+          margin: 0 15px;
+      }
+      nav ul li a {
+          color: white;
+          text-decoration: none;
+          transition: color 0.3s ease;
+      }
+      nav ul li a:hover {
+          color: #ddd;
+      }
+      .content {
+          background: white;
+          padding: 20px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          margin-top: 20px;
+      }
+      .contact-form {
+          display: grid;
+          gap: 10px;
+      }
+      .contact-form input,
+      .contact-form textarea {
+          width: 100%;
+          padding: 10px;
+      }
+      .contact-form button {
+          background-color: #333;
+          color: white;
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+      }
+      footer {
+          background-color: #333;
+          color: white;
+          text-align: center;
+          padding: 10px;
+          margin-top: 20px;
+      }
+  </style>
+</head>
+<body>
+  <header>
+      <h1>Trang Web Của Tôi</h1>
+  </header>
+  
+  
+<nav>
+  <ul>
+    <li><a href="index.html">Trang Chủ</a></li>
+    <li><a href="about.html">Giới Thiệu</a></li>
+    <li><a href="contact.html">Liên Hệ</a></li>
+    <li><a href="thanh-vien-lop.html">Thành Viên</a></li>
+  </ul>
+</nav>
+
+
+
+  <div class="container">
+      <div class="content">
+          <h2>Liên Hệ</h2>
+          <form class="contact-form">
+              <input type="text" placeholder="Họ và Tên" required>
+              <input type="email" placeholder="Email" required>
+              <textarea placeholder="Nội dung tin nhắn" rows="5" required></textarea>
+              <button type="submit">Gửi Tin Nhắn</button>
+          </form>
+
+          <div style="margin-top: 20px;">
+              <h3>Thông Tin Liên Hệ</h3>
+              <p>Địa chỉ: 123 Đường ABC, Quận XYZ, Thành phố</p>
+              <p>Điện thoại: 0123 456 789</p>
+              <p>Email: lienhe@website.com</p>
+          </div>
+      </div>
+  </div>
+
+  <footer>
+      <p>&copy; 2025 Trang Web Của Tôi. Đã đăng ký bản quyền.</p>
+  </footer>
+</body>
+</html>
