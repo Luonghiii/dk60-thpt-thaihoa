@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DK60 – THPT Thái Hòa</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+  background-image: url('bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  transition: background-position 0.1s ease;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+    /* Header, Nav, Footer */
+    header {
+      background-color: rgba(255, 255, 255, 0.7);
+      color: #333; /* Adjusted color for better visibility on light background */
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px; /* Added some rounding */
+      margin-bottom: 20px; /* Added space below header */
+    }
+
+    nav {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      border-radius: 8px; /* Added some rounding */
+      margin-bottom: 20px; /* Added space below nav */
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: #333; /* Adjusted color for better visibility */
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px 10px; /* Added padding for better click area */
+      border-radius: 4px; /* Slight rounding for links */
+      transition: background-color 0.3s;
+    }
+    nav ul li a:hover {
+        background-color: rgba(0, 0, 0, 0.1); /* Subtle hover effect */
+    }
+
+    footer {
+        background-color: rgba(255, 255, 255, 0.7);
+        color: #333; /* Adjusted color */
+        text-align: center;
+        padding: 10px;
+        margin-top: 20px;
+        border-radius: 8px;
+    }
+    h2 { /* Style for the main heading below nav */
+        text-align: center;
+        color: #fff; /* White text for better contrast on background image */
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Add shadow for readability */
+        margin: 30px 0;
+    }
+    .entry {
+      background-color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .entry h2 {
+      color: #333;
+    }
+    .entry img, .entry iframe {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+    .entry a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #1a73e8;
+      text-decoration: none;
+    }
+    .entry a:hover {
+      text-decoration: underline;
+	}  
+
+
+@media (max-width: 768px) {
+  .teacher-layout {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+  }
+  .teacher-layout img {
+    margin-bottom: 15px;
+  }
+  .teacher-layout .info {
+    text-align: center;
+  }
+}
+</style>
+<script async="True" crossorigin="anonymous" defer="True" nonce="xyz123" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&amp;version=v18.0"></script>
+<style>
+body {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+body.fade-in {
+  opacity: 1;
+}
+</style>
+<style>
+@media (max-width: 768px) {
+  .teacher-layout {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  .teacher-layout img {
+    width: 90%;
+    height: auto;
+  }
+  .teacher-layout .info {
+    text-align: center;
+    margin-top: 20px;
+  }
+}
+
+/* Fullscreen fix for iframe on mobile */
+iframe {
+  max-width: 100%;
+  border-radius: 12px;
+}
+</style>
+
+<style>
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.popup {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  position: relative;
+}
+.popup h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+.popup p {
+  margin: 8px 0;
+}
+.popup a {
+  color: #1a73e8;
+}
+.popup .close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>🎓 Kỷ yếu DK60 - Hành trình Thanh Xuân</h1>
+</header>
+<nav>
+<ul>
+<li><a href="index.html">Trang Chủ</a></li>
+<li><a href="about.html">Giới Thiệu</a></li>
+<li><a href="contact.html">Liên Hệ</a></li>
+<li><a href="thanh-vien-lop.html">Thành Viên</a></li>
+</ul>
+</nav>
+<h2>📘 Nhật Ký Lớp Học</h2>
+<div class="entry">
+<h2>🎓 Tạm Biệt Tuổi Học Trò</h2>
+<p>Tất cả những kí ức đẹp của tuổi trẻ đều được bao gói trong 3 năm học cấp 3. Gửi đi những điều tốt nhất cho nơi này, nơi có thầy cô và bạn bè luôn bên cạnh 💗</p>
+<div class="video-wrapper"><iframe allow="autoplay; fullscreen" allowfullscreen="true" height="450" src="https://drive.google.com/file/d/1OQJDSPb-Ei0JvvF9LqJDi6rl4PX8_7MZ/preview" style="border-radius: 12px; border: none;" width="100%"></iframe></div>
+<p style="text-align: center; font-style: italic;">🎓 Video buổi kỷ yếu 9/3/2025</p>
+</div>
+<div class="entry">
+<h2>🇻🇳 Tự Hào Một Dải Non Sông</h2>
+<p>Trải qua 1000 năm đấu tranh, thế hệ học sinh hôm nay tự hào, biết ơn về "Một dải non sông" mang tên Việt Nam đầy hào hùng.</p>
+<div class="fb-post" data-href="https://www.facebook.com/permalink.php?story_fbid=pfbid05oVEc6A43TzSqeGeXfdeWGiLE3xgxvEMLi4hrGniK7mbBCUn3QqGk7SwefWbB5Mrl&amp;id=100084424947640" data-show-text="true" data-width="500"></div></div>
+<div class="entry">
+<h2>🍎 Tri Ân Ngày Nhà Giáo 20/11</h2>
+<p>“Trong bức tranh tuổi học trò, thầy cô là những nét vẽ đẹp nhất.” Chúc thầy cô ngày 20/11 thật nhiều niềm vui và ấm áp!</p>
+<div class="fb-post" data-href="https://www.facebook.com/permalink.php?story_fbid=pfbid02qPGGy3zWVY81shZP3uhLhWkm1pKz3dk71z1hZpgBFNxdF8s4R5wYvUyUQ56kqn8ql&amp;id=100084424947640" data-show-text="true" data-width="500"></div></div>
+<div class="entry">
+<h2>👦 Happy Men's Day 19/11</h2>
+<p>Chúc các boy’s DK60 một ngày 19/11 thật tuyệt vời 🫶🏼</p>
+<div style="margin-top: 15px;">
+<iframe allow="autoplay; fullscreen" allowfullscreen="true" height="360" src="https://drive.google.com/file/d/1bZNyxuRIfP8hSsLUTYiHk-DFk3b6zE5X/preview" style="border-radius: 12px; border: none;" width="100%"></iframe>
+<p style="text-align: center; font-style: italic;">👦 Video chúc mừng Men's Day</p>
+</div>
+</div>
+<div class="entry">
+<h2>🎤 Buổi Học Dân Ca Nghệ Tĩnh</h2>
+<p>Buổi học GDĐP với chủ đề dân ca xứ Nghệ đầy màu sắc và ý nghĩa! Cùng xem lại những khoảnh khắc đáng nhớ nhé!</p>
+<div class="fb-post" data-href="https://www.facebook.com/permalink.php?story_fbid=pfbid025HZdga6k5REmiPNcV7FYWUfitB5H5A8UaeX16MzMcvnFPJHcueeVoGx48pEDWykSl&amp;id=100084424947640" data-show-text="true" data-width="500"></div></div>
+<div class="entry">
+<h2>🎬 Khoảnh Khắc Reels DK60</h2>
+<p>Những phút giây đáng nhớ trong ngày Men's Day và hoạt động lớp học 💖</p>
+<div style="position: relative; margin-bottom: 20px;">
+<iframe allow="autoplay; fullscreen" allowfullscreen="true" height="360" src="https://drive.google.com/file/d/1bZNyxuRIfP8hSsLUTYiHk-DFk3b6zE5X/preview" style="border-radius: 12px; border: none;" width="100%"></iframe>
+<p style="text-align: center; font-style: italic; margin-top: 8px;">📹 Men's Day – DK60</p>
+</div>
+<div style="position: relative;">
+<iframe allow="autoplay; fullscreen" allowfullscreen="true" height="360" src="https://drive.google.com/file/d/1OQJDSPb-Ei0JvvF9LqJDi6rl4PX8_7MZ/preview" style="border-radius: 12px; border: none;" width="100%"></iframe>
+<p style="text-align: center; font-style: italic; margin-top: 8px;">🎉 Video kỷ niệm hoạt động lớp học</p>
+</div>
+</div>
+<footer>
+<p>© Made by Luonghiii</p>
+</footer>
+<script>
+document.addEventListener("mousemove", function(e) {
+  const x = (e.clientX / window.innerWidth - 0.5) * 20;
+  const y = (e.clientY / window.innerHeight - 0.5) * 20;
+  document.body.style.backgroundPosition = `${50 - x}% ${50 - y}%`;
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.add("fade-in");
+
+  const links = document.querySelectorAll("a[href$='.html']");
+  for (let link of links) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const href = this.getAttribute("href");
+      document.body.classList.remove("fade-in");
+      document.body.style.opacity = 0;
+      setTimeout(() => {
+        window.location.href = href;
+      }, 400);
+    });
+  }
+});
+</script>
+
+<div class="popup-overlay" id="popupOverlay">
+<div class="popup">
+<button class="close-btn" onclick="document.getElementById('popupOverlay').style.display='none'">×</button>
+<h2 id="popupName">Thông tin chưa được cập nhật</h2>
+<p><strong>Môn học:</strong> <span id="popupSubject">Chưa cập nhật</span></p>
+<p><strong>Điện thoại:</strong> <span id="popupPhone">Chưa cập nhật</span></p>
+<p><strong>Địa chỉ:</strong> <span id="popupAddress">Chưa cập nhật</span></p>
+<p><strong>Facebook:</strong> <span id="popupFacebook">Chưa cập nhật</span></p>
+<p><strong>Biệt danh:</strong> <span id="popupNickname">Chưa cập nhật</span></p>
+</div>
+</div>
+
+<script>
+document.querySelectorAll('.profile').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('popupOverlay').style.display = 'flex';
+    document.getElementById('popupName').innerText = img.dataset.name || "Chưa cập nhật";
+    document.getElementById('popupSubject').innerText = img.dataset.subject || "Chưa cập nhật";
+    document.getElementById('popupPhone').innerText = img.dataset.phone || "Chưa cập nhật";
+    document.getElementById('popupAddress').innerText = img.dataset.address || "Chưa cập nhật";
+    document.getElementById('popupFacebook').innerHTML = img.dataset.fb
+      ? `<a href="${img.dataset.fb}" target="_blank">${img.dataset.fb}</a>` : "Chưa cập nhật";
+    document.getElementById('popupNickname').innerText = img.dataset.nickname || "Chưa cập nhật";
+  });
+});
+</script>
+</body>
+</html>
