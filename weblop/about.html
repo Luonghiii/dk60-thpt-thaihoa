@@ -1,0 +1,241 @@
+<!DOCTYPE html> <html lang="vi"> <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Giới Thiệu - Kỷ yếu DK60</title> <link href="images/logo/logo1.png" id="dynamic-favicon" rel="icon" type="image/png"/> <style>
+        /* === Styles chung === */
+        :root {
+            --bg-transparent-light: rgba(255, 255, 255, 0.7);
+            --bg-transparent-darker: rgba(255, 255, 255, 0.85);
+            --text-color: #333;
+            --link-color: #1a73e8;
+            --border-color-light: rgba(0,0,0,0.1);
+            --border-color-dark: rgba(0,0,0,0.7);
+            --shadow-light: 0 4px 10px rgba(0,0,0,0.1);
+            --shadow-medium: 0 5px 20px rgba(0,0,0,0.2);
+            --shadow-dark: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            background-image: url('images/bg.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            /* Giữ lại opacity và transition cho hiệu ứng */
+            transition: background-position 0.1s ease, opacity 0.6s ease-in-out;
+            opacity: 0; /* Bắt đầu ẩn */
+        }
+
+        body.fade-in {
+            opacity: 1; /* Hiện rõ khi có class fade-in */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header, Nav, Footer - Giữ nguyên như cũ */
+        header {
+            background-color: var(--bg-transparent-light);
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: var(--bg-transparent-light);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: var(--bg-transparent-light);
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        /* --- Phần nội dung chính --- */
+        .container {
+            max-width: 80%; /* Giới hạn chiều rộng container */
+            margin: 30px auto; /* Căn giữa và tạo khoảng cách */
+            overflow: hidden; /* Clear float nếu có */
+        }
+
+        .content {
+            background-color: var(--bg-transparent-darker); /* Sử dụng biến màu */
+            padding: 30px;
+            box-shadow: var(--shadow-medium); /* Sử dụng biến bóng đổ */
+            border-radius: 8px;
+        }
+
+        /* Nếu muốn h2 trong content khác thì giữ lại */
+        .content h2 {
+            text-align: center;
+            color: var(--text-color); /* Màu chữ thường cho h2 trong content */
+            text-shadow: none; /* Bỏ bóng đổ cho h2 trong content */
+            margin-top: 0; /* Bỏ margin top nếu không cần */
+            margin-bottom: 25px; /* Thêm khoảng cách dưới h2 */
+			text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Add shadow for readability */
+        }
+
+        /* Responsive Styles - Giữ nguyên như cũ */
+        @media (max-width: 768px) {
+             body { padding: 15px; }
+             header, nav, footer { padding: 10px; margin-bottom: 15px; }
+             nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
+             .container { max-width: 95%; } /* Tăng chiều rộng container trên tablet */
+             .content { padding: 20px; }
+             /* Cần xem lại các style responsive khác nếu cần */
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            nav ul { flex-wrap: nowrap !important; justify-content: space-around !important; gap: 5px !important; }
+            nav ul li a { font-size: 13px !important; padding: 4px 6px !important; }
+            header h1 { font-size: 1.2rem; } /* Điều chỉnh lại cỡ chữ header */
+            .content h2 { font-size: 1.4rem; }
+             /* Style ảnh avatar trên mobile */
+            .content img { width: 100px; height: 100px;}
+        }
+
+    </style>
+    </head>
+<body>
+
+    <header>
+        <h1> 🎓 Ký ức về DK60 - Hành trình Thanh Xuân</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Trang Chủ</a></li>
+            <li><a href="about.html">Giới Thiệu</a></li>
+            <li><a href="contact.html">Liên Hệ</a></li>
+            <li><a href="thanh-vien-lop.html">Thành Viên</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="content">
+                <h2>📖 Giới thiệu về tớ</h2>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center;">
+                    <img alt="Avatar của Luonghii" src="images/about/avatar.png" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.2);"/>
+                    <div>
+                        <p style="font-size: 1.1em; margin-bottom: 10px;">Mình là <strong>Luonghii</strong>. 🌸</p>
+                        <p style="line-height: 1.6;">Mỗi bức ảnh, mỗi dòng chữ trong trang web này đều là một phần ký ức quý giá.
+                            Chúng ta không chỉ học cùng nhau, mà còn trưởng thành cùng nhau – dưới mái nhà DK60 thân yêu. ❤️</p>
+                        <blockquote style="font-style: italic; color: #555; margin-top: 20px; border-left: 4px solid #ccc; padding-left: 15px;">
+                            "Chúng ta đi qua thanh xuân không phải để nhớ, mà để mỉm cười mỗi khi nghĩ về."
+                        </blockquote>
+                    </div>
+                </div>
+                <marquee behavior="scroll" direction="left" style="margin-top: 30px; color: #555; background-color: rgba(200, 200, 200, 0.1); padding: 5px; border-radius: 4px;font-weight:Bold;">
+                    Thanh xuân không bao giờ quay lại, nhưng ký ức sẽ mãi còn trong tim mỗi chúng ta. ✨
+                </marquee>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Made with ❤️ by Luonghii & DK60 Collective</p>
+    </footer>
+
+    <script>
+        // Đợi toàn bộ nội dung trang (DOM) tải xong
+        document.addEventListener("DOMContentLoaded", function() {
+            // Thêm class 'fade-in' vào thẻ body để kích hoạt hiệu ứng CSS
+            document.body.classList.add('fade-in');
+
+            // (Tùy chọn) Thêm hiệu ứng fade-out khi chuyển trang giống index.html
+            const links = document.querySelectorAll("nav a[href$='.html']"); // Chỉ chọn link trong nav
+            for (let link of links) {
+                link.addEventListener("click", function (e) {
+                    // Ngăn trình duyệt chuyển trang ngay lập tức
+                    e.preventDefault();
+                    const href = this.getAttribute("href");
+                    // Làm mờ trang hiện tại đi
+                    document.body.style.opacity = 0;
+                    // Đợi hiệu ứng mờ hoàn tất rồi mới chuyển trang
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 500); // Thời gian đợi (ms), nên khớp với transition trong CSS body
+                });
+            }
+        });
+
+        // (Tùy chọn) Thêm hiệu ứng di chuyển background theo chuột giống index.html
+        document.addEventListener("mousemove", function(e) {
+            // Tính toán độ lệch dựa trên vị trí chuột
+            const x = (e.clientX / window.innerWidth - 0.5) * 15; // Giảm độ lệch một chút
+            const y = (e.clientY / window.innerHeight - 0.5) * 15;
+            // Áp dụng vị trí mới cho background-position của body
+            document.body.style.backgroundPosition = `${50 - x}% ${50 - y}%`;
+        });
+
+        // (Tùy chọn) Thêm hiệu ứng đổi favicon giống index.html
+        const favicons = [
+            'images/logo/logo1.png',
+            'images/logo/logo2.png',
+            'images/logo/logo3.png',
+            'images/logo/logo4.png',
+            'images/logo/logo5.png'
+            // Đảm bảo các ảnh này tồn tại nhé!
+        ];
+        let currentFaviconIndex = 0;
+        const dynamicFavicon = document.getElementById('dynamic-favicon');
+
+        if (dynamicFavicon) { // Kiểm tra xem thẻ favicon có tồn tại không
+             setInterval(() => {
+                dynamicFavicon.setAttribute('href', favicons[currentFaviconIndex]);
+                currentFaviconIndex = (currentFaviconIndex + 1) % favicons.length;
+            }, 1000); // Đổi mỗi giây
+        } else {
+            console.warn("Không tìm thấy thẻ link favicon với id 'dynamic-favicon'.");
+        }
+    </script>
+    </body>
+</html>
