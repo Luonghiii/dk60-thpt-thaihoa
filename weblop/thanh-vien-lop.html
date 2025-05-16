@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Thành Viên Lớp - Kỷ yếu DK60</title>
+    <link href="images/logo/logo1.png" id="dynamic-favicon" rel="icon" type="image/png"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f0f4f8; /* Tailwind's gray-100 or blue-gray-50 */
+            color: #334155; /* Tailwind's slate-700 */
+            margin: 0;
+            background-image: url('images/bg.png'); /* Placeholder, use your 'images/bg.png' */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            transition: background-position 0.1s ease, opacity 0.6s ease-in-out;
+            opacity: 0; /* Start hidden for fade-in */
+            scroll-behavior: smooth;
+        }
+
+        body.fade-in {
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; /* slate-300 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; /* slate-400 */
+        }
+
+        #backToTopBtn, #viewAllBtnStyled {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50; /* Ensure it's above content but below modals */
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+        }
+        #viewAllBtnStyled {
+            left: 20px;
+            right: auto; /* Override right positioning */
+        }
+        #backToTopBtn.hidden-btn, #viewAllBtnStyled.hidden-btn {
+             opacity: 0;
+             visibility: hidden;
+             transform: scale(0.9);
+        }
+
+
+        /* Animation for popup */
+        @keyframes popupShow {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .popup-animation {
+            animation: popupShow 0.3s ease-out forwards;
+        }
+
+        /* Styling for member quotes to ensure they don't get too long in cards */
+        .member-quote {
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Show 3 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: calc(1.2em * 3); /* approx 3 lines for standard line-height, adjust if needed */
+            line-height: 1.2em;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                     <a href="index.html" class="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-red-500">
+                        🎓 Ký ức DK60
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Trang Chủ</a>
+                    <a href="about.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Giới Thiệu</a>
+                    <a href="contact.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Liên Hệ</a>
+                    <a href="thanh-vien-lop.html" class="text-purple-600 font-semibold border-b-2 border-purple-500 px-3 py-2 rounded-md text-sm">Thành Viên</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" aria-label="Mở menu" class="text-slate-600 hover:text-purple-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden hidden bg-white/90 backdrop-blur-md shadow-lg">
+            <a href="index.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Trang Chủ</a>
+            <a href="about.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Giới Thiệu</a>
+            <a href="contact.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Liên Hệ</a>
+            <a href="thanh-vien-lop.html" class="block text-purple-600 bg-purple-50 font-semibold px-4 py-3 text-sm">Thành Viên</a>
+        </div>
+    </header>
+
+    <button id="viewAllBtnStyled" title="Xem danh sách theo tổ"
+            class="p-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-full shadow-lg hover:scale-105 transform transition-all duration-300 hidden-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+            <line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+    </button>
+
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div id="mainContentWrapper">
+            <section class="teacher-section mb-12 md:mb-16 bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 p-6 sm:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10 max-w-3xl mx-auto">
+                    <div class="flex-shrink-0 text-center">
+                        <img alt="Nguyễn Thị Hưng" class="profile w-40 h-52 sm:w-48 sm:h-64 object-cover rounded-lg border-4 border-pink-300 shadow-lg mx-auto cursor-pointer hover:opacity-90 transition-opacity"
+                             data-index="0" src="images/teachers/Cô Hưng.jpg"
+                             onerror="this.src='https://placehold.co/192x256/fbcfe8/9d174d?text=Cô+Hưng'; this.onerror=null;"/>
+                    </div>
+                    <div class="info text-center md:text-left mt-4 md:mt-0">
+                        <h2 class="text-3xl font-bold text-pink-600 mb-2 cursor-pointer hover:text-pink-700 transition-colors" data-index="0">Nguyễn Thị Hưng</h2>
+                        <p class="text-lg text-slate-700 font-medium mb-1">👩‍🏫 Giáo viên chủ nhiệm</p>
+                        <p class="text-md text-slate-600">🎂 Ngày sinh: 09/01/1973</p>
+                        <p class="text-md text-slate-600">📞 Điện thoại: <a href="tel:0966292255" class="hover:underline">0966292255</a></p>
+                        <p class="text-md text-slate-600">📍 Địa chỉ: Hoà Hiếu, Thái Hoà, Nghệ An</p>
+                         <a href="https://www.facebook.com/100024463163465/" target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-pink-500 hover:text-pink-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="inline-block mr-1 h-5 w-5">
+                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/>
+                            </svg>
+                            Facebook
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="team-grid-section">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 md:mb-12 text-slate-700">💖 Các Tổ Lớp Mình 💖</h2>
+                <div class="team-grid grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div class="team-box bg-white/70 backdrop-blur-md p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-center mb-6 text-yellow-600">Tổ 1</h3>
+                        <div class="space-y-4"></div>
+                    </div>
+                    <div class="team-box bg-white/70 backdrop-blur-md p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-center mb-6 text-green-600">Tổ 2</h3>
+                        <div class="space-y-4"></div>
+                    </div>
+                    <div class="team-box bg-white/70 backdrop-blur-md p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-center mb-6 text-blue-600">Tổ 3</h3>
+                        <div class="space-y-4"></div>
+                    </div>
+                    <div class="team-box bg-white/70 backdrop-blur-md p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-center mb-6 text-red-600">Tổ 4</h3>
+                        <div class="space-y-4"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="memberDetailView" class="fixed inset-0 bg-slate-800/75 backdrop-blur-sm p-4 sm:p-8 z-50 overflow-y-auto hidden items-center justify-center popup-animation">
+            <div class="bg-white w-full max-w-3xl mx-auto rounded-xl shadow-2xl p-6 sm:p-8 relative transform transition-all duration-300 max-h-[90vh] overflow-y-auto">
+                <button id="backToListBtn" title="Đóng"
+                        class="absolute top-4 right-4 text-slate-500 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <div class="detail-content-wrapper flex flex-col md:flex-row gap-6 md:gap-8 items-start">
+                    <div class="detail-image-column w-full md:w-1/3 flex-shrink-0">
+                        <img alt="Ảnh thành viên" id="detailImage" src="" class="w-full h-auto object-cover rounded-lg shadow-md border-4 border-slate-200"
+                             onerror="this.src='https://placehold.co/300x400/cccccc/999999?text=Ảnh+Lỗi'; this.onerror=null;"/>
+                    </div>
+                    <div class="detail-info-column w-full md:w-2/3">
+                        <h2 id="detailName" class="text-3xl font-bold text-purple-700 mb-1">Tên Thành viên</h2>
+                        <p class="text-md text-slate-500 mb-3" >Biệt danh: <span id="detailNickname" class="font-medium text-slate-700"></span></p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-slate-600">
+                            <p><strong>🎂 Ngày sinh:</strong> <span id="detailBirthday"></span></p>
+                            <p><strong>👥 Tổ:</strong> <span id="detailGroup"></span></p>
+                            <p><strong>📞 SĐT:</strong> <span id="detailPhone"></span></p>
+                            <p class="col-span-1 sm:col-span-2"><strong>📍 Địa chỉ:</strong> <span id="detailAddress"></span></p>
+                            <p class="col-span-1 sm:col-span-2"><strong>🔗 Facebook:</strong> <span id="detailFacebook"></span></p>
+                        </div>
+                        
+                        <hr class="my-4 border-slate-200"/>
+                        
+                        <h4 class="text-lg font-semibold text-purple-600 mb-1">Sở thích 🎨:</h4>
+                        <p id="detailHobbies" class="text-sm text-slate-600 mb-3 leading-relaxed"></p>
+                        
+                        <h4 class="text-lg font-semibold text-purple-600 mb-1">Kỷ niệm đáng nhớ 💭:</h4>
+                        <blockquote id="detailMemory" class="text-sm text-slate-600 italic border-l-4 border-purple-300 pl-3 py-1 bg-purple-50 rounded-r-md leading-relaxed"></blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="selectOverlay" class="fixed inset-0 bg-slate-800/75 backdrop-blur-sm p-4 z-[60] overflow-y-auto hidden items-center justify-center popup-animation">
+            <div class="bg-white w-full max-w-2xl mx-auto rounded-xl shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+                <button id="closeSelectOverlayBtn" title="Đóng"
+                        class="absolute top-4 right-4 text-slate-500 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-slate-100">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <h2 class="text-2xl font-bold text-center mb-6 text-purple-700">Chọn thành viên theo tổ</h2>
+                <div id="memberListPopup" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-300 py-8 mt-12 md:mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">&copy; <span id="currentYear"></span> Made with ❤️ by Luonghii & DK60 Collective</p>
+            <p class="text-xs mt-1">Ảnh nền và một số hình ảnh placeholder từ <a href="https://placehold.co" class="hover:text-purple-400 underline" target="_blank" rel="noopener noreferrer">Placehold.co</a></p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" title="Về đầu trang"
+            class="p-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-full shadow-lg hover:scale-105 transform transition-all duration-300 hidden-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up">
+            <line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
+
+    <script>
+    // Hardcoded member data (based on your original HTML structure)
+    const allMemberData = [
+        { index: 0, name: "Nguyễn Thị Hưng", nickname: "Cô Hưng", birthday: "09/01/1973", group: "Giáo viên chủ nhiệm", phone: "0966292255", address: "Hoà Hiếu, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100024463163465/", hobbies: "Chưa cập nhật", memory: "Chưa cập nhật", src: "images/teachers/Cô Hưng.jpg", alt: "Nguyễn Thị Hưng", isTeacher: true, subject: "Chủ nhiệm" },
+        // Tổ 1
+        { index: 1, name: "Lê Thị Vân Anh", nickname: "Chiến binh nhỏ", birthday: "24/07/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100040985243017/", hobbies: "Đi bộ 🚶‍♂️, Du lịch ✈️", memory: "“Sẽ chẳng còn ai gõ vào vai bảo tớ: ‘Ê, mai kiểm tra đó!’ nữa.”", src: "images/members/Vân Anh.jpg", alt: "Lê Thị Vân Anh", isTeacher: false },
+        { index: 2, name: "Nguyễn Thị Trúc Anh", nickname: "Nụ cười tỏa nắng", birthday: "03/03/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100050996419335/", hobbies: "Nhảy múa 💃, Đá bóng ⚽", memory: "“Tớ chưa kịp nói với cậu rằng: cảm ơn vì đã ở bên tớ suốt những ngày cuối cùng ấy.”", src: "images/members/Trúc Anh.jpg", alt: "Nguyễn Thị Trúc Anh", isTeacher: false },
+        { index: 3, name: "Mai Thị Ngọc Ánh", nickname: "Bé mọt sách", birthday: "13/12/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100060333680946/", hobbies: "Đá bóng ⚽, Bơi lội 🏊‍♂️", memory: "“3 năm không dài, nhưng đủ để thương một tập thể!”", src: "images/members/Ngọc Ánh.jpg", alt: "Mai Thị Ngọc Ánh", isTeacher: false },
+        { index: 4, name: "Nguyễn Thị Nguyệt Ánh", nickname: "Ca sĩ bất đắc dĩ", birthday: "01/11/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100064654927354/", hobbies: "Nhảy múa 💃, Du lịch ✈️", memory: "“Lưu giữ thật kỹ những khoảnh khắc này bạn nhé.”", src: "images/members/Nguyệt Ánh.jpg", alt: "Nguyễn Thị Nguyệt Ánh", isTeacher: false },
+        { index: 5, name: "Đàm Minh Châu", nickname: "Nụ cười tỏa nắng", birthday: "13/12/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100062770101700/", hobbies: "Cắm trại 🏕️, Đi bộ 🚶‍♂️", memory: "“Cảm ơn vì đã cùng nhau tạo nên ký ức thật đẹp.”", src: "images/members/Minh châu.jpg", alt: "Đàm Minh Châu", isTeacher: false },
+        { index: 6, name: "Nguyễn Đức Cường", nickname: "Người đẹp ngủ gật", birthday: "19/02/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100038601021744/", hobbies: "Cầu lông 🏸, Chụp ảnh 📸", memory: "“Tớ không nhớ hết các tiết học, nhưng tớ nhớ cảm giác ngồi cạnh các cậu.”", src: "images/members/Đức Cường.jpg", alt: "Nguyễn Đức Cường", isTeacher: false },
+        { index: 7, name: "Hoàng Thị Kim Dung", nickname: "Bông hoa nhỏ", birthday: "21/08/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100044748920313/", hobbies: "Chụp ảnh 📸, Vẽ tranh 🎨", memory: "“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”", src: "images/members/Kim Dung.jpg", alt: "Hoàng Thị Kim Dung", isTeacher: false },
+        { index: 8, name: "Tạ Đức Dương", nickname: "Hoàng tử thể thao", birthday: "07/01/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100071441122498/", hobbies: "Ca hát 🎤, Đá bóng ⚽", memory: "“DK60 – một thanh xuân rực rỡ không thể nào quên.”", src: "images/members/Đức Dương.jpg", alt: "Tạ Đức Dương", isTeacher: false },
+        { index: 9, name: "Ngô Thị Khánh Linh", nickname: "Không có", birthday: "11/11/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100041252536278/", hobbies: "Nghe nhạc 🎧, Xem phim 🎬", memory: "“Dù mai này ta bận rộn, có lẽ ta vẫn bất giác nhớ nhau vào một chiều tháng 5.”", src: "images/members/Khánh Linh.jpg", alt: "Ngô Thị Khánh Linh", isTeacher: false },
+        { index: 10, name: "Nguyễn Trần Thục Hân", nickname: "Nhà thơ nhí", birthday: "05/09/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100015433509578/", hobbies: "Xem phim 🎬, Chơi game 🎮", memory: "“Hẹn gặp lại ở tương lai – mỗi đứa đều thành công nhé!”", src: "images/members/Thục Hân.jpg", alt: "Nguyễn Trần Thục Hân", isTeacher: false },
+        // Tổ 2
+        { index: 11, name: "Đặng Hồng Hạnh", nickname: "Công chúa nhỏ", birthday: "03/09/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100065403351854/", hobbies: "Đi bộ 🚶‍♂️, Chụp ảnh 📸", memory: "“Mỗi lần nhìn lại áo lớp, tớ lại thấy cả một thời vô tư ở đó.”", src: "images/members/Hồng Hạnh.jpg", alt: "Đặng Hồng Hạnh", isTeacher: false },
+        { index: 12, name: "Trần Văn Hữu", nickname: "Hoàng tử thể thao", birthday: "26/06/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100024934350350/", hobbies: "Cầu lông 🏸, Bóng chuyền 🏐", memory: "“Lớp học sẽ im ắng hơn, không còn tiếng cậu hát nhảm mỗi sáng nữa đâu.”", src: "images/members/Văn Hữu.jpg", alt: "Trần Văn Hữu", isTeacher: false },
+        { index: 13, name: "Nguyễn Thị Thúy Hường", nickname: "Ca sĩ bất đắc dĩ", birthday: "10/06/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Hoà Hiếu, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100053983963442/", hobbies: "Ca hát 🎤, Nấu ăn 🍳", memory: "“Tớ từng mong lớn nhanh, nhưng giờ tớ chỉ ước thời gian ngừng lại một chút.”", src: "images/members/Thuý Hường.jpg", alt: "Nguyễn Thị Thúy Hường", isTeacher: false },
+        { index: 14, name: "Võ Trung Quân", nickname: "Ca sĩ bất đắc dĩ", birthday: "30/01/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Quang Tiến, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100079165890153/", hobbies: "Thể thao 🏃, Nấu ăn 🍳", memory: "“Lớp mình có thể không hoàn hảo, nhưng là nơi tớ muốn quay lại nhất”", src: "images/members/Trung Quân.jpg", alt: "Võ Trung Quân", isTeacher: false },
+        { index: 15, name: "Trần Hương Giang", nickname: "Chuyên gia troll", birthday: "01/09/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100048042652185/", hobbies: "Vẽ tranh 🎨, Nghe nhạc 🎧", memory: "“Sau này, mỗi người một ngả – nhưng tớ tin: một phần của tớ sẽ mãi ở lại nơi này.”", src: "images/members/Hương Giang.jpg", alt: "Trần Hương Giang", isTeacher: false },
+        { index: 16, name: "Hoàng Ngọc Bảo Châu", nickname: "Học bá chính hiệu", birthday: "07/08/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100064034362619/", hobbies: "Đọc sách 📚, Vẽ tranh 🎨", memory: "“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”", src: "images/members/Bảo Châu.jpg", alt: "Hoàng Ngọc Bảo Châu", isTeacher: false },
+        { index: 17, name: "Ngô Thị Thùy Dương", nickname: "Học bá chính hiệu", birthday: "02/09/2007", group: "Tổ 2", phone: "0919800452", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100069609275971/", hobbies: "Chụp ảnh 📷, Xem phim 🎬, Đi du lịch ✈️", memory: "“Lớp mình không chỉ học cùng nhau – mà đã sống thanh xuân cùng nhau.”", src: "images/members/Thuỳ Dương.jpg", alt: "Ngô Thị Thùy Dương", isTeacher: false },
+        { index: 18, name: "Hồ Nhật Anh", nickname: "Người đẹp ngủ gật", birthday: "21/08/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100049340421919/", hobbies: "Bơi lội 🏊‍♂️, Nấu ăn 🍳", memory: "“Cả lớp học này từng là thế giới nhỏ của tớ.”", src: "images/members/Nhật Anh.jpg", alt: "Hồ Nhật Anh", isTeacher: false },
+        { index: 19, name: "Hoàng Văn Thành Đạt", nickname: "Hoàng tử thể thao", birthday: "05/06/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Long Sơn, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100040965571351/", hobbies: "Đọc sách 📚, Xem phim 🎬", memory: "“Tớ sẽ nhớ cả những tiếng cười lúc trốn học, và cả những lúc bị gọi lên bảng run như cầy sấy.”", src: "images/members/Thành Đạt.jpg", alt: "Hoàng Văn Thành Đạt", isTeacher: false },
+        { index: 20, name: "Nguyễn Thị Kim Anh", nickname: "Nữ hoàng ăn vặt", birthday: "22/10/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100024462409745/", hobbies: "Xem phim 🎬, Chụp ảnh 📸", memory: "\"Tớ chẳng ngờ ba năm lại trôi nhanh như thế – nhanh đến mức chưa kịp nói hết lời cảm ơn.\"", src: "images/members/Kim Anh.jpg", alt: "Nguyễn Thị Kim Anh", isTeacher: false },
+        // Tổ 3
+        { index: 21, name: "Ngô Đình Nguyên", nickname: "Nhà thơ nhí", birthday: "11/02/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100027086807477/", hobbies: "Nghe nhạc 🎧, Bơi lội 🏊‍♂️", memory: "“Mỗi cái tên trong lớp là một mảnh ghép – thiếu ai cũng không trọn vẹn.”", src: "images/members/Đình Nguyên.jpg", alt: "Ngô Đình Nguyên", isTeacher: false },
+        { index: 22, name: "Trương Thị Phương Thảo", nickname: "Học bá chính hiệu", birthday: "10/08/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100083469237795/", hobbies: "Đi bộ 🚶‍♂️, Chụp ảnh 📸", memory: "“Dù sau này mỗi đứa một nơi, tớ vẫn nhớ lớp mình lắm!”", src: "images/members/Phương Thảo.jpg", alt: "Trương Thị Phương Thảo", isTeacher: false },
+        { index: 23, name: "Nguyễn Thị Mai", nickname: "Nghệ sĩ tiềm năng", birthday: "11/08/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Hoà Hiếu, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100067564356746/", hobbies: "Du lịch ✈️, Chụp ảnh 📸", memory: "“Thay vì nói 'giá như', tớ nói 'cảm ơn' – vì cậu đã là một phần của thanh xuân tớ.”", src: "images/members/Thị Mai.jpg", alt: "Nguyễn Thị Mai", isTeacher: false },
+        { index: 24, name: "Đặng Trần Minh Thư", nickname: "Minh Thư", birthday: "03/06/2007", group: "Tổ 3", phone: "0988630503", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100057378578702/", hobbies: "Làm đẹp ✨", memory: "“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”", src: "images/members/Minh Thư.jpg", alt: "Đặng Trần Minh Thư", isTeacher: false },
+        { index: 25, name: "Trương Thị Huyền Trang", nickname: "Mèo lười", birthday: "10/07/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Nghĩa Thành, Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100039885589892/", hobbies: "Chơi game 🎮, Ca hát 🎤", memory: "“Một thời để nhớ – một đời để thương!”", src: "images/members/Huyền Trang.jpg", alt: "Trương Thị Huyền Trang", isTeacher: false },
+        { index: 26, name: "Trương Nguyễn Lệ Quyên", nickname: "Công chúa nhỏ", birthday: "16/11/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Long Sơn, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100044148520842/", hobbies: "Đi bộ 🚶‍♂️, Cầu lông 🏸", memory: "“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”", src: "images/members/Lệ Quyên.jpg", alt: "Trương Nguyễn Lệ Quyên", isTeacher: false },
+        { index: 27, name: "Đặng Thị Hồng Phương", nickname: "Nữ hoàng ăn vặt", birthday: "16/03/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100084887945223/", hobbies: "Đá bóng ⚽, Ca hát 🎤", memory: "“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”", src: "images/members/Hồng Phương.jpg", alt: "Đặng Thị Hồng Phương", isTeacher: false },
+        { index: 28, name: "Nguyễn Xuân Đức Lương", nickname: "Ca sĩ bất đắc dĩ", birthday: "29/05/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Tây Hiếu, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100046707224598/", hobbies: "Đá bóng ⚽, Nhảy múa 💃", memory: "“Có những người chỉ gặp 3 năm, nhưng nhớ đến cả đời.”", src: "images/members/Đức Lương.jpg", alt: "Nguyễn Xuân Đức Lương", isTeacher: false },
+        { index: 29, name: "Trần Yến Nhi", nickname: "Chuyên gia troll", birthday: "18/03/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Hòa Hiếu, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100073064007672/", hobbies: "Đọc sách 📚, Du lịch ✈️", memory: "“Chúng mình đã từng mơ cùng nhau, từng ôn thi cùng nhau… và giờ thì chia tay cùng nhau.”", src: "images/members/Yến Nhi.jpg", alt: "Trần Yến Nhi", isTeacher: false },
+        { index: 30, name: "Đậu Thị Hoài Phương", nickname: "Soái ca lớp học", birthday: "10/10/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Nghĩa Thành, Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100073610088229/", hobbies: "Đọc sách 📚, Du lịch ✈️", memory: "“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”", src: "images/members/Hoài Phương.jpg", alt: "Đậu Thị Hoài Phương", isTeacher: false },
+        // Tổ 4
+        { index: 31, name: "Hoàng Văn Hải", nickname: "Chuyên gia troll", birthday: "09/02/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Quang Tiến, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100043352546589/", hobbies: "Nấu ăn 🍳, Cắm trại 🏕️", memory: "“Không ai biết lần cuối là khi nào – cho đến khi nó thật sự đến.”", src: "images/members/Văn Hải.jpg", alt: "Hoàng Văn Hải", isTeacher: false },
+        { index: 32, name: "Vũ Quốc Huy", nickname: "Mèo lười", birthday: "22/01/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Quang Tiến, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100034338531010/", hobbies: "Đá bóng ⚽, Chụp ảnh 📸", memory: "“Tạm biệt nhé – những cái tên đã trở nên thân quen như hơi thở.”", src: "images/members/Quốc Huy.jpg", alt: "Vũ Quốc Huy", isTeacher: false },
+        { index: 33, name: "Phùng Đoàn Đan Linh", nickname: "Hoàng tử thể thao", birthday: "15/03/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100027468173901/", hobbies: "Ca hát 🎤, Bơi lội 🏊‍♂️", memory: "“Tớ chưa từng nghĩ chia tay lại buồn đến vậy…”", src: "images/members/Đan Linh.jpg", alt: "Phùng Đoàn Đan Linh", isTeacher: false },
+        { index: 34, name: "Nguyễn Việt Quang", nickname: "Chiến binh nhỏ", birthday: "24/03/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Long Sơn, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100069635040386/", hobbies: "Ca hát 🎤, Du lịch ✈️", memory: "“Cảm ơn vì đã cùng nhau tạo nên ký ức thật đẹp.”", src: "images/members/Việt Quang.jpg", alt: "Nguyễn Việt Quang", isTeacher: false },
+        { index: 35, name: "Võ Thị Tú Quyên", nickname: "Học bá chính hiệu", birthday: "22/05/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Nghĩa Trung, Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100037156681733/", hobbies: "Nấu ăn 🍳, Xem phim 🎬", memory: "“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”", src: "images/members/Tú Quyên.jpg", alt: "Võ Thị Tú Quyên", isTeacher: false },
+        { index: 36, name: "Ngô Thị Hà Thương", nickname: "Nữ hoàng ăn vặt", birthday: "12/04/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Nghĩa Trung, Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100036865877656/", hobbies: "Cắm trại 🏕️, Du lịch ✈️", memory: "“Mong sau này, khi ai đó nhắc đến DK60, cậu sẽ mỉm cười”", src: "images/members/Hà Thương.jpg", alt: "Ngô Thị Hà Thương", isTeacher: false },
+        { index: 37, name: "Đặng Thái Bảo Trâm", nickname: "Học bá chính hiệu", birthday: "03/12/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100050402257061/", hobbies: "Bơi lội 🏊‍♂️, Chơi game 🎮", memory: "“Tuổi học trò chỉ có một lần – và bạn là một phần trong đó.”", src: "images/members/Bảo Trâm.jpg", alt: "Đặng Thái Bảo Trâm", isTeacher: false },
+        { index: 38, name: "Nguyễn Thị Phương Trinh", nickname: "Cá", birthday: "05/07/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100081709906508/", hobbies: "Chụp ảnh 📸, Trượt ván 🛹, Vẽ 🎨", memory: "“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”", src: "images/members/Phương Trinh.jpg", alt: "Nguyễn Thị Phương Trinh", isTeacher: false },
+        { index: 39, name: "Hồ Lê Thái Uyên", nickname: "Nữ hoàng ăn vặt", birthday: "05/03/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100067119476608/", hobbies: "Chơi game 🎮, Nhảy múa 💃", memory: "“3 năm không dài, nhưng đủ để thương một tập thể!”", src: "images/members/Thái Uyên.jpg", alt: "Hồ Lê Thái Uyên", isTeacher: false },
+        { index: 40, name: "Nguyễn Tố Uyên", nickname: "Nụ cười tỏa nắng", birthday: "04/10/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Long Sơn, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100073587274714/", hobbies: "Chơi game 🎮, Đá bóng ⚽", memory: "“Cảm ơn vì đã từng ngồi cạnh nhau – dù chỉ là một tiết học ngắn ngủi.”", src: "images/members/Tố Uyên.jpg", alt: "Nguyễn Tố Uyên", isTeacher: false }
+    ];
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const mainContentWrapper = document.getElementById('mainContentWrapper');
+        const memberDetailView = document.getElementById('memberDetailView');
+        const backToListBtn = document.getElementById('backToListBtn');
+        const viewAllBtnStyled = document.getElementById("viewAllBtnStyled");
+        const selectOverlay = document.getElementById("selectOverlay");
+        const memberListPopup = document.getElementById("memberListPopup");
+        const closeSelectOverlayBtn = document.getElementById("closeSelectOverlayBtn");
+
+        let lastScrollY = 0;
+        // currentDetailIndex is not strictly needed if we always find by index from allMemberData
+
+        function populateTeamCards() {
+            const teamBoxesQuery = document.querySelectorAll('.team-grid .team-box'); // More specific selector
+            const teamBoxMap = {
+                "Tổ 1": teamBoxesQuery[0]?.querySelector('.space-y-4'),
+                "Tổ 2": teamBoxesQuery[1]?.querySelector('.space-y-4'),
+                "Tổ 3": teamBoxesQuery[2]?.querySelector('.space-y-4'),
+                "Tổ 4": teamBoxesQuery[3]?.querySelector('.space-y-4'),
+            };
+
+            allMemberData.forEach(member => {
+                if (member.isTeacher || !teamBoxMap[member.group]) return;
+
+                const memberCard = document.createElement('div');
+                memberCard.className = "member-card bg-white p-4 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-start gap-3 sm:gap-4 cursor-pointer";
+                // Use member.index directly as it's already in the data
+                memberCard.dataset.memberIndex = member.index;
+
+
+                const imgEl = document.createElement('img');
+                imgEl.src = member.src;
+                imgEl.alt = member.alt || `Ảnh của ${member.name}`;
+                imgEl.className = "profile w-16 h-20 sm:w-20 sm:h-24 object-cover rounded-md border-2 border-slate-200 flex-shrink-0";
+                imgEl.onerror = function() { this.src='https://placehold.co/80x96/cccccc/999999?text=Ảnh'; this.onerror=null; };
+                
+                const infoDiv = document.createElement('div');
+                infoDiv.className = "flex-grow min-w-0"; // Added min-w-0 for flex truncation
+
+                const nameEl = document.createElement('h4');
+                nameEl.className = "text-sm sm:text-md font-semibold text-purple-600 mb-0.5 truncate";
+                nameEl.textContent = member.name;
+
+                const nicknameEl = document.createElement('p');
+                nicknameEl.className = "text-xs text-slate-500 mb-1 truncate";
+                nicknameEl.textContent = `(${member.nickname})`;
+                
+                const memoryEl = document.createElement('p');
+                memoryEl.className = "text-xs text-slate-600 italic member-quote";
+                memoryEl.textContent = member.memory || "Chưa có kỷ niệm...";
+
+                infoDiv.appendChild(nameEl);
+                if (member.nickname && member.nickname !== "Không có" && member.nickname.trim() !== "") {
+                   infoDiv.appendChild(nicknameEl);
+                }
+                infoDiv.appendChild(memoryEl);
+                memberCard.appendChild(imgEl);
+                memberCard.appendChild(infoDiv);
+
+                memberCard.addEventListener('click', () => showMemberDetail(member.index));
+                if (teamBoxMap[member.group]) { // Check if container exists
+                    teamBoxMap[member.group].appendChild(memberCard);
+                } else {
+                    console.warn(`Không tìm thấy container cho tổ: ${member.group}`);
+                }
+            });
+            
+            const teacherProfileImg = document.querySelector('section.teacher-section img.profile');
+            const teacherProfileName = document.querySelector('section.teacher-section .info h2');
+            if (teacherProfileImg) teacherProfileImg.addEventListener('click', () => showMemberDetail(0));
+            if (teacherProfileName) teacherProfileName.addEventListener('click', () => showMemberDetail(0));
+        }
+        
+        populateTeamCards();
+
+
+        function showMemberDetail(index) {
+            lastScrollY = window.scrollY;
+            const memberData = allMemberData.find(m => m.index === index);
+
+            if (!memberData) {
+                console.error("Không tìm thấy dữ liệu thành viên cho index:", index);
+                return;
+            }
+
+            if (mainContentWrapper) mainContentWrapper.style.display = 'none';
+            memberDetailView.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            document.getElementById('detailImage').src = memberData.src;
+            document.getElementById('detailImage').alt = `Ảnh chân dung ${memberData.name}`;
+            document.getElementById('detailName').innerText = memberData.name;
+            document.getElementById('detailNickname').innerText = memberData.nickname || "Không có";
+            document.getElementById('detailBirthday').innerText = memberData.birthday || "Chưa cập nhật";
+            document.getElementById('detailGroup').innerText = memberData.group || "Chưa cập nhật";
+            document.getElementById('detailPhone').innerText = memberData.phone || "Chưa cập nhật";
+            document.getElementById('detailAddress').innerText = memberData.address || "Chưa cập nhật";
+            document.getElementById('detailHobbies').innerText = memberData.hobbies || "Chưa cập nhật";
+            document.getElementById('detailMemory').innerText = memberData.memory || "Chưa có kỷ niệm đáng nhớ.";
+
+            const fbSpan = document.getElementById('detailFacebook');
+            if (memberData.fb && memberData.fb.startsWith("http")) {
+                fbSpan.innerHTML = `<a href="${memberData.fb}" target="_blank" rel="noopener noreferrer" class="text-purple-500 hover:underline">Xem Facebook</a>`;
+            } else {
+                fbSpan.innerText = "Chưa cập nhật";
+            }
+            memberDetailView.scrollTop = 0;
+        }
+
+        function showListView() {
+            memberDetailView.style.display = 'none';
+            if (mainContentWrapper) mainContentWrapper.style.display = 'block';
+            document.body.style.overflow = 'auto';
+            window.scrollTo({ top: lastScrollY, behavior: 'auto' });
+        }
+        if (backToListBtn) backToListBtn.addEventListener('click', showListView);
+
+
+        function showTeamListPopup() {
+            memberListPopup.innerHTML = ""; 
+            const groups = {};
+            const leaders = ["Ngô Thị Khánh Linh", "Trần Yến Nhi", "Võ Thị Tú Quyên", "Đặng Hồng Hạnh"]; 
+
+            allMemberData.forEach(member => {
+                if (!groups[member.group]) {
+                    groups[member.group] = [];
+                }
+                groups[member.group].push(member);
+            });
+
+            if (groups["Giáo viên chủ nhiệm"]) {
+                const teacher = groups["Giáo viên chủ nhiệm"][0];
+                const tDiv = document.createElement("div");
+                tDiv.className = "col-span-1 sm:col-span-2 p-3 rounded-lg bg-pink-50 hover:bg-pink-100 transition-colors cursor-pointer flex items-center gap-3";
+                tDiv.innerHTML = `
+                    <img src="${teacher.src}" alt="${teacher.name}" class="w-10 h-10 rounded-full object-cover border-2 border-pink-200" onerror="this.src='https://placehold.co/40x40/fbcfe8/9d174d?text=GV'; this.onerror=null;">
+                    <span class="font-semibold text-pink-700">${teacher.name} (GVCN)</span>
+                `;
+                tDiv.onclick = () => {
+                    selectOverlay.style.display = "none";
+                    document.body.style.overflow = 'auto';
+                    showMemberDetail(teacher.index);
+                };
+                memberListPopup.appendChild(tDiv);
+            }
+
+            const teamOrder = ["Tổ 1", "Tổ 2", "Tổ 3", "Tổ 4"];
+            const teamColors = {
+                "Tổ 1": {bg: "bg-yellow-500", text: "text-yellow-800", itemHover: "hover:bg-yellow-100", border: "border-yellow-500"},
+                "Tổ 2": {bg: "bg-green-500", text: "text-green-800", itemHover: "hover:bg-green-100", border: "border-green-500"},
+                "Tổ 3": {bg: "bg-blue-500", text: "text-blue-800", itemHover: "hover:bg-blue-100", border: "border-blue-500"},
+                "Tổ 4": {bg: "bg-red-500", text: "text-red-800", itemHover: "hover:bg-red-100", border: "border-red-500"}
+            };
+
+            teamOrder.forEach(groupName => {
+                if (groups[groupName]) {
+                    const teamData = groups[groupName];
+                    const colors = teamColors[groupName] || {bg: "bg-slate-500", text: "text-slate-800", itemHover: "hover:bg-slate-100", border: "border-slate-500"};
+                    
+                    const wrapper = document.createElement("div");
+                    wrapper.className = `team-list-group border ${colors.border} rounded-lg overflow-hidden shadow`;
+                    
+                    const h3 = document.createElement("h3");
+                    h3.className = `p-3 font-semibold text-white text-center ${colors.bg}`;
+                    h3.innerText = groupName;
+                    wrapper.appendChild(h3);
+
+                    const ul = document.createElement("ul");
+                    ul.className = "p-2 space-y-1 bg-white max-h-60 overflow-y-auto"; // Added max-h-60 and overflow-y-auto
+                    teamData.sort((a,b) => a.name.localeCompare(b.name, 'vi'));
+
+                    teamData.forEach(mem => {
+                        const li = document.createElement("li");
+                        li.className = `p-2 rounded-md cursor-pointer ${colors.itemHover} transition-colors flex items-center gap-2 text-sm text-slate-700 hover:text-slate-900`;
+                        const isLeader = leaders.includes(mem.name);
+                        li.innerHTML = `
+                            <img src="${mem.src}" alt="${mem.name}" class="w-7 h-7 rounded-full object-cover border border-slate-200 flex-shrink-0" onerror="this.src='https://placehold.co/28x28/cccccc/999999?text=AV'; this.onerror=null;">
+                            <span class="truncate">${mem.name} ${isLeader ? '👑' : ''}</span>
+                        `;
+                        li.onclick = () => {
+                            selectOverlay.style.display = "none";
+                            document.body.style.overflow = 'auto';
+                            showMemberDetail(mem.index);
+                        };
+                        ul.appendChild(li);
+                    });
+                    wrapper.appendChild(ul);
+                    memberListPopup.appendChild(wrapper);
+                }
+            });
+            selectOverlay.style.display = "flex";
+            document.body.style.overflow = 'hidden';
+        }
+
+        if (viewAllBtnStyled) viewAllBtnStyled.addEventListener('click', showTeamListPopup);
+        if (closeSelectOverlayBtn) {
+            closeSelectOverlayBtn.addEventListener('click', () => {
+                selectOverlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+        if (selectOverlay) {
+            selectOverlay.addEventListener('click', function(event) {
+                if (event.target === selectOverlay) {
+                    selectOverlay.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        document.body.classList.add('fade-in');
+
+        const internalLinks = document.querySelectorAll("nav a[href$='.html'], header a[href$='.html']");
+        internalLinks.forEach(link => {
+            link.addEventListener("click", function (e) {
+                const href = this.getAttribute("href");
+                if (href === window.location.pathname.split('/').pop() || href.startsWith('#')) return;
+                e.preventDefault();
+                document.body.style.opacity = 0;
+                setTimeout(() => { window.location.href = href; }, 500);
+            });
+        });
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        if (backToTopBtn && viewAllBtnStyled) {
+             window.onscroll = function() {
+                const shouldBeVisible = document.body.scrollTop > 200 || document.documentElement.scrollTop > 200;
+                if (shouldBeVisible) {
+                    backToTopBtn.classList.remove('hidden-btn');
+                    viewAllBtnStyled.classList.remove('hidden-btn');
+                } else {
+                    backToTopBtn.classList.add('hidden-btn');
+                    viewAllBtnStyled.classList.add('hidden-btn');
+                }
+            };
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+        
+        if (typeof window.onscroll === 'function') {
+            window.onscroll();
+        }
+
+        document.addEventListener("mousemove", function(e) {
+            const x = (e.clientX / window.innerWidth - 0.5) * 10;
+            const y = (e.clientY / window.innerHeight - 0.5) * 10;
+            document.body.style.backgroundPosition = `calc(50% + ${-x}px) calc(50% + ${-y}px)`;
+        });
+
+        const favicons = [
+            'images/logo/logo1.png', 'images/logo/logo2.png', 'images/logo/logo3.png',
+            'images/logo/logo4.png', 'images/logo/logo5.png'
+        ];
+        let currentFaviconIndex = 0;
+        const dynamicFavicon = document.getElementById('dynamic-favicon');
+        if (dynamicFavicon) {
+            setInterval(() => {
+                dynamicFavicon.setAttribute('href', favicons[currentFaviconIndex]);
+                currentFaviconIndex = (currentFaviconIndex + 1) % favicons.length;
+            }, 1000);
+        } else {
+            console.warn("Favicon element not found.");
+        }
+    });
+    </script>
+</body>
+</html>

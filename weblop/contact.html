@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Liên Hệ - Kỷ yếu DK60</title>
+    <link href="images/logo/logo1.png" id="dynamic-favicon" rel="icon" type="image/png"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f0f4f8; /* Tailwind's gray-100 or blue-gray-50 */
+            color: #334155; /* Tailwind's slate-700 */
+            margin: 0;
+            background-image: url('images/bg.png'); /* Placeholder, use your 'images/bg.png' */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            transition: background-position 0.1s ease, opacity 0.6s ease-in-out;
+            opacity: 0; /* Start hidden for fade-in */
+            scroll-behavior: smooth;
+        }
+
+        body.fade-in {
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; /* slate-300 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; /* slate-400 */
+        }
+
+        #backToTopBtn { /* Added for consistency if you want a back-to-top button */
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            opacity: 0; /* Hidden by default */
+            visibility: hidden;
+            transform: scale(0.9);
+        }
+        #backToTopBtn.visible {
+             opacity: 1;
+             visibility: visible;
+             transform: scale(1);
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                     <a href="index.html" class="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-red-500">
+                        🎓 Ký ức DK60
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Trang Chủ</a>
+                    <a href="about.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Giới Thiệu</a>
+                    <a href="thanh-vien-lop.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Thành Viên</a>
+                    <a href="contact.html" class="text-purple-600 font-semibold border-b-2 border-purple-500 px-3 py-2 rounded-md text-sm">Liên Hệ</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" aria-label="Mở menu" class="text-slate-600 hover:text-purple-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden hidden bg-white/90 backdrop-blur-md shadow-lg">
+            <a href="index.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Trang Chủ</a>
+            <a href="about.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Giới Thiệu</a>
+            <a href="thanh-vien-lop.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Thành Viên</a>
+            <a href="contact.html" class="block text-purple-600 bg-purple-50 font-semibold px-4 py-3 text-sm">Liên Hệ</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div class="content-wrapper max-w-3xl mx-auto">
+            <section class="bg-white/80 backdrop-blur-md p-6 sm:p-10 rounded-xl shadow-xl">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-purple-700">📞 Liên Hệ Với Tớ</h2>
+
+                <form class="contact-form space-y-6"
+                      action="https://formsubmit.co/2057ff2a3335d8da4613cf773181bac5" 
+                      method="POST">
+
+                    <input type="hidden" name="_subject" value="Tin nhắn mới từ Kỷ yếu DK60!">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://luonghiii.github.io/thaihoa/weblop/thank-you.html"> 
+                    <input type="hidden" name="_captcha" value="false"> <div>
+                        <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Họ và Tên</label>
+                        <input type="text" name="name" id="name" placeholder="Bạn tên là gì?" required
+                               class="w-full px-4 py-2.5 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition bg-white/70 placeholder-slate-400 text-sm">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Địa chỉ email của bạn" required
+                               class="w-full px-4 py-2.5 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition bg-white/70 placeholder-slate-400 text-sm">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Lời nhắn</label>
+                        <textarea name="message" id="message" placeholder="Điều bạn muốn nhắn gửi..." required rows="5"
+                                  class="w-full px-4 py-2.5 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition bg-white/70 placeholder-slate-400 text-sm"></textarea>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm">
+                        Gửi Tin Nhắn <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+
+                <div class="contact-info mt-10 pt-8 border-t border-slate-200">
+                    <h3 class="text-xl font-semibold text-center text-purple-700 mb-6">☎ Thông Tin Liên Hệ Khác</h3>
+                    <div class="space-y-4 text-sm text-slate-600">
+                        <p class="flex items-center justify-center sm:justify-start">
+                            <i class="fas fa-map-marker-alt w-5 text-center mr-3 text-purple-500"></i>
+                            <span>Tây Hiếu, Thị xã Thái Hoà, tỉnh Nghệ An</span>
+                        </p>
+                        <p class="flex items-center justify-center sm:justify-start">
+                            <i class="fas fa-phone-alt w-5 text-center mr-3 text-purple-500"></i>
+                            <a href="tel:0916508081" class="hover:text-purple-600 hover:underline">0916 508 081</a>
+                        </p>
+                        <p class="flex items-center justify-center sm:justify-start">
+                            <i class="fas fa-envelope w-5 text-center mr-3 text-purple-500"></i>
+                            <a href="mailto:luonghii123@gmail.com" class="hover:text-purple-600 hover:underline">luonghii123@gmail.com</a>
+                        </p>
+                        <p class="flex items-center justify-center sm:justify-start">
+                            <i class="fas fa-globe w-5 text-center mr-3 text-purple-500"></i>
+                            <a href="https://luonghiii.github.io/web/profile/" target="_blank" rel="noopener noreferrer" class="hover:text-purple-600 hover:underline">Bio của tớ</a>
+                        </p>
+                         <p class="flex items-center justify-center sm:justify-start">
+                            <i class="fab fa-facebook-f w-5 text-center mr-3 text-purple-500"></i>
+                            <a href="https://www.facebook.com/100046707224598" target="_blank" rel="noopener noreferrer" class="hover:text-purple-600 hover:underline">Facebook cá nhân</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-300 py-8 mt-12 md:mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">&copy; <span id="currentYear"></span> Made with ❤️ by Luonghii & DK60 Collective</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" title="Về đầu trang"
+            class="p-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-full shadow-lg hover:scale-105 transform transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up">
+            <line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.body.classList.add("fade-in");
+
+            // Smooth navigation
+            const navLinks = document.querySelectorAll("nav a[href$='.html'], header a[href$='.html']");
+            navLinks.forEach(link => {
+                link.addEventListener("click", function (e) {
+                    const href = this.getAttribute("href");
+                    // Prevent fade if it's the current page or an anchor link
+                    if (href === window.location.pathname.split('/').pop() || href.startsWith('#')) {
+                        return;
+                    }
+                    e.preventDefault();
+                    document.body.style.opacity = 0;
+                    setTimeout(() => { window.location.href = href; }, 500); // Match CSS transition
+                });
+            });
+
+            // Update current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Back to top button (Optional)
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            if (backToTopBtn) {
+                window.onscroll = function() {
+                    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                        backToTopBtn.classList.add('visible');
+                        backToTopBtn.classList.remove('opacity-0', 'invisible', 'scale-90');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                        backToTopBtn.classList.add('opacity-0', 'invisible', 'scale-90');
+                    }
+                };
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                // Initial check for button visibility
+                if (typeof window.onscroll === 'function') { window.onscroll(); }
+            }
+        });
+
+        // Parallax background effect
+        document.addEventListener("mousemove", function(e) {
+            const x = (e.clientX / window.innerWidth - 0.5) * 10; // Reduced intensity
+            const y = (e.clientY / window.innerHeight - 0.5) * 10;
+            document.body.style.backgroundPosition = `calc(50% + ${-x}px) calc(50% + ${-y}px)`;
+        });
+
+        // Dynamic favicon
+        const favicons = ['images/logo/logo1.png', 'images/logo/logo2.png', 'images/logo/logo3.png', 'images/logo/logo4.png', 'images/logo/logo5.png'];
+        let currentFaviconIndex = 0;
+        const dynamicFavicon = document.getElementById('dynamic-favicon');
+        if (dynamicFavicon) {
+            setInterval(() => {
+                dynamicFavicon.setAttribute('href', favicons[currentFaviconIndex]);
+                currentFaviconIndex = (currentFaviconIndex + 1) % favicons.length;
+            }, 1000);
+        } else {
+            console.warn("Favicon element with id 'dynamic-favicon' not found.");
+        }
+    </script>
+
+</body>
+</html>

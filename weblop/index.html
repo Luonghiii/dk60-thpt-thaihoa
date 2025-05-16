@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Dòng Thời Gian Kỷ Niệm - Kỷ yếu DK60</title>
+    <link href="images/logo/logo1.png" id="dynamic-favicon" rel="icon" type="image/png"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f0f4f8; /* bg-slate-100 */
+            color: #334155; /* text-slate-700 */
+            margin: 0;
+            background-image: url('images/bg.png'); /* Đảm bảo đường dẫn này chính xác */
+            /* background-image: url('https://placehold.co/1920x1080/e2e8f0/94a3b8?text=Background+Image'); */ /* Ảnh nền tạm */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            transition: background-position 0.1s ease, opacity 0.6s ease-in-out;
+            opacity: 0;
+            scroll-behavior: smooth;
+        }
+
+        body.fade-in { opacity: 1; }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(203, 213, 225, 0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+        #backToTopBtn {
+            position: fixed; bottom: 20px; right: 20px; z-index: 50;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+        }
+        #backToTopBtn.hidden-btn { opacity: 0; visibility: hidden; transform: scale(0.9); }
+
+        @keyframes modalShow {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-animation { animation: modalShow 0.3s ease-out forwards; }
+        
+        .thumbnail-container {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden; 
+            border-radius: 0.5rem; 
+        }
+        .thumbnail-container img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .thumbnail-container:hover img {
+            transform: scale(1.05);
+        }
+        .play-button-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0; 
+            transition: opacity 0.3s ease;
+        }
+        .thumbnail-container:hover .play-button-overlay {
+            opacity: 0.8;
+        }
+        .play-button-overlay svg {
+            width: 48px; 
+            height: 48px;
+            fill: white;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+
+        .video-wrapper iframe,
+        .modal-video-wrapper iframe {
+             aspect-ratio: 16 / 9;
+             width: 100%;
+             height: auto; 
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml      : true, 
+          version    : 'v18.0' 
+        });
+      };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js"></script>
+
+    <header class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                     <a href="index.html" class="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-red-500">
+                        🎓 Ký ức DK60
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Trang Chủ</a>
+                    <a href="about.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Giới Thiệu</a>
+                    <a href="thanh-vien-lop.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Thành Viên</a>
+                    <a href="contact.html" class="text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Liên Hệ</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" aria-label="Mở menu" class="text-slate-600 hover:text-purple-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden hidden bg-white/90 backdrop-blur-md shadow-lg">
+            <a href="index.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Trang Chủ</a>
+            <a href="about.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Giới Thiệu</a>
+            <a href="thanh-vien-lop.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Thành Viên</a>
+            <a href="contact.html" class="block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Liên Hệ</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section class="main-class-content bg-white/80 backdrop-blur-md p-6 sm:p-8 rounded-xl shadow-xl text-center max-w-3xl mx-auto mb-10">
+            <h2 class="text-3xl sm:text-4xl font-bold text-purple-700 mb-4">🎓 Tạm Biệt Tuổi Học Trò</h2>
+            <p class="text-slate-600 mb-6 text-sm sm:text-base">Tất cả những kí ức đẹp của tuổi trẻ đều được bao gói trong 3 năm học cấp 3. Gửi đi những điều tốt nhất cho nơi này, nơi có thầy cô và bạn bè luôn bên cạnh 💗</p>
+            <div id="mainVideoPlayerContainer" class="video-wrapper rounded-lg overflow-hidden shadow-lg mx-auto">
+                </div>
+            <p class="text-xs sm:text-sm text-slate-500 italic mt-3">🎓 Video buổi kỷ yếu 9/3/2025</p>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-6 text-slate-700">📹 Dòng Thời Gian Video Kỷ Niệm</h2>
+            <input id="timelineSearch" placeholder="🔍 Tìm video theo chú thích hoặc ngày (dd/mm/yyyy)..." type="text"
+                   class="block w-full max-w-lg mx-auto mb-8 px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-shadow bg-white/90 backdrop-blur-sm text-sm sm:text-base"/>
+
+            <div id="timelineContainer" class="timeline-container bg-slate-50/80 backdrop-blur-md p-4 sm:p-6 rounded-xl shadow-lg overflow-x-auto">
+                <div id="timelineTrack" class="timeline-track flex space-x-4 sm:space-x-6 pb-4">
+                    </div>
+            </div>
+        </section>
+        
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-12">
+            <div class="entry bg-white/80 backdrop-blur-md p-6 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-semibold text-purple-700 mb-3">🇻🇳 Tự Hào Một Dải Non Sông</h3>
+                <p class="text-slate-600 text-sm mb-4">Trải qua 1000 năm đấu tranh, thế hệ học sinh hôm nay tự hào, biết ơn về "Một dải non sông" mang tên Việt Nam đầy hào hùng.</p>
+                <div class="fb-post" data-href="https://www.facebook.com/permalink.php?story_fbid=pfbid05oVEc6A43TzSqeGeXfdeWGiLE3xgxvEMLi4hrGniK7mbBCUn3QqGk7SwefWbB5Mrl&amp;id=100084424947640" data-width="auto" data-show-text="true"></div>
+            </div>
+
+            <div class="entry bg-white/80 backdrop-blur-md p-6 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-semibold text-purple-700 mb-3">🍎 Tri Ân Ngày Nhà Giáo 20/11</h3>
+                <p class="text-slate-600 text-sm mb-4">“Trong bức tranh tuổi học trò, thầy cô là những nét vẽ đẹp nhất.” Chúc thầy cô ngày 20/11 thật nhiều niềm vui và ấm áp!</p>
+                <div class="fb-post" data-href="https://www.facebook.com/permalink.php?story_fbid=pfbid02qPGGy3zWVY81shZP3uhLhWkm1pKz3dk71z1hZpgBFNxdF8s4R5wYvUyUQ56kqn8ql&amp;id=100084424947640" data-width="auto" data-show-text="true"></div>
+            </div>
+            
+            <div class="entry md:col-span-2 bg-white/80 backdrop-blur-md p-6 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-semibold text-purple-700 mb-3 text-center">📱 Tiktok Moments DK60 💖</h3>
+                <div id="tiktokGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-300 py-8 mt-12 md:mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">&copy; <span id="currentYear"></span> Made with ❤️ by Luonghii & DK60 Collective</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" title="Về đầu trang"
+            class="p-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-full shadow-lg hover:scale-105 transform transition-all duration-300 hidden-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up">
+            <line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
+
+    <div id="videoModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-[100] hidden modal-animation">
+        <div class="bg-white p-3 sm:p-4 rounded-xl shadow-2xl w-full max-w-2xl relative">
+            <button id="closeModalBtn" class="absolute -top-3 -right-3 sm:top-2 sm:right-2 bg-white text-slate-600 hover:text-red-500 rounded-full p-1.5 shadow-md transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="modal-video-wrapper rounded-lg overflow-hidden">
+                <iframe id="modalVideoFrame" src="" allow="autoplay; fullscreen" allowfullscreen="true" class="border-0 w-full h-full"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // IMPORTANT: Ensure all Google Drive video files are shared publicly ("Anyone with the link can view")
+    // Otherwise, they will not load in the iframe and might show a perpetual loading spinner, especially on mobile.
+
+    // Data for timeline videos
+    const timelineVideoData = [
+        { date: "09/09/2023", alt: "IMG_1761", videoId: "10jUNqTRo8g-yGGZsVe-87qb1UP4rZyMk" },
+        { date: "28/09/2023", alt: "IMG_2085", videoId: "10PeSAzVHdbeb6u5kLRKWxxTGhqVAk0PJ" },
+        { date: "28/09/2023", alt: "IMG_2086", videoId: "10ZMDbuAvioweJSra33DhwrYQnSFcmwCW" },
+        { date: "02/10/2023", alt: "IMG_2236", videoId: "12YWJPA6qI-yXlgvPZ9eSB8Uzx7rm3XvI" },
+        { date: "02/10/2023", alt: "IMG_2235(1)", videoId: "12T0ctG7R1iLHcLTGJ9TD96DGjOP4xfGE" },
+        { date: "02/10/2023", alt: "IMG_2209(7)", videoId: "11kghHMHKMc5StLzvZVGDM5HzqMbkPg_u" },
+        { date: "02/10/2023", alt: "IMG_2235", videoId: "123hf8TKD0GtPAvSsrxOpmUtxfVFryosQ" },
+        { date: "02/10/2023", alt: "IMG_2234", videoId: "1289VTf5tVj3PEIr0BtnqPZfi8NNe2Pan" },
+        { date: "02/10/2023", alt: "IMG_2233(1)", videoId: "11cXu3m3F6t0sbFBret_vJpUbg1Ci32nB" },
+        { date: "02/10/2023", alt: "IMG_2233", videoId: "11s2S86VVHIf8L7CfVNhXDjPrX45_VO0L" },
+        { date: "02/10/2023", alt: "IMG_2232", videoId: "12-9y8_0XvedQJxA_HiuEoFwtpW5E5uiW" },
+        { date: "02/10/2023", alt: "IMG_2230", videoId: "119rJJurPIlaZ3YrBw_PipyxBVrOW72_S" },
+        { date: "02/10/2023", alt: "IMG_2210", videoId: "11YwIDbeJPyoqNLYd--QSspUMIjbWXAhw" },
+        { date: "02/10/2023", alt: "IMG_2209(9)", videoId: "11XcdgyFjftqwyysZyRXmsX2UKnN_usOX" },
+        { date: "02/10/2023", alt: "IMG_2209(8)", videoId: "1207MDjLKQqPiJH-ft6O-B5PRODn2JS_M" },
+        { date: "02/10/2023", alt: "IMG_2209(6)", videoId: "10x_m1NJN_qxfXpMS87056WOkJ4gGNqag" },
+        { date: "02/10/2023", alt: "IMG_2209(5)", videoId: "116xLGVeRKUwIomyqMnpVJrS9wxTk288C" },
+        { date: "02/10/2023", alt: "IMG_2209(4)", videoId: "113Yl9NWfAL1iUYVqRYufHu_BTIVZWG7v" },
+        { date: "02/10/2023", alt: "IMG_2209(3)", videoId: "10PFQ6QSq5IlI04PKH-62crEBYtQwppzj" },
+        { date: "02/10/2023", alt: "IMG_2209(2)", videoId: "10rtoTkf9LgOVj5v6Vr-0txVBKByblM8E" },
+        { date: "02/10/2023", alt: "IMG_2209(1)", videoId: "1-rEPlLT2JdZJb1nufx67tYk9Gi701n-5" },
+        { date: "02/10/2023", alt: "IMG_2209", videoId: "1-eSAd79sqo0cg8jnb2T7R0pB4iOccZvy" },
+        { date: "02/10/2023", alt: "IMG_2208", videoId: "1-SkuuqWMc6ETX6KoHwnEn2brVOG5pRpS" },
+        { date: "02/10/2023", alt: "IMG_2207", videoId: "1-VW2Dra4Mo3PlxV7Bj6ep-C4axUbm_wQ" },
+        { date: "02/10/2023", alt: "IMG_2231", videoId: "11_-dwVrSfeOpqRRG27VeiBDfHRIoQFGp" },
+        { date: "03/10/2023", alt: "3b2cd02493f7c39910aac91f903562a3", videoId: "12QLoFsb2VTuDONsTCzjw-eVrTeuJ05AH" },
+        { date: "03/10/2023", alt: "DE993688-173F-462F-976C-8AECCCA03DEB.mov", videoId: "12h9BffzhmYC5bBNIvG_tC_2WR9EeLV61" },
+        { date: "09/10/2023", alt: "IMG_2381(1)", videoId: "12ZPzoZs1ESmUT_1sYwwwOFUflullTjNc" },
+        { date: "09/10/2023", alt: "IMG_2381", videoId: "12nWcv9pcYXbzGhXzqTDJiIrFXBgXNuRW" },
+        { date: "20/10/2023", alt: "IMG_2665(1)", videoId: "153zRtLSRSjjRt3oc-OiEccUcffeN6pPg" },
+        { date: "20/10/2023", alt: "IMG_2611", videoId: "14CdYiap2CxScjFxGXtZ8bvwcUIRKDClV" },
+        { date: "20/10/2023", alt: "IMG_2684", videoId: "150zK6OcYIYh_8zJOLDgZI_FYnqlZ_1kl" },
+        { date: "20/10/2023", alt: "IMG_4401", videoId: "1Ncno52FA3Yk0LsNKFGZzblHhWtzBsVlC" },
+        { date: "20/10/2023", alt: "IMG_2683(1)", videoId: "15WQlYWruqDiCX3xllt_S6Vj1V4r8K9sA" },
+        { date: "20/10/2023", alt: "IMG_2683", videoId: "15JqxR2S9LhR_tIN0zwe9srwk_PNbcOSN" },
+        { date: "20/10/2023", alt: "IMG_2655", videoId: "15SP764f54_zHY6ZjnmgJ6VXxrp9_0kOt" },
+        { date: "20/10/2023", alt: "IMG_2643", videoId: "16B9B9LeflD7MAqsDwSIusbquq4GVQeZE" },
+        { date: "20/10/2023", alt: "IMG_2616", videoId: "13NMjlMfdF7AWdJrL6Cl5oUDdUuP0VAon" },
+        { date: "20/10/2023", alt: "IMG_2665", videoId: "15CdZCMQDV7_FtcILDsiTJR96Wc9ln-Nn" },
+        { date: "20/10/2023", alt: "IMG_2609", videoId: "13cDNLup5b-RxwLiN8e6SoadoKHWqq2jO" },
+        { date: "20/10/2023", alt: "IMG_2610", videoId: "159yM5OBJw4Jmo4Oona6MO6OPUEuXtl1H" },
+        { date: "20/10/2023", alt: "IMG_2593", videoId: "13fDHB3A77jFgj4VbdW5MjjK_BsQkg4ZO" },
+        { date: "20/10/2023", alt: "IMG_2593", videoId: "15Va_Pg6ZuoMGMWWjEu1tpNq-SOYPvv_o" },
+        { date: "20/10/2023", alt: "IMG_2595", videoId: "13-rdsvbVL9CSSDDPrVCDhyb-jzRHMyhv" },
+        { date: "20/10/2023", alt: "IMG_2010", videoId: "14nJYW4WVi5_rbb3Pg-CnjFwpYqeEIcuu" },
+        { date: "20/10/2023", alt: "IMG_2631", videoId: "15obrolvCGsilxhgz0nKl6JvU-d5a43SC" },
+        { date: "20/10/2023", alt: "IMG_2596", videoId: "13fugnKkU85qa_ix16eZzmoZtAbaxo7Dy" },
+        { date: "20/10/2023", alt: "IMG_2632", videoId: "13XDDkBg_bfylyyA3vDwAhsXPDqRGgcwQ" },
+        { date: "21/10/2023", alt: "IMG_2716", videoId: "15zjZMoEM8Gl2NX6U-KCkcNS-fwWAYrIB" },
+        { date: "21/10/2023", alt: "IMG_2714", videoId: "158-n6A92dRCqmek-wf-ffYdSbpPj1ZoX" },
+        { date: "21/10/2023", alt: "IMG_2717", videoId: "15kUP8F-jVgL37IHBnqzYGnNUCFDgC-zR" },
+        { date: "21/10/2023", alt: "IMG_2715", videoId: "16BVyZUoaVaAxRlEjPP9D7TyiNWUUwMlN" },
+        { date: "23/10/2023", alt: "IMG_2769", videoId: "16O2HVLnHosPvd1Me4U7N4EYiUI1X2Y6A" },
+        { date: "24/10/2023", alt: "IMG_2851", videoId: "17hPiha1mBPO03u7d39JfvVIo32lLREJV" },
+        { date: "25/10/2023", alt: "IMG_2896(1)", videoId: "16Qs55tfI4mv8eJjLK_XHvUTcFE1if_19" },
+        { date: "25/10/2023", alt: "IMG_2896", videoId: "16n6ow8etnObEuKkycdIodl3M6IP32b4J" },
+        { date: "27/10/2023", alt: "IMG_2986", videoId: "198e04kL0VbcV0b5-lwEq3fu7aqzYDkW0" },
+        { date: "27/10/2023", alt: "IMG_2988", videoId: "17WBWwshAlJlAgRSpSjU6_hYMDG8_SGOt" },
+        { date: "27/10/2023", alt: "IMG_2987", videoId: "16aGgMGkaDiVaRJZi8DSUVNXFb0_siG9p" },
+        { date: "27/10/2023", alt: "IMG_2986", videoId: "17ZWgGaH_lM5-QnHxLn-5QOkQRi_chXna" },
+        { date: "27/10/2023", alt: "IMG_2990", videoId: "16UjZ27GiKMjOwvpSvF2tnvb99eDVqYa2" },
+        { date: "15/11/2023", alt: "IMG_3240", videoId: "18tW4J1lNHtZyQqMCcpNtLgOGoUtUdrVG" },
+        { date: "15/11/2023", alt: "IMG_3214", videoId: "17GUo3o-0V_z95IHY92P0Y4hVDX__l4fd" },
+        { date: "15/11/2023", alt: "IMG_3248", videoId: "17r6HIiEUBm5befODHrir-kb3X5Tuh5cX" },
+        { date: "15/11/2023", alt: "IMG_3248", videoId: "1Akd7aWCJPWP_6g8nOIW-oGKkwNJBep8t" },
+        { date: "15/11/2023", alt: "IMG_3255", videoId: "18rHstkfZ649AIFyj3orih3W3kC7KzjYm" },
+        { date: "15/11/2023", alt: "IMG_3244", videoId: "189mwHdjndTYezZs9DWBYGNXx9V8g0sSa" },
+        { date: "15/11/2023", alt: "IMG_3239", videoId: "17dOcZMuMAM9TprIjS0cDd78qcBVqNmd4" },
+        { date: "15/11/2023", alt: "IMG_3213", videoId: "17vZHK72s8YFt24FJx7sfiggjpv2K3g5h" },
+        { date: "15/11/2023", alt: "IMG_3212", videoId: "17RYkCbgp7hLjfqAtyhFYZU5O2R8SBCgM" },
+        { date: "15/11/2023", alt: "IMG_3245", videoId: "18KMrn11myL_WEveKFdgi_Gs1P9InUA4H" },
+        { date: "16/11/2023", alt: "IMG_3257", videoId: "1D2UnscBU2h_6LZ61l87Xl5VxJp2i0I9s" },
+        { date: "16/11/2023", alt: "IMG_3257", videoId: "182lEEn2FEQpGXyeSi7KXh6w4v9ndR6EK" },
+        { date: "16/11/2023", alt: "IMG_3272", videoId: "18BRoQSKGTIY0Q0gWIdAXw_8NfxXS5Vv_" },
+        { date: "17/11/2023", alt: "IMG_3288", videoId: "19qSTX9DTlDdKFNkS86W44hOw4VX5Y0by" },
+        { date: "17/11/2023", alt: "IMG_3300", videoId: "19S1zqkORqzuBznhCoE26w0YhqBBi-h-6" },
+        { date: "19/11/2023", alt: "IMG_3343", videoId: "19pavveUC-IZXa3O91BYyWjM7P7HyzZvp" },
+        { date: "19/11/2023", alt: "IMG_3773", videoId: "19tJsgUoIzUrpU-bUkuorZ6Go951rSQPe" },
+        { date: "19/11/2023", alt: "IMG_3343(1)", videoId: "19mRfvx99-aIL8LMOXERqB48JY1kV5DLu" },
+        { date: "19/11/2023", alt: "IMG_3728", videoId: "19yfm28vWVvZBb-k_IMtnzBqiskZd3MUN" },
+        { date: "19/11/2023", alt: "IMG_3756", videoId: "18VxddW3EFJtNwLJmkdjriCyDC3dtT80V" },
+        { date: "19/11/2023", alt: "IMG_3342", videoId: "19sLeszB00UfH9P1QTOhV8MyvDgD8I53F" },
+        { date: "19/11/2023", alt: "IMG_3341", videoId: "1AgWwOTaiLklo8bOmYcyGmwLwVSL2PSA0" },
+        { date: "19/11/2023", alt: "IMG_3764", videoId: "19GU7vyf2GHxag0WuMYnNUORfcbjSFZGM" },
+        { date: "19/11/2023", alt: "IMG_2777", videoId: "1AG7eFc4UZ-1PaG-1ilHqYNaTA7HVhrOF" },
+        { date: "19/11/2023", alt: "IMG_3334", videoId: "19oAQh98Yjh2J0h9e833BW1uTCaO4D80k" },
+        { date: "19/11/2023", alt: "IMG_3340", videoId: "19DGjAKgR6x9AGyoGHTxOzVLe9Q4HA7r1" },
+        { date: "19/11/2023", alt: "IMG_3332(1)", videoId: "192eQYOAgh4_ZUgfpswplAW0_C1ELJ-Ju" },
+        { date: "19/11/2023", alt: "IMG_3807", videoId: "1AJQRc3Xb_oSJwe7eo01ldeMfwqjD-Gc5" },
+        { date: "19/11/2023", alt: "IMG_3763", videoId: "19ld0jx6OS3OaNpshz9uXRh6DQZmo-Cjn" },
+        { date: "01/12/2023", alt: "IMG_3538", videoId: "1BBvYw3ugeARruf0hx6VAZEsU6zHx_tpN" },
+        { date: "05/12/2023", alt: "IMG_3585", videoId: "1BV0L-GX69cfbfGIz5P9U3AuxO3ddmpSh" },
+        { date: "05/12/2023", alt: "IMG_3594", videoId: "1CeHzrYk6PCWcrsJM5lGB2ihcQXho0ZTM" },
+        { date: "06/12/2023", alt: "IMG_3606", videoId: "1BuapCo_YhoLSiiDPcg_e-B5hxjs1enHW" },
+        { date: "06/12/2023", alt: "IMG_3606(1)", videoId: "1AujqIWDPpdvSMVZgSEkHoLAC8fZnB1Pr" },
+        { date: "13/12/2023", alt: "IMG_3762", videoId: "1B6-ff00gcPcaxwhR8Zk5XrwxG8KvG8x4" },
+        { date: "13/12/2023", alt: "IMG_3761(1)", videoId: "1D0zMbdTfJN1VYc12C52QD8KiBrkMsd8-" },
+        { date: "13/12/2023", alt: "IMG_3761", videoId: "1CVoDIUHGshT-j1u_ncyXKIooXWzP7N9n" },
+        { date: "16/12/2023", alt: "VID_20231216_152713", videoId: "1CqSv2dQfYnKQRhhx1h7IKHZJxPxlKUMN" },
+        { date: "18/12/2023", alt: "IMG_3866", videoId: "1DTmvKI5oNfN1a2QP2zBQh2wOhf47I84m" },
+        { date: "18/12/2023", alt: "IMG_3867", videoId: "1CF0BIR2E9MsS6OgXChTjxzn3Bhya-q0G" },
+        { date: "02/01/2024", alt: "IMG_4135", videoId: "1BwHRQS1H_vI_pV7aajJtfCXqCQ5LpLpl" },
+        { date: "02/01/2024", alt: "IMG_4135(1)", videoId: "1C546gAniiQIAqWGvbBFPMBa8oAP30av6" },
+        { date: "02/01/2024", alt: "IMG_4135(2)", videoId: "1BvOgYoS9jGMfD9IjgIHfoRdhyr-1NKTO" },
+        { date: "05/01/2024", alt: "IMG_4207", videoId: "1EQm4_6JWx1Nh2y634Fx21UTyssB1Zs_U" },
+        { date: "05/01/2024", alt: "IMG_4205", videoId: "1DjXf89vzdiWPkPAfQqKXi9OTIA40Jf33" },
+        { date: "09/01/2024", alt: "Dk60 - 16 Sep 2023 – 9 Jan 2024.mov", videoId: "1EKZpPaQTf-R3srGJYOEcFoXEYAFFrpSO" },
+        { date: "25/01/2024", alt: "IMG_4700", videoId: "1Dm6Qi3U1u_iYpiTHA8IZL4hkImCOUvAt" },
+        { date: "25/01/2024", alt: "IMG_4698", videoId: "1E2v_qNyXMTuxqHPW2B5U_QMWKfvgPW3e" },
+        { date: "25/01/2024", alt: "IMG_4701", videoId: "1Eu8mvxg75BgQa_Y5rL1Jr4AH0VzlLy24" },
+        { date: "27/01/2024", alt: "IMG_4715", videoId: "1Dhhkw-sLlidf_BYiobLlV7OTDJIQa-D0" },
+        { date: "18/02/2024", alt: "IMG_4402", videoId: "1OJkTuacIZKtnMubv0SXSedn978eGCPPq" },
+        { date: "19/02/2024", alt: "IMG_20240219_093636", videoId: "1FqwkLJXeVPCvR6unStGZZ78xh2MF1NrD" },
+        { date: "26/02/2024", alt: "IMG_5096", videoId: "1ESIYEfhjdW-DREP60qjPAZ3Myz6bLwUN" },
+        { date: "27/02/2024", alt: "2025-03-31", videoId: "1HW7ZI_Kr7DWy2hnvS-t_VXs9CSdZwvsF" },
+        { date: "01/03/2024", alt: "IMG_20240301_083332", videoId: "1JBKNwgyztR0mxvvl4Xu81fHsJmgkey61" },
+        { date: "06/03/2024", alt: "IMG_5258", videoId: "1FUKcKjX2FgfY3SVV7LqbwyMoXQx93DJ8" },
+        { date: "08/03/2024", alt: "IMG_5279", videoId: "1FdHOmWYglopRoKkh5D4D4hBZxwXnbsqd" },
+        { date: "08/03/2024", alt: "IMG_5293", videoId: "1F-ifgtiCn2qyb8ghMXznQatzDZ1Xwb5g" },
+        { date: "08/03/2024", alt: "IMG_5289", videoId: "1HGeAfZEKCDA3sPPE1ek7kZzJL1UFQigF" },
+        { date: "08/03/2024", alt: "1HOE6GK5M_9O4HCK", videoId: "1EZgdK9TZbDG05LilSjJcEYCEW5Nk5AvP" },
+        { date: "08/03/2024", alt: "IMG_5273", videoId: "1FEQw2P-hNehHr_1adLkZ8l8WkDxYBqgL" },
+        { date: "23/03/2024", alt: "IMG_5696", videoId: "1FhyoK04AZ9Tt6r1xZZHH-gTmtiW-uWLP" },
+        { date: "23/03/2024", alt: "IMG_5695", videoId: "1H492tENFeYReaB-cEJYG9nrccLZEbuVZ" },
+        { date: "24/03/2024", alt: "88D87B88-A72C-4BB8-B879-E6D17B5B1F53", videoId: "1lJOgIdpNjXj070MIMLj79oE3WkGbY08n" },
+        { date: "24/03/2024", alt: "43f685400caf3b9e0fb5ce32246d7857", videoId: "1NLOWMIY3EnrKF2qeT8Cask8RgZbQmqUk" },
+        { date: "24/03/2024", alt: "1054B207-6EBC-45C8-BCE1-6212062E647A", videoId: "1fqPa5WQ0ewvDC6jS5ZVrkTAL8Nqxgvd2" },
+        { date: "24/03/2024", alt: "1HNS5KR92_9E0M02", videoId: "1ODts0YGlhnChzxSbLBdUtMEtBgS4bPHD" },
+        { date: "24/03/2024", alt: "IMG_5179", videoId: "1OFR52c51fr9yX2aAKxiEtgttZw7cphBU" },
+        { date: "24/03/2024", alt: "IMG_5132", videoId: "1Erjj5F6m64-I1TJ4Za5VeuF4RoKFLvZ7" },
+        { date: "24/03/2024", alt: "IMG_5133", videoId: "1FclIQLMZzKgZ0D9ZvdR6pzyr3_oMZZ7h" },
+        { date: "24/03/2024", alt: "IMG_5178", videoId: "1OXqAO3eur_N-iODiu97euax12uCRJW6K" },
+        { date: "24/03/2024", alt: "IMG_5180", videoId: "1NAlcekq-frmht8_05drTjamrG37qmhTW" },
+        { date: "24/03/2024", alt: "IMG_5811", videoId: "1O96c3fao3nsdXEAiklnhtDydtTSj6oVZ" },
+        { date: "31/03/2024", alt: "2025-03-31(1)", videoId: "1Kr_fWxU0CiA7vgL9GYRcFIfAk1lxQ7SY" },
+        { date: "31/03/2024", alt: "2025-03-31(2)", videoId: "1IEL-erNVDJMtCeYlC3uzG3vLEyB4MFpV" },
+        { date: "12/04/2024", alt: "shared_video_A22A4F80-A2BA-4731-B10C-EEA682E050", videoId: "1GgYxnUd_QKP3Kwj0R3uD0hwTLf1ke2Vx" },
+        { date: "12/04/2024", alt: "shared_video_6CCF59FF-35F6-4409-881E-8AD6BED553", videoId: "1FrRSXYVCPQg15L0mZHtuQcc4r5Jm8W-E" },
+        { date: "15/04/2024", alt: "e26be9e5b85f76cadd060419e14206a7", videoId: "1H6eCRECsELQ_gfvYbBV0ToAoZAdcE8lH" },
+        { date: "26/04/2024", alt: "VID_20240426_110600", videoId: "1H3ErM27Nfb8r52KidCOfCY5ins6Yic1_" },
+        { date: "01/05/2024", alt: "VIDEO_DOWNLOAD_1714553293240_1714553474408", videoId: "1Gil9PPdWjmaQQdqFkYMiMZLRQ4JlQblH" },
+        { date: "28/05/2024", alt: "IMG_7604", videoId: "1JTaqv-uHVeaUkbE5zT-0LAW6cihgHipK" },
+        { date: "28/05/2024", alt: "IMG_7605", videoId: "1H73xyeuT-QHLU-9UuzG4Kpu3omoDE9U9" },
+        { date: "02/06/2024", alt: "IMG_7798", videoId: "1HnhlJHz07tMsitd1zBw5kVpVZrnWOQuJ" },
+        { date: "03/10/2024", alt: "1696297282047", videoId: "12h5heOH0UX4_TMjlZkpsUv-jObX8yXYm" },
+        { date: "05/10/2024", alt: "IMG_8635", videoId: "1HkBtFGLmqXW36GsDFmXxGel1EQZ3iGwb" },
+        { date: "07/10/2024", alt: "Copy of copy_1C5CB8BA-A0EA-4FAB-9B10-150AB28F44", videoId: "1HBIXhnSozshR6sOcbUgIsSuLKKrPVY7F" },
+        { date: "07/10/2024", alt: "Copy of IMG_2406", videoId: "1H7nSGzEKiUqDMNucD6DxSEj6msnjYLiL" },
+        { date: "11/10/2024", alt: "Copy of IMG_2458", videoId: "1JGdi9AUCJnt727OVDHg4CSTQyBuPBIwB" },
+        { date: "12/10/2024", alt: "Copy of IMG_2470", videoId: "1HZBQLR98dyzjtOU7lwOwcKmISBvZeeKc" },
+        { date: "14/10/2024", alt: "Copy of IMG_2500", videoId: "1HKhdLwXtbqsgBDme9scP7xrBw3KVNOxb" },
+        { date: "15/10/2024", alt: "Copy of IMG_2524", videoId: "1JPMkDdjlpdkQFPOYxBJUE2EF2M8njls6" },
+        { date: "17/10/2024", alt: "Copy of IMG_2603", videoId: "1HpPW1ZfD7MZ4X63nbg4QWfholDfmg4rd" },
+        { date: "17/10/2024", alt: "Copy of IMG_2613", videoId: "1JNVtahti3kW5aiwkqLX0FDPCA9P-L54P" },
+        { date: "17/10/2024", alt: "Copy of IMG_2612", videoId: "1JGlJXPNmvoQAy1vkdGsEXjqdDrDfw48I" },
+        { date: "17/10/2024", alt: "Copy of IMG_2604", videoId: "1I0EPwlhswZ72m2I2oz4kX7HOi-J2zNah" },
+        { date: "18/10/2024", alt: "VID_20241018_200847", videoId: "1KIGXt0TmSvg1VBRNGcvJfA6N5YHCCa4u" },
+        { date: "18/10/2024", alt: "Copy of IMG_2644", videoId: "1JOLLYuG17nuBBD7QfCPgS4yGJtD_xBTh" },
+        { date: "18/10/2024", alt: "VID_20241018_202145", videoId: "1JXE2nqyuNXcUBbBPCUZI-hIH-gcU2Pc9" },
+        { date: "19/10/2024", alt: "Copy of IMG_2667", videoId: "1KHGFa-pevqWJy6XwdX636aTk0DKsuw1W" },
+        { date: "19/10/2024", alt: "Copy of IMG_2680", videoId: "1Kh6fbMMuggK5KDvZ-HLVoCyd2a4EHaKY" },
+        { date: "19/10/2024", alt: "Copy of IMG_2669", videoId: "1K5AECS9Oye3ocDkebyltM9i4U7hLaxe3" },
+        { date: "20/10/2024", alt: "2025-03-31(1)", videoId: "1Ir9LzuffQfbKI2Y_1jeuQXk-B5uFj-_y" },
+        { date: "20/10/2024", alt: "2025-03-31", videoId: "1JVeXb3QxVnR1AFovjEV89dXrcyJ_RwxZ" },
+        { date: "26/10/2024", alt: "IMG_2934", videoId: "1Knw3uHL4oDKxKhx0bUsvo0sdC2zWcBwv" },
+        { date: "26/10/2024", alt: "IMG_2944", videoId: "1KVf5VkNdH3Ro6j4ya31fa6OvJDN2WonV" },
+        { date: "26/10/2024", alt: "IMG_2944", videoId: "1KNV8zZjorWqK72NZjYQqhfS-o_TJ75zs" },
+        { date: "26/10/2024", alt: "IMG_2934", videoId: "1KgSjzxcl-Z-RsEjdV9HXoZhLKqwkfPUn" },
+        { date: "20/10/2024", alt: "2025-03-31(2)", videoId: "1NzXflhstsoWerCLBQzzt8674eWGtknKf" },
+        { date: "09/11/2024", alt: "IMG_3480", videoId: "1L_Yie3sPwKePzWgKZm50rxd12syVVnlv" },
+        { date: "09/11/2024", alt: "IMG_3475", videoId: "1KkYquboMxIiF-3UUKarbfKQS7QtSDPdj" },
+        { date: "10/11/2024", alt: "Copy of copy_E28BE2F6-71EE-421D-AEC5-9A1079D5FF", videoId: "1KjbvPXJmkw6ZSnbWMNFWs9lVXRtHa_Ai" },
+        { date: "12/11/2024", alt: "Copy of 1ICHFHJMJ_9E0M02", videoId: "1LWOZXYOM4A-cPWTjjSePJaYWkgoA70i-" },
+        { date: "13/11/2024", alt: "1ICHFHIVN_9E0M02", videoId: "1KoHakhiQC18CZLrzciwVvsW98o1WgDMS" },
+        { date: "13/11/2024", alt: "Copy of 1ICHFHJF1_9E0M02", videoId: "1KvK8f9Z-sbGr2EqMX64mKP5ho8OZalA_" },
+        { date: "13/11/2024", alt: "Copy of IMG_3620", videoId: "1KmQ2pT9fbxTfcZn9aQlESHyASxrnwkMN" },
+        { date: "13/11/2024", alt: "Copy of IMG_3618", videoId: "1KvtDSwxiP1wGkrSfa_Q4C8JQU6hKsSTu" },
+        { date: "20/11/2024", alt: "IMG_3997", videoId: "1MRlEBh3Z67pucEA5FQOavh5l2WNgBf61" },
+        { date: "20/11/2024", alt: "IMG_2615", videoId: "12uZtLpKZSbq8ZquYVr3tTTwJNy9MEUAy" },
+        { date: "20/11/2024", alt: "IMG_4036", videoId: "1LQEfIJDvAGYwPvH7Ll_8HTeGuV4Zfu6X" },
+        { date: "20/11/2024", alt: "IMG_4127", videoId: "1MbECpYPlsUueb0_dSaYjXC2sqYzvTEad" },
+        { date: "20/11/2024", alt: "IMG_4090", videoId: "1LB7o-OEI2ivbu4RQLlaFOIddwH2PpIg_" },
+        { date: "20/11/2024", alt: "IMG_3950", videoId: "1Mj7twHEyvSjBBr8q_Zran9g4kC5kVaP_" },
+        { date: "27/11/2024", alt: "IMG_4351", videoId: "1L2hN5TObrB-cSQ01Qpks25PTmM3XZl4p" },
+        { date: "27/11/2024", alt: "IMG_1923", videoId: "1MHN8L9nv7OxJasGgx-4q2GgQR1WV1qf9" },
+        { date: "27/11/2024", alt: "IMG_1938", videoId: "1MGDAoEtfqO9roV1aLs0cbFTztqrMajzG" },
+        { date: "14/12/2024", alt: "IMG_5006", videoId: "1M76_Q6dqjxKiK56Gtp2tegIPu2ZTPsN_" },
+        { date: "17/12/2024", alt: "IMG_5088", videoId: "1LvxKu4jpoHAL-COqjVqyJvX1RsaC3n9-" },
+        { date: "17/12/2024", alt: "IMG_5078", videoId: "1LnfDW1w3nxHHdSnw-cSBYQSvUhNI5aAc" },
+        { date: "17/12/2024", alt: "IMG_5088", videoId: "1L6yeHAD6HXOQn4Y5m2I134Zh9sSfWogw" },
+        { date: "21/12/2024", alt: "IMG_5291", videoId: "1z-jf0q1txmKU1-EAET2wc2htIgsFn2mR" },
+        { date: "21/12/2024", alt: "IMG_5290", videoId: "1wZ50q7NJlxv2pDYYikAzMVrgCa28vGys" },
+        { date: "28/12/2024", alt: "IMG_5572", videoId: "1xYwYyMc_lUrzKyMEaeWS4VUoe0UA3KT9" },
+        { date: "28/12/2024", alt: "VID_20241228_153158", videoId: "1jS0la6wpwGa5Thu99COGPYsHOUPsC85k" },
+        { date: "28/12/2024", alt: "copy_7D511018-AD35-42B2-A442-AAF321074518", videoId: "1IAEjAtZ9UsoAF1LLvRpUtl9rs5-fDWUU" },
+        { date: "28/12/2024", alt: "IMG_5571", videoId: "1zSeUaRgghmwCmEPyBjEWYukvXXIuvfh1" },
+        { date: "28/12/2024", alt: "IMG_5572(1)", videoId: "1MlbgZQn9b1CJ8R8YSawrvGq7yDHVEjkI" },
+        { date: "28/12/2024", alt: "IMG_5572(2)", videoId: "1wlP4eCDFNAe4Pneh39az1ny39Ewz-HLa" },
+        { date: "08/01/2025", alt: "VID_20250108_172122", videoId: "1FlurrYFpCVmTq6XGnX2WWrOlku5vnH18" },
+        { date: "08/01/2025", alt: "IMG_5984", videoId: "1OYQZR_60mVCGAsyPX_j3_OTJs0CMOf3L" },
+        { date: "08/01/2025", alt: "IMG_5993", videoId: "15u3sBK4XWBSEW__QZPcbyyodIlqpcU2c" },
+        { date: "08/01/2025", alt: "IMG_5992", videoId: "1N2kEoTXqSKCd8Sk49_TP9SW98R03XbFa" },
+        { date: "08/01/2025", alt: "VID_20250108_172458", videoId: "14MWYOcDaN_FwimCLfvUAxoOZGIccsE1e" },
+        { date: "08/01/2025", alt: "IMG_5991", videoId: "1Mi06DmKutZGS6P_2AkArShRKeaKqXrYk" },
+        { date: "10/01/2025", alt: "IMG_6027", videoId: "1ONlR1OLf6BY3MdnZQh1aUZU0nAahpRbi" },
+        { date: "11/02/2025", alt: "1IJPDPN4E_AKRJUJ", videoId: "1McB2vBGZXcR0wcM8djtZdXFu45wsntEa" },
+        { date: "25/02/2025", alt: "copy_430BEBD8-B186-415C-B2EB-93ED17EB2459", videoId: "1N3X-Sh5Xn8vLxnnBi2wHur_sB0NmEi4W" },
+        { date: "25/02/2025", alt: "1IKUMCLN2_B2A062", videoId: "1NJZNKx_HlUn2EwiN8C0HHbaYKBinTo2N" },
+        { date: "25/02/2025", alt: "1IKUMCLN9_B2A062", videoId: "1a41Z0x_agQWEQCYkwsmXrdd0--xH2ZKw" },
+        { date: "25/02/2025", alt: "IMG_7484", videoId: "1ssxjwzgpW1_u08MXjVUpelyRjil6p08A" },
+        { date: "25/02/2025", alt: "IMG_7488", videoId: "1E_MNTaHBw6S2q_jokmpDwKH1a57pwNYt" },
+        { date: "25/02/2025", alt: "IMG_7491", videoId: "1G3opHh6YAx3btpN8Y7a7hDHgoIL4RSsH" },
+        { date: "25/02/2025", alt: "IMG_7489", videoId: "1Mkg7INiHOp8D1gcd5jDv4VAqdQct8OhR" },
+        { date: "27/02/2025", alt: "IMG_7559", videoId: "1FolKSoY6coOMoN_YD1BA5Vf8bTeWJW5K" },
+        { date: "05/03/2025", alt: "copy_39BB4B12-D210-4A7D-9B37-279818DDC7E1", videoId: "1NRPO9qtojU0y0JnUQKHMK4SSNCyShiXw" },
+        { date: "07/03/2025", alt: "IMG_8002", videoId: "1Y8QoKl3xf3xXEuj7aXBX6WvBI2STde59" },
+        { date: "07/03/2025", alt: "IMG_8742", videoId: "1MoDK7upDVKbNSSufZEhELtyQzU-YdnsO" },
+        { date: "07/03/2025", alt: "IMG_7994", videoId: "19-4CcRBTHHFFsX2cudXSLZYVd9WsRsvw" },
+        { date: "07/03/2025", alt: "IMG_8006", videoId: "1dBiWIVkqZHSvMONQpoonOWtWGYz9ZUIt" },
+        { date: "07/03/2025", alt: "IMG_8741", videoId: "1Yv0-9cQbDhcfV8Vjanv0G-1OFHJNsiWz" },
+        { date: "08/03/2025", alt: "IMG_8039", videoId: "1OSZ4sgNHhUeKzt4y2RwRRGB3j5HvLSEr" },
+        { date: "08/03/2025", alt: "ScreenRecording_03-08-2025 21-45-15_1", videoId: "1Z-NBt9UyHe-keJNIzOrRX4rCdm85Qo1F" },
+        { date: "08/03/2025", alt: "IMG_8746", videoId: "1Xz-Tuj9RgCELbinY_VhOCiLRhpoxw3nO" },
+        { date: "08/03/2025", alt: "IMG_8749", videoId: "18MGMJfSN7Tdd60EHCDcrQtoBi0PGDr9y" },
+        { date: "08/03/2025", alt: "IMG_8041", videoId: "1rOYXFNs9gwDIPLOYJ6YFUBKgP1jGI8H0" },
+        { date: "09/03/2025", alt: "ky-yeu-dep-nghe-an-12dk60-truong-thpt-thai-hoa-", videoId: "1NojUUgmcIKRN0IRvV1Naq2KLqwbk6Pq1" },
+        { date: "09/03/2025", alt: "IMG_8085", videoId: "1Ds7ae9kiA6JckEoTZuRgL96hQVudMkeP" },
+        { date: "09/03/2025", alt: "IMG_8750", videoId: "1Uj4lOcndZDOciNFrVluj_q6VTyE_3Ewa" },
+        { date: "09/03/2025", alt: "IMG_8137", videoId: "1jwxWAPeC2QwwL4HNHsXR-Op8wbsSrzrg" },
+        { date: "09/03/2025", alt: "IMG_8092", videoId: "1WdyKCq5jxIUMzDmCTcTm-6_RL-BQgAPo" },
+        { date: "09/03/2025", alt: "IMG_8082", videoId: "1RWaAgeiyrP1Mcta8_wTX5EDm1Ai_fiWa" },
+        { date: "09/03/2025", alt: "1ILS68G21_AKRJUJ", videoId: "1W3NA9XXF0odPnuNO_vTBUNm4WGPlsw03" },
+        { date: "29/05/2025", alt: "Copy of A1AA4BA9-32FB-4E37-BA70-F4407E5427F6seg", videoId: "1HJ7OpZ9tKbbEdVL6zDUV_y88S7aN1YkR" }
+    ];
+
+    // Data for TikTok videos
+    const tiktokVideoData = [
+        { title: "Men's Day – DK60 (1)", videoId: "1bZNyxuRIfP8hSsLUTYiHk-DFk3b6zE5X" },
+        { title: "Men's Day – DK60 (2)", videoId: "107_2x6PDC43FlamL-dbZAG-uB1ifwAht" },
+        { title: "Liberation Day – DK60", videoId: "1_wpg_rkdhYQYHRRxEdObOeRsNGGNBln9" },
+        { title: "Yearbook – DK60", videoId: "1LcLRBJUxnnM3Dd-Qz1SrAmMDFPX3-nkT" },
+        { title: "Đú trend – DK60 (1)", videoId: "1Bd0SczsGLmJvfEeV5R8ZJqVKdfN1OtlM" },
+        { title: "Đú trend – DK60 (2)", videoId: "1Aytp-uKXVgSAQgwGOPmhFsIgHfTdYZsZ" },
+        { title: "Celebration Day – DK60", videoId: "1eXWwGga657_AdMWtvcW_9HVF6eIqCly-" },
+        { title: "Birthday Teacher – DK60", videoId: "1YlAnjQ2YVSBxP9Zh7Yt58JcVJyfD81L0" },
+        { title: "Woman's Day – DK60", videoId: "1oi4mP-selw9RPNfq7vVaynmOsSsgsA_J" },
+        { title: "Đú trend – DK60 (3)", videoId: "1ka-oGsz4C6qT-gfo-lWTUMx8jkJYejvZ" },
+        { title: "Congress Day – DK60", videoId: "1kCKi2bPMRJHBZd3mABFlri2M-KnSdXLZ" },
+        { title: "1 day of school – DK60", videoId: "1yF6x7r_IqkNm2EdB71N3nvXrYBcuRxQL" }
+    ];
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.body.classList.add("fade-in");
+
+        const timelineTrack = document.getElementById('timelineTrack');
+        const searchInput = document.getElementById("timelineSearch");
+        const videoModal = document.getElementById('videoModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modalVideoFrame = document.getElementById('modalVideoFrame');
+        const mainVideoPlayerContainer = document.getElementById('mainVideoPlayerContainer');
+        const tiktokGrid = document.getElementById('tiktokGrid');
+
+        // Function to create a thumbnail element for a video
+        function createVideoThumbnail(item, type = 'timeline') {
+            const videoId = item.videoId;
+            const thumbnailUrl = `https://drive.google.com/thumbnail?id=${videoId}`;
+            // REMOVED ?autoplay=1 from here, will be added only when iframe is created
+            const videoUrl = `https://drive.google.com/file/d/${videoId}/preview`; 
+
+            const containerDiv = document.createElement('div');
+            if (type === 'timeline') {
+                containerDiv.className = "timeline-item flex-shrink-0 w-60 sm:w-72 bg-white p-3 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer";
+                containerDiv.dataset.date = item.date; 
+                containerDiv.dataset.alt = item.alt; 
+            } else { 
+                containerDiv.className = "bg-slate-50 p-3 rounded-lg shadow-md";
+            }
+            
+            containerDiv.innerHTML = `
+                <div class="thumbnail-container rounded-md" data-video-url="${videoUrl}">
+                    <img src="${thumbnailUrl}" alt="Ảnh xem trước ${item.alt || item.title}" class="w-full object-cover" onerror="this.src='https://placehold.co/288x162/e0e0e0/757575?text=Video+Lỗi'; this.onerror=null;"/>
+                    <div class="play-button-overlay">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                    </div>
+                </div>
+                ${type === 'timeline' ? `<p class="timeline-date text-xs sm:text-sm text-center text-slate-500 font-medium mt-2">${item.date}</p>` : ''}
+                <p class="text-xs text-center text-slate-700 truncate mt-1" title="${item.alt || item.title}">${item.alt || item.title}</p>
+            `;
+            
+            const thumbnailClickable = containerDiv.querySelector('.thumbnail-container');
+            if(thumbnailClickable) {
+                thumbnailClickable.addEventListener('click', () => {
+                    if(modalVideoFrame) {
+                        // Set src WITHOUT autoplay for the modal initially. 
+                        // Google Drive's player has its own play button.
+                        modalVideoFrame.src = videoUrl; 
+                    }
+                    if(videoModal) {
+                        videoModal.classList.remove('hidden');
+                        videoModal.classList.add('flex');
+                    }
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+            return containerDiv;
+        }
+        
+        if (mainVideoPlayerContainer) {
+            const mainVideoId = "1OQJDSPb-Ei0JvvF9LqJDi6rl4PX8_7MZ"; 
+            const mainVideoThumbnailUrl = `https://drive.google.com/thumbnail?id=${mainVideoId}`;
+            const mainVideoUrl = `https://drive.google.com/file/d/${mainVideoId}/preview`;
+
+            const thumbnailContainer = document.createElement('div');
+            thumbnailContainer.className = "thumbnail-container"; 
+            thumbnailContainer.innerHTML = `
+                <img src="${mainVideoThumbnailUrl}" alt="Video kỷ yếu chính" class="w-full object-cover rounded-lg" onerror="this.src='https://placehold.co/800x450/e0e0e0/757575?text=Video+Lỗi'; this.onerror=null;">
+                <div class="play-button-overlay">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                </div>
+            `;
+            mainVideoPlayerContainer.appendChild(thumbnailContainer);
+
+            thumbnailContainer.addEventListener('click', () => {
+                // Load iframe WITHOUT autoplay initially. User will click Google Drive's play button.
+                mainVideoPlayerContainer.innerHTML = `<iframe src="${mainVideoUrl}" allow="autoplay; fullscreen" allowfullscreen="true" class="border-0 w-full h-full"></iframe>`;
+            }, { once: true }); 
+        }
+
+        if (timelineTrack) { 
+            timelineVideoData.forEach(item => {
+                timelineTrack.appendChild(createVideoThumbnail(item, 'timeline'));
+            });
+        }
+        
+        if (tiktokGrid) { 
+            tiktokVideoData.forEach(item => {
+                tiktokGrid.appendChild(createVideoThumbnail(item, 'tiktok'));
+            });
+        }
+
+        if(closeModalBtn && videoModal && modalVideoFrame) { 
+            closeModalBtn.addEventListener('click', () => {
+                videoModal.classList.add('hidden');
+                videoModal.classList.remove('flex');
+                modalVideoFrame.src = ""; 
+                document.body.style.overflow = 'auto';
+            });
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) { 
+                     closeModalBtn.click();
+                }
+            });
+        }
+
+        if (searchInput && timelineTrack) { 
+            searchInput.addEventListener("input", function () {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const allTimelineItems = timelineTrack.querySelectorAll(".timeline-item");
+                allTimelineItems.forEach(item => {
+                    const date = item.dataset.date ? item.dataset.date.toLowerCase() : "";
+                    const alt = item.dataset.alt ? item.dataset.alt.toLowerCase() : "";
+                    if (date.includes(searchTerm) || alt.includes(searchTerm)) {
+                        item.style.display = 'block'; 
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        const internalLinks = document.querySelectorAll("nav a[href$='.html'], header a[href$='.html']");
+        internalLinks.forEach(link => {
+            link.addEventListener("click", function (e) {
+                const href = this.getAttribute("href");
+                if (href === window.location.pathname.split('/').pop() || href.startsWith('#')) return;
+                e.preventDefault();
+                document.body.style.opacity = 0;
+                setTimeout(() => { window.location.href = href; }, 500);
+            });
+        });
+
+        const currentYearEl = document.getElementById('currentYear');
+        if (currentYearEl) {
+            currentYearEl.textContent = new Date().getFullYear();
+        }
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        if (backToTopBtn) {
+             window.onscroll = function() {
+                const shouldBeVisible = document.body.scrollTop > 200 || document.documentElement.scrollTop > 200;
+                if (shouldBeVisible) {
+                    backToTopBtn.classList.remove('hidden-btn');
+                } else {
+                    backToTopBtn.classList.add('hidden-btn');
+                }
+            };
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            if (typeof window.onscroll === 'function') { window.onscroll(); }
+        }
+
+        document.addEventListener("mousemove", function(e) {
+            const x = (e.clientX / window.innerWidth - 0.5) * 10;
+            const y = (e.clientY / window.innerHeight - 0.5) * 10;
+            document.body.style.backgroundPosition = `calc(50% + ${-x}px) calc(50% + ${-y}px)`;
+        });
+
+        const favicons = [
+            'images/logo/logo1.png', 'images/logo/logo2.png', 'images/logo/logo3.png',
+            'images/logo/logo4.png', 'images/logo/logo5.png'
+        ];
+        let currentFaviconIndex = 0;
+        const dynamicFavicon = document.getElementById('dynamic-favicon');
+        if (dynamicFavicon) {
+            setInterval(() => {
+                dynamicFavicon.setAttribute('href', favicons[currentFaviconIndex]);
+                currentFaviconIndex = (currentFaviconIndex + 1) % favicons.length;
+            }, 1000);
+        }
+        
+        if (typeof FB !== 'undefined' && FB.XFBML) {
+            FB.XFBML.parse();
+        }
+    });
+    </script>
+</body>
+</html>
