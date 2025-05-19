@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Thành Viên Lớp - Kỷ yếu DK60</title>
+    <link href="images/logo/logo1.png" id="dynamic-favicon" rel="icon" type="image/png"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-light: #c4b5fd;
+            --primary-dark: #6d28d9;
+            --animation-time: 0.6s;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #334155;
+            margin: 0;
+            background-image: url('images/bg.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            transition: background-position 0.1s ease, opacity var(--animation-time) ease-in-out, background-color 0.3s ease, color 0.3s ease;
+            opacity: 0;
+            scroll-behavior: smooth;
+        }
+
+        html.dark body {
+            background-color: #1e293b;
+            color: #e2e8f0;
+        }
+        /* --- Dark Mode Styles (ĐỒNG BỘ THEO CSS GỐC CỦA USER) --- */
+        html.dark header, html.dark #mobileMenu, html.dark #main-header, html.dark #searchModalContent {
+            background-color: rgba(30, 41, 59, 0.9) !important;
+        }
+        html.dark #searchModalContent { /* Specific for search modal if different */
+             background-color: #2c3e50 !important;
+        }
+
+        /* Nav items bình thường trong dark mode (sẽ được JS thêm/bớt class text-slate-600) */
+        html.dark .text-slate-600 { color: #cbd5e1 !important; }
+
+        html.dark nav .nav-item:not(.active-nav-link):hover { /* Dành cho desktop non-active hover */
+            color: var(--primary-light) !important;
+        }
+        html.dark #mobileMenu .nav-item:not(.text-purple-600):hover { /* Dành cho mobile non-active hover */
+            color: var(--primary-light) !important;
+            background-color: rgba(109, 40, 217, 0.1) !important; /* bg-purple-50 hover dark */
+        }
+
+        /* Style cho nav-item active trong dark mode (THEO CSS GỐC CỦA USER) */
+        html.dark .active-nav-link { /* Cho desktop active text & dot */
+            color: var(--primary-light) !important;
+        }
+        html.dark .active-nav-link::after { /* Cho desktop active dot */
+            background-color: var(--primary-light) !important;
+        }
+        /* Cho mobile active trong dark mode (JS sẽ thêm text-purple-600, font-semibold, bg-purple-50) */
+        html.dark #mobileMenu .text-purple-600.font-semibold.bg-purple-50 {
+            color: var(--primary-light) !important;
+            background-color: rgba(76, 29, 149, 0.3) !important; /* html.dark .bg-purple-50 */
+        }
+
+        html.dark .text-slate-700 { color: #e2e8f0 !important; }
+        html.dark .text-slate-500 { color: #94a3b8 !important; }
+        html.dark .text-purple-700 { color: var(--primary-light) !important; }
+        html.dark .text-purple-500 { color: var(--primary-light) !important; } /* For breadcrumb active */
+        html.dark .border-purple-500 { border-color: var(--primary-light) !important; }
+        html.dark .focus\:ring-purple-500:focus { --tw-ring-color: var(--primary-light) !important; }
+        html.dark .bg-purple-100 { background-color: rgba(109, 40, 217, 0.3) !important; } /* For theme/search buttons */
+        html.dark .bg-purple-600 { background-color: var(--primary-dark) !important; }
+        html.dark .hover\:bg-purple-700:hover { background-color: var(--primary-color) !important; }
+        html.dark .border-slate-300 { border-color: #4b5563 !important; }
+        html.dark .border-slate-200 { border-color: #4b5563 !important; }
+        html.dark .bg-white\/70 { background-color: transparent !important; } /* For team-box */
+        html.dark .bg-white\/80 { background-color: rgba(30, 41, 59, 0.8) !important; } /* For header */
+        html.dark .bg-white\/90 { background-color: rgba(30, 41, 59, 0.9) !important; } /* For mobile menu */
+        html.dark .placeholder-slate-400::placeholder { color: #9ca3af !important; }
+
+        html.dark #searchInputField { /* Renamed from searchModalInput for consistency */
+            background-color: #374151;
+            color: #e5e7eb;
+            border-color: #4b5563;
+        }
+        html.dark #searchInputField::placeholder {
+            color: #9ca3af;
+        }
+        html:not(.dark) .theme-toggle .moon-icon { display: none; }
+        html.dark .theme-toggle .sun-icon { display: none; }
+        /* --- End Dark Mode Styles --- */
+
+        body.fade-in { opacity: 1; }
+        .fancy-title { font-family: 'Dancing Script', cursive; }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(203, 213, 225, 0.3); border-radius: 10px; }
+        html.dark ::-webkit-scrollbar-track { background: #2d3748; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        html.dark ::-webkit-scrollbar-thumb { background: var(--primary-dark); }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        html.dark ::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+
+        #backToTopBtn, #viewAllBtnStyled { /* Combined for initial state */
+            position: fixed;
+            bottom: 20px;
+            z-index: 50;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            opacity: 0; visibility: hidden; transform: scale(0.9); /* Default hidden */
+        }
+        #backToTopBtn { /* Specific position */
+            right: 20px;
+        }
+        #viewAllBtnStyled { /* Specific position */
+            left: 20px;
+            right: auto;
+        }
+        /* Class to make buttons visible */
+        #backToTopBtn.visible, #viewAllBtnStyled.visible {
+            opacity: 1; visibility: visible; transform: scale(1);
+        }
+        #backToTopBtn:hover, #viewAllBtnStyled:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Styles for DESKTOP active nav link */
+        .nav-item.active-nav-link {
+            position: relative;
+            color: var(--primary-dark) !important;
+            font-weight: 600 !important;
+        }
+        .nav-item.active-nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+        #mobileMenu .nav-item.active-nav-link::after {
+            display: none;
+        }
+
+        .glowing { animation: glow 2s ease-in-out infinite alternate; }
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary-light), 0 0 20px var(--primary-light); }
+            to { text-shadow: 0 0 10px #fff, 0 0 15px var(--primary-color), 0 0 20px var(--primary-color), 0 0 25px var(--primary-color); }
+        }
+        #searchModal {
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Animation for popup */
+        @keyframes popupShow {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .popup-animation {
+            animation: popupShow 0.3s ease-out forwards;
+        }
+
+        /* Styling for member quotes */
+        .member-quote {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: calc(1.2em * 3);
+            line-height: 1.2em;
+        }
+        /* Dark mode for teacher section and team boxes if needed */
+        html.dark .teacher-section {
+            background-image: linear-gradient(to bottom right, rgba(55, 48, 163, 0.2), rgba(76, 29, 149, 0.2), rgba(30, 58, 138, 0.2)); /* Example dark gradient */
+        }
+        html.dark .team-box {
+            background-color: rgba(51, 65, 85, 0.7); /* slate-700 with alpha */
+        }
+        html.dark .member-card {
+            background-color: transparent; /* slate-600 */
+        }
+        html.dark #memberDetailView > div, html.dark #selectOverlay > div { /* Popup content bg in dark mode */
+            background-color: transparent; /* slate-800 */
+        }
+
+         /* Style cho các thẻ thành viên trong modal tìm kiếm */
+        #searchResultsContainer .member-card-search-result {
+            margin-bottom: 0.5rem; /* Khoảng cách giữa các thẻ */
+            padding: 0.75rem; /* p-3 */
+            background-color: #f8fafc; /* bg-slate-50 */
+            border: 1px solid #e2e8f0; /* border-slate-200 */
+            border-radius: 0.375rem; /* rounded-md */
+            cursor: pointer; /* Thêm con trỏ tay khi hover */
+            display: flex; /* Hiển thị ngang */
+            align-items: center;
+            gap: 0.75rem; /* gap-3 */
+            transition: background-color 0.2s ease;
+        }
+
+        html.dark #searchResultsContainer .member-card-search-result {
+             background-color: #334155 !important; /* bg-slate-700 */
+             border-color: #475569 !important; /* border-slate-600 */
+        }
+
+        #searchResultsContainer .member-card-search-result:hover {
+            background-color: #e2e8f0; /* hover:bg-slate-200 */
+        }
+         html.dark #searchResultsContainer .member-card-search-result:hover {
+             background-color: #475569 !important; /* hover:bg-slate-600 */
+         }
+
+        #searchResultsContainer .member-card-search-result img {
+             width: 32px; /* w-8 */
+             height: 32px; /* h-8 */
+             border-radius: 9999px; /* rounded-full */
+             object-fit: cover;
+             flex-shrink: 0;
+        }
+
+        #searchResultsContainer .member-card-search-result .info {
+             flex-grow: 1;
+             min-width: 0; /* Cho phép truncate */
+        }
+
+        #searchResultsContainer .member-card-search-result h4 {
+             font-size: 0.875rem; /* text-sm */
+             font-weight: 600; /* font-semibold */
+             color: #6d28d9; /* text-purple-800 */
+             margin-bottom: 0.125rem; /* mb-0.5 */
+             truncate;
+        }
+         html.dark #searchResultsContainer .member-card-search-result h4 {
+             color: var(--primary-light) !important;
+         }
+
+        #searchResultsContainer .member-card-search-result p {
+             font-size: 0.75rem; /* text-xs */
+             color: #64748b; /* text-slate-500 */
+             truncate;
+        }
+         html.dark #searchResultsContainer .member-card-search-result p {
+             color: #cbd5e1 !important; /* text-slate-300 */
+         }
+
+
+    </style>
+</head>
+<body class="text-slate-800">
+
+<div id="loading-overlay" class="fixed inset-0 bg-purple-900 z-[9999] flex items-center justify-center transition-opacity duration-700">
+    <div class="loading-content text-center flex flex-col items-center justify-center">
+        <img src="images/about/avatar.png" alt="Avatar của Luonghii" class="avatar rounded-full w-60 h-60 mb-4 object-cover">
+        <div>
+            <h1 class="fancy-title text-5xl text-white mb-4 glowing text-center">Memory of DK60<br>by Luonghiii</h1>
+            <div class="flex space-x-1 justify-center">
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0s"></div>
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <header class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50 transition-all duration-300" id="main-header">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl sm:text-3xl font-bold fancy-title text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-600 transition-all duration-500">
+                        🎓 Ký ức DK60
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="nav-item text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Trang Chủ</a>
+                    <a href="about.html" class="nav-item text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Giới Thiệu</a>
+                    <a href="contact.html" class="nav-item text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Liên Hệ</a>
+                    <a href="thanh-vien-lop.html" class="nav-item text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Thành Viên</a>
+                    </nav>
+                <div class="hidden md:flex space-x-3">
+                    <button id="searchButton" class="bg-purple-100 hover:bg-purple-200 text-purple-600 p-2 rounded-full transition-colors" title="Tìm kiếm">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </button>
+                    <button id="themeToggle" class="theme-toggle bg-purple-100 hover:bg-purple-200 text-purple-600 p-2 rounded-full transition-colors" title="Chế độ tối/sáng">
+                        <svg class="w-5 h-5 sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                        </svg>
+                        <svg class="w-5 h-5 moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" aria-label="Mở menu" class="text-slate-600 hover:text-purple-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden hidden bg-white/90 backdrop-blur-md shadow-lg">
+            <a href="index.html" class="nav-item block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Trang Chủ</a>
+            <a href="about.html" class="nav-item block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Giới Thiệu</a>
+            <a href="contact.html" class="nav-item block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Liên Hệ</a>
+            <a href="thanh-vien-lop.html" class="nav-item block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Thành Viên</a>
+            <div class="flex space-x-3 p-4 border-t border-slate-100 html.dark:border-slate-700">
+                <button id="mobileSearchButton" class="bg-purple-100 hover:bg-purple-200 text-purple-600 p-2 rounded-full transition-colors flex-1" title="Tìm kiếm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <button id="mobileThemeToggle" class="theme-toggle bg-purple-100 hover:bg-purple-200 text-purple-600 p-2 rounded-full transition-colors flex-1" title="Chế độ tối/sáng">
+                    <svg class="w-5 h-5 mx-auto sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg>
+                    <svg class="w-5 h-5 mx-auto moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="progressBar" class="h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 w-0 fixed top-0 left-0 z-[60] transition-all duration-200"></div>
+
+    <button id="viewAllBtnStyled" title="Xem danh sách theo tổ"
+            class="p-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-full shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+            <line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+    </button>
+
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div class="text-sm text-slate-500 mb-6 flex items-center">
+             <a href="index.html" class="hover:text-purple-600 transition-colors">Trang chủ</a>
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 mx-2">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+             </svg>
+             <span class="text-purple-600 font-medium">Thành Viên Lớp</span>
+        </div>
+
+        <div id="mainContentWrapper">
+            <section class="teacher-section mb-12 md:mb-16 bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 p-6 sm:p-8 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10 max-w-3xl mx-auto">
+                    <div class="flex-shrink-0 text-center">
+                        <img alt="Nguyễn Thị Hưng" class="profile w-40 h-52 sm:w-48 sm:h-64 object-cover rounded-lg border-4 border-pink-300 shadow-lg mx-auto cursor-pointer hover:opacity-90 transition-opacity"
+                             data-index="0" src="images/teachers/Cô Hưng.jpg"
+                             onerror="this.src='https://placehold.co/192x256/fbcfe8/9d174d?text=Cô+Hưng'; this.onerror=null;"/>
+                    </div>
+                    <div class="info text-center md:text-left mt-4 md:mt-0">
+                        <h2 class="text-3xl font-bold text-pink-600 mb-2 cursor-pointer hover:text-pink-700 transition-colors fancy-title" data-index="0">Nguyễn Thị Hưng</h2>
+                        <p class="text-lg text-slate-700 font-medium mb-1">👩‍🏫 Giáo viên chủ nhiệm</p>
+                        <p class="text-md text-slate-600">🎂 Ngày sinh: 09/01/1973</p>
+                        <p class="text-md text-slate-600">📞 Điện thoại: <a href="tel:0966292255" class="hover:underline">0966292255</a></p>
+                        <p class="text-md text-slate-600"> 📍  Địa chỉ: Hoà Hiếu, Thái Hoà, Nghệ An</p>
+                         <a href="https://www.facebook.com/100024463163465/" target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-pink-500 hover:text-pink-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="inline-block mr-1 h-5 w-5">
+                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/>
+                            </svg>
+                            Facebook
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="team-grid-section">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 md:mb-12 text-orange-700 fancy-title">💖 Các Tổ Lớp Mình 💖</h2>
+                <div class="team-grid grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div class="team-box bg-white/70 backdrop-blur-md p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-center mb-6 text-yellow-600 fancy-title">Tổ 1</h3>
+                        <div class="space-y-4"></div>
+                    </div>
+                    <div class="team-box bg-white/70 backdrop-blur-md p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-center mb-6 text-green-600 fancy-title">Tổ 2</h3>
+                        <div class="space-y-4"></div>
+                    </div>
+                    <div class="team-box bg-white/70 backdrop-blur-md p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-center mb-6 text-blue-600 fancy-title">Tổ 3</h3>
+                        <div class="space-y-4"></div>
+                    </div>
+                    <div class="team-box bg-white/70 backdrop-blur-md p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-center mb-6 text-red-600 fancy-title">Tổ 4</h3>
+                        <div class="space-y-4"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="memberDetailView" class="fixed inset-0 bg-slate-800/75 backdrop-blur-sm p-4 sm:p-8 z-[9900] overflow-y-auto hidden items-center justify-center popup-animation">
+            <div class="bg-white w-full max-w-3xl mx-auto rounded-xl shadow-2xl p-6 sm:p-8 relative transform transition-all duration-300 max-h-[90vh] overflow-y-auto">
+                <button id="backToListBtn" title="Đóng"
+                        class="absolute top-4 right-4 text-slate-500 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <div class="detail-content-wrapper flex flex-col md:flex-row gap-6 md:gap-8 items-start">
+                    <div class="detail-image-column w-full md:w-1/3 flex-shrink-0">
+                        <img alt="Ảnh thành viên" id="detailImage" src="" class="w-full h-auto object-cover rounded-lg shadow-md border-4 border-slate-200"
+                             onerror="this.src='https://placehold.co/300x400/cccccc/999999?text=Ảnh+Lỗi'; this.onerror=null;"/>
+                    </div>
+                    <div class="detail-info-column w-full md:w-2/3">
+                        <h2 id="detailName" class="text-3xl font-bold text-purple-700 mb-1 fancy-title">Tên Thành viên</h2>
+                        <p class="text-md text-slate-500 mb-3" >Biệt danh: <span id="detailNickname" class="font-medium text-slate-700"></span></p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-slate-600">
+                            <p><strong>🎂 Ngày sinh:</strong> <span id="detailBirthday"></span></p>
+                            <p><strong>👥 Tổ:</strong> <span id="detailGroup"></span></p>
+                            <p><strong>📞 SĐT:</strong> <span id="detailPhone"></span></p>
+                            <p class="col-span-1 sm:col-span-2"><strong>📍 Địa chỉ:</strong> <span id="detailAddress"></span></p>
+                            <p class="col-span-1 sm:col-span-2"><strong>🔗 Facebook:</strong> <span id="detailFacebook"></span></p>
+                        </div>
+
+                        <hr class="my-4 border-slate-200"/>
+
+                        <h4 class="text-lg font-semibold text-purple-600 mb-1">Sở thích 🎨:</h4>
+                        <p id="detailHobbies" class="text-sm text-slate-600 mb-3 leading-relaxed"></p>
+
+                        <h4 class="text-lg font-semibold text-purple-600 mb-1">Kỷ niệm đáng nhớ 💭:</h4>
+                        <blockquote id="detailMemory" class="text-sm text-slate-600 italic border-l-4 border-purple-300 pl-3 py-1 bg-purple-50 rounded-r-md leading-relaxed"></blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="selectOverlay" class="fixed inset-0 bg-slate-800/75 backdrop-blur-sm p-4 z-[9950] overflow-y-auto hidden items-center justify-center popup-animation">
+            <div class="bg-white w-full max-w-2xl mx-auto rounded-xl shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+                <button id="closeSelectOverlayBtn" title="Đóng"
+                        class="absolute top-4 right-4 text-slate-500 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-slate-100">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <h2 class="text-2xl font-bold text-center mb-6 text-purple-700 fancy-title">Chọn thành viên theo tổ</h2>
+                <div id="memberListPopup" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-300 py-8 mt-12 md:mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">&copy; <span id="currentYear"></span> Made with ❤️ by Luonghii & DK60 Collective</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" title="Về đầu trang"
+            class="p-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-full shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up">
+            <line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
+
+    <div id="searchModal" class="fixed inset-0 z-[9990] p-4 flex items-center justify-center hidden transition-opacity duration-300 ease-in-out opacity-0">
+        <div id="searchModalOverlay" class="absolute inset-0"></div>
+        <div id="searchModalContent" class="bg-white p-6 rounded-lg shadow-xl w-full max-w-lg relative transform transition-all duration-300 ease-in-out scale-95 opacity-0">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-purple-700 fancy-title">Tìm kiếm thông tin</h3>
+                <button id="closeSearchModal" aria-label="Đóng tìm kiếm" class="text-slate-400 hover:text-red-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <input type="text" id="searchInputField" placeholder="Nhập từ khóa tìm kiếm..." class="w-full p-3 border border-slate-300 rounded-md focus:ring-purple-500 focus:border-purple-500 mb-4 text-sm">
+            <div id="searchResultsContainer" class="text-sm text-slate-600 max-h-60 overflow-y-auto">
+                 <p class="text-center text-slate-600">Gõ để bắt đầu tìm kiếm thành viên.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Hardcoded member data (based on your original HTML structure)
+    const allMemberData = [
+        { index: 0, name: "Nguyễn Thị Hưng", nickname: "Cô Hưng", birthday: "09/01/1973", group: "Giáo viên chủ nhiệm", phone: "0966292255", address: "Hoà Hiếu, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100024463163465/", hobbies: "Chưa cập nhật", memory: "Chưa cập nhật", src: "images/teachers/Cô Hưng.jpg", alt: "Nguyễn Thị Hưng", isTeacher: true, subject: "Chủ nhiệm" },
+        // Tổ 1
+        { index: 1, name: "Lê Thị Vân Anh", nickname: "Chiến binh nhỏ", birthday: "24/07/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100040985243017/", hobbies: "Đi bộ 🚶‍♂️, Du lịch ✈️", memory: "“Sẽ chẳng còn ai gõ vào vai bảo tớ: ‘Ê, mai kiểm tra đó!’ nữa.”", src: "images/members/Vân Anh.jpg", alt: "Lê Thị Vân Anh", isTeacher: false },
+        { index: 2, name: "Nguyễn Thị Trúc Anh", nickname: "Nụ cười tỏa nắng", birthday: "03/03/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100050996419335/", hobbies: "Nhảy múa 💃, Đá bóng ⚽", memory: "“Tớ chưa kịp nói với cậu rằng: cảm ơn vì đã ở bên tớ suốt những ngày cuối cùng ấy.”", src: "images/members/Trúc Anh.jpg", alt: "Nguyễn Thị Trúc Anh", isTeacher: false },
+        { index: 3, name: "Mai Thị Ngọc Ánh", nickname: "Bé mọt sách", birthday: "13/12/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100060333680946/", hobbies: "Đá bóng ⚽, Bơi lội 🏊‍♂️", memory: "“3 năm không dài, nhưng đủ để thương một tập thể!”", src: "images/members/Ngọc Ánh.jpg", alt: "Mai Thị Ngọc Ánh", isTeacher: false },
+        { index: 4, name: "Nguyễn Thị Nguyệt Ánh", nickname: "Bông hoa trầm tính", birthday: "01/11/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100064654927354/", hobbies: "Nhảy múa 💃, Du lịch ✈️", memory: "“Lưu giữ thật kỹ những khoảnh khắc này bạn nhé.”", src: "images/members/Nguyệt Ánh.jpg", alt: "Nguyễn Thị Nguyệt Ánh", isTeacher: false },
+        { index: 5, name: "Đàm Minh Châu", nickname: "Nụ cười tỏa nắng", birthday: "13/12/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100062770101700/", hobbies: "Cắm trại 🏕️, Đi bộ 🚶‍♂️", memory: "“Cảm ơn vì đã cùng nhau tạo nên ký ức thật đẹp.”", src: "images/members/Minh châu.jpg", alt: "Đàm Minh Châu", isTeacher: false },
+        { index: 6, name: "Nguyễn Đức Cường", nickname: "Người đẹp ngủ gật", birthday: "19/02/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100038601021744/", hobbies: "Cầu lông 🏸, Chụp ảnh 📸", memory: "“Tớ không nhớ hết các tiết học, nhưng tớ nhớ cảm giác ngồi cạnh các cậu.”", src: "images/members/Đức Cường.jpg", alt: "Nguyễn Đức Cường", isTeacher: false },
+        { index: 7, name: "Hoàng Thị Kim Dung", nickname: "Bông hoa nhỏ", birthday: "21/08/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100044748920313/", hobbies: "Chụp ảnh 📸, Vẽ tranh 🎨", memory: "“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”", src: "images/members/Kim Dung.jpg", alt: "Hoàng Thị Kim Dung", isTeacher: false },
+        { index: 8, name: "Tạ Đức Dương", nickname: "Hoàng tử thể thao", birthday: "07/01/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100071441122498/", hobbies: "Ca hát 🎤, Đá bóng ⚽", memory: "“DK60 – một thanh xuân rực rỡ không thể nào quên.”", src: "images/members/Đức Dương.jpg", alt: "Tạ Đức Dương", isTeacher: false },
+        { index: 9, name: "Ngô Thị Khánh Linh", nickname: "Không có", birthday: "11/11/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100041252536278/", hobbies: "Nghe nhạc 🎧, Xem phim 🎬", memory: "“Dù mai này ta bận rộn, có lẽ ta vẫn bất giác nhớ nhau vào một chiều tháng 5.”", src: "images/members/Khánh Linh.jpg", alt: "Ngô Thị Khánh Linh", isTeacher: false },
+        { index: 10, name: "Nguyễn Trần Thục Hân", nickname: "Nhà thơ nhí", birthday: "05/09/2007", group: "Tổ 1", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100015433509578/", hobbies: "Xem phim 🎬, Chơi game 🎮", memory: "“Hẹn gặp lại ở tương lai – mỗi đứa đều thành công nhé!”", src: "images/members/Thục Hân.jpg", alt: "Nguyễn Trần Thục Hân", isTeacher: false },
+        // Tổ 2
+        { index: 11, name: "Đặng Hồng Hạnh", nickname: "Công chúa nhỏ", birthday: "03/09/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100065403351854/", hobbies: "Đi bộ 🚶‍♂️, Chụp ảnh 📸", memory: "“Mỗi lần nhìn lại áo lớp, tớ lại thấy cả một thời vô tư ở đó.”", src: "images/members/Hồng Hạnh.jpg", alt: "Đặng Hồng Hạnh", isTeacher: false },
+        { index: 12, name: "Trần Văn Hữu", nickname: "Hoàng tử thể thao", birthday: "26/06/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100024934350350/", hobbies: "Cầu lông 🏸, Bóng chuyền 🏐", memory: "“Lớp học sẽ im ắng hơn, không còn tiếng cậu hát nhảm mỗi sáng nữa đâu.”", src: "images/members/Văn Hữu.jpg", alt: "Trần Văn Hữu", isTeacher: false },
+        { index: 13, name: "Nguyễn Thị Thúy Hường", nickname: "Ca sĩ bất đắc dĩ", birthday: "10/06/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Hoà Hiếu, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100053983963442/", hobbies: "Ca hát 🎤, Nấu ăn 🍳", memory: "“Tớ từng mong lớn nhanh, nhưng giờ tớ chỉ ước thời gian ngừng lại một chút.”", src: "images/members/Thuý Hường.jpg", alt: "Nguyễn Thị Thúy Hường", isTeacher: false },
+        { index: 14, name: "Võ Trung Quân", nickname: "Ca sĩ bất đắc dĩ", birthday: "30/01/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Quang Tiến, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100079165890153/", hobbies: "Thể thao 🏃, Nấu ăn 🍳", memory: "“Lớp mình có thể không hoàn hảo, nhưng là nơi tớ muốn quay lại nhất”", src: "images/members/Trung Quân.jpg", alt: "Võ Trung Quân", isTeacher: false },
+        { index: 15, name: "Trần Hương Giang", nickname: "Chuyên gia troll", birthday: "01/09/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100048042652185/", hobbies: "Vẽ tranh 🎨, Nghe nhạc 🎧", memory: "“Sau này, mỗi người một ngả – nhưng tớ tin: một phần của tớ sẽ mãi ở lại nơi này.”", src: "images/members/Hương Giang.jpg", alt: "Trần Hương Giang", isTeacher: false },
+        { index: 16, name: "Hoàng Ngọc Bảo Châu", nickname: "Học bá chính hiệu", birthday: "07/08/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100064034362619/", hobbies: "Đọc sách 📚, Vẽ tranh 🎨", memory: "“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”", src: "images/members/Bảo Châu.jpg", alt: "Hoàng Ngọc Bảo Châu", isTeacher: false },
+        { index: 17, name: "Ngô Thị Thùy Dương", nickname: "Học bá chính hiệu", birthday: "02/09/2007", group: "Tổ 2", phone: "0919800452", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100069609275971/", hobbies: "Chụp ảnh 📷, Xem phim 🎬, Đi du lịch ✈️", memory: "“Lớp mình không chỉ học cùng nhau – mà đã sống thanh xuân cùng nhau.”", src: "images/members/Thuỳ Dương.jpg", alt: "Ngô Thị Thùy Dương", isTeacher: false },
+        { index: 18, name: "Hồ Nhật Anh", nickname: "Người đẹp ngủ gật", birthday: "21/08/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100049340421919/", hobbies: "Bơi lội 🏊‍♂️, Nấu ăn 🍳", memory: "“Cả lớp học này từng là thế giới nhỏ của tớ.”", src: "images/members/Nhật Anh.jpg", alt: "Hồ Nhật Anh", isTeacher: false },
+        { index: 19, name: "Hoàng Văn Thành Đạt", nickname: "Hoàng tử thể thao", birthday: "05/06/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Long Sơn, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100040965571351/", hobbies: "Đọc sách 📚, Xem phim 🎬", memory: "“Tớ sẽ nhớ cả những tiếng cười lúc trốn học, và cả những lúc bị gọi lên bảng run như cầy sấy.”", src: "images/members/Thành Đạt.jpg", alt: "Hoàng Văn Thành Đạt", isTeacher: false },
+        { index: 20, name: "Nguyễn Thị Kim Anh", nickname: "Nữ hoàng ăn vặt", birthday: "22/10/2007", group: "Tổ 2", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100024462409745/", hobbies: "Xem phim 🎬, Chụp ảnh 📸", memory: "\"Tớ chẳng ngờ ba năm lại trôi nhanh như thế – nhanh đến mức chưa kịp nói hết lời cảm ơn.\"", src: "images/members/Kim Anh.jpg", alt: "Nguyễn Thị Kim Anh", isTeacher: false },
+        // Tổ 3
+        { index: 21, name: "Ngô Đình Nguyên", nickname: "Nhà thơ nhí", birthday: "11/02/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100027086807477/", hobbies: "Nghe nhạc 🎧, Bơi lội 🏊‍♂️", memory: "“Mỗi cái tên trong lớp là một mảnh ghép – thiếu ai cũng không trọn vẹn.”", src: "images/members/Đình Nguyên.jpg", alt: "Ngô Đình Nguyên", isTeacher: false },
+        { index: 22, name: "Trương Thị Phương Thảo", nickname: "Học bá chính hiệu", birthday: "10/08/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100083469237795/", hobbies: "Đi bộ 🚶‍♂️, Chụp ảnh 📸", memory: "“Dù sau này mỗi đứa một nơi, tớ vẫn nhớ lớp mình lắm!”", src: "images/members/Phương Thảo.jpg", alt: "Trương Thị Phương Thảo", isTeacher: false },
+        { index: 23, name: "Nguyễn Thị Mai", nickname: "Nghệ sĩ tiềm năng", birthday: "11/08/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Hoà Hiếu, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100067564356746/", hobbies: "Du lịch ✈️, Chụp ảnh 📸", memory: "“Thay vì nói 'giá như', tớ nói 'cảm ơn' – vì cậu đã là một phần của thanh xuân tớ.”", src: "images/members/Thị Mai.jpg", alt: "Nguyễn Thị Mai", isTeacher: false },
+        { index: 24, name: "Đặng Trần Minh Thư", nickname: "Minh Thư", birthday: "03/06/2007", group: "Tổ 3", phone: "0988630503", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100057378578702/", hobbies: "Làm đẹp ✨", memory: "“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”", src: "images/members/Minh Thư.jpg", alt: "Đặng Trần Minh Thư", isTeacher: false },
+        { index: 25, name: "Trương Thị Huyền Trang", nickname: "Mèo lười", birthday: "10/07/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Nghĩa Thành, Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100039885589892/", hobbies: "Chơi game 🎮, Ca hát 🎤", memory: "“Một thời để nhớ – một đời để thương!”", src: "images/members/Huyền Trang.jpg", alt: "Trương Thị Huyền Trang", isTeacher: false },
+        { index: 26, name: "Trương Nguyễn Lệ Quyên", nickname: "Công chúa nhỏ", birthday: "16/11/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Long Sơn, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100044148520842/", hobbies: "Đi bộ 🚶‍♂️, Cầu lông 🏸", memory: "“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”", src: "images/members/Lệ Quyên.jpg", alt: "Trương Nguyễn Lệ Quyên", isTeacher: false },
+        { index: 27, name: "Đặng Thị Hồng Phương", nickname: "Nữ hoàng ăn vặt", birthday: "16/03/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100084887945223/", hobbies: "Đá bóng ⚽, Ca hát 🎤", memory: "“Thật vui vì chúng ta đã đi qua một đoạn đường cùng nhau!”", src: "images/members/Hồng Phương.jpg", alt: "Đặng Thị Hồng Phương", isTeacher: false },
+        { index: 28, name: "Nguyễn Xuân Đức Lương", nickname: "Ca sĩ bất đắc dĩ", birthday: "29/05/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Tây Hiếu, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100046707224598/", hobbies: "Đá bóng ⚽, Nhảy múa 💃", memory: "“Có những người chỉ gặp 3 năm, nhưng nhớ đến cả đời.”", src: "images/members/Đức Lương.jpg", alt: "Nguyễn Xuân Đức Lương", isTeacher: false },
+        { index: 29, name: "Trần Yến Nhi", nickname: "Chuyên gia troll", birthday: "18/03/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Hòa Hiếu, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100073064007672/", hobbies: "Đọc sách 📚, Du lịch ✈️", memory: "“Chúng mình đã từng mơ cùng nhau, từng ôn thi cùng nhau… và giờ thì chia tay cùng nhau.”", src: "images/members/Yến Nhi.jpg", alt: "Trần Yến Nhi", isTeacher: false },
+        { index: 30, name: "Đậu Thị Hoài Phương", nickname: "Soái ca lớp học", birthday: "10/10/2007", group: "Tổ 3", phone: "Chưa cập nhật", address: "Nghĩa Thành, Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100073610088229/", hobbies: "Đọc sách 📚, Du lịch ✈️", memory: "“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”", src: "images/members/Hoài Phương.jpg", alt: "Đậu Thị Hoài Phương", isTeacher: false },
+        // Tổ 4
+        { index: 31, name: "Hoàng Văn Hải", nickname: "Chuyên gia troll", birthday: "09/02/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Quang Tiến, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100043352546589/", hobbies: "Nấu ăn 🍳, Cắm trại 🏕️", memory: "“Không ai biết lần cuối là khi nào – cho đến khi nó thật sự đến.”", src: "images/members/Văn Hải.jpg", alt: "Hoàng Văn Hải", isTeacher: false },
+        { index: 32, name: "Vũ Quốc Huy", nickname: "Mèo lười", birthday: "22/01/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Quang Tiến, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100034338531010/", hobbies: "Đá bóng ⚽, Chụp ảnh 📸", memory: "“Tạm biệt nhé – những cái tên đã trở nên thân quen như hơi thở.”", src: "images/members/Quốc Huy.jpg", alt: "Vũ Quốc Huy", isTeacher: false },
+        { index: 33, name: "Phùng Đoàn Đan Linh", nickname: "Hoàng tử thể thao", birthday: "15/03/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100027468173901/", hobbies: "Ca hát 🎤, Bơi lội 🏊‍♂️", memory: "“Tớ chưa từng nghĩ chia tay lại buồn đến vậy…”", src: "images/members/Đan Linh.jpg", alt: "Phùng Đoàn Đan Linh", isTeacher: false },
+        { index: 34, name: "Nguyễn Việt Quang", nickname: "Chiến binh nhỏ", birthday: "24/03/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Long Sơn, Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100069635040386/", hobbies: "Ca hát 🎤, Du lịch ✈️", memory: "“Cảm ơn vì đã cùng nhau tạo nên ký ức thật đẹp.”", src: "images/members/Việt Quang.jpg", alt: "Nguyễn Việt Quang", isTeacher: false },
+        { index: 35, name: "Võ Thị Tú Quyên", nickname: "Học bá chính hiệu", birthday: "22/05/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Nghĩa Trung, Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100037156681733/", hobbies: "Nấu ăn 🍳, Xem phim 🎬", memory: "“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”", src: "images/members/Tú Quyên.jpg", alt: "Võ Thị Tú Quyên", isTeacher: false },
+        { index: 36, name: "Ngô Thị Hà Thương", nickname: "Nữ hoàng ăn vặt", birthday: "12/04/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Nghĩa Trung, Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100036865877656/", hobbies: "Cắm trại 🏕️, Du lịch ✈️", memory: "“Mong sau này, khi ai đó nhắc đến DK60, cậu sẽ mỉm cười”", src: "images/members/Hà Thương.jpg", alt: "Ngô Thị Hà Thương", isTeacher: false },
+        { index: 37, name: "Đặng Thái Bảo Trâm", nickname: "Học bá chính hiệu", birthday: "03/12/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100050402257061/", hobbies: "Bơi lội 🏊‍♂️, Chơi game 🎮", memory: "“Tuổi học trò chỉ có một lần – và bạn là một phần trong đó.”", src: "images/members/Bảo Trâm.jpg", alt: "Đặng Thái Bảo Trâm", isTeacher: false },
+        { index: 38, name: "Nguyễn Thị Phương Trinh", nickname: "Cá", birthday: "05/07/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Nghĩa Đàn, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100081709906508/", hobbies: "Chụp ảnh 📸, Trượt ván 🛹, Vẽ 🎨", memory: "“Thanh xuân là món quà tuyệt vời nhất mà lớp mình có.”", src: "images/members/Phương Trinh.jpg", alt: "Nguyễn Thị Phương Trinh", isTeacher: false },
+        { index: 39, name: "Hồ Lê Thái Uyên", nickname: "Nữ hoàng ăn vặt", birthday: "05/03/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Thái Hòa, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100067119476608/", hobbies: "Chơi game 🎮, Nhảy múa 💃", memory: "“3 năm không dài, nhưng đủ để thương một tập thể!”", src: "images/members/Thái Uyên.jpg", alt: "Hồ Lê Thái Uyên", isTeacher: false },
+        { index: 40, name: "Nguyễn Tố Uyên", nickname: "Nụ cười tỏa nắng", birthday: "04/10/2007", group: "Tổ 4", phone: "Chưa cập nhật", address: "Long Sơn, Thái Hoà, Nghệ An, Việt Nam", fb: "https://www.facebook.com/100073587274714/", hobbies: "Chơi game 🎮, Đá bóng ⚽", memory: "“Cảm ơn vì đã từng ngồi cạnh nhau – dù chỉ là một tiết học ngắn ngủi.”", src: "images/members/Tố Uyên.jpg", alt: "Nguyễn Tố Uyên", isTeacher: false }
+    ];
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // --- START: Scripts chung đồng bộ từ các trang khác ---
+        const loadingOverlay = document.getElementById('loading-overlay');
+        if (loadingOverlay) {
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--animation-time').replace('s',''))*1000 * 0.9);
+            }, 1500);
+        }
+
+        document.body.classList.add("fade-in");
+
+        const internalLinks = document.querySelectorAll("header nav .nav-item, #mobileMenu .nav-item");
+        internalLinks.forEach(link => {
+            link.addEventListener("click", function (e) {
+                const href = this.getAttribute("href");
+                const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+                if (href === currentPath || (href && href.startsWith('#'))) return; // Kiểm tra href có tồn tại
+                e.preventDefault();
+                document.body.style.opacity = 0;
+                setTimeout(() => { window.location.href = href; }, parseFloat(getComputedStyle(document.body).transitionDuration.replace('s',''))*1000 * 0.9);
+            });
+        });
+
+        const currentYearEl = document.getElementById('currentYear');
+        if (currentYearEl) {
+            currentYearEl.textContent = new Date().getFullYear();
+        }
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const viewAllBtn = document.getElementById('viewAllBtnStyled'); // Đã đổi tên biến cho rõ ràng hơn
+
+        if (backToTopBtn && viewAllBtn) { // Cập nhật điều kiện
+            window.onscroll = function() {
+                const shouldBeVisible = document.body.scrollTop > 100 || document.documentElement.scrollTop > 100;
+                if (shouldBeVisible) {
+                    backToTopBtn.classList.add('visible');
+                    viewAllBtn.classList.add('visible'); // Thêm class visible cho viewAllBtn
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                    viewAllBtn.classList.remove('visible'); // Bỏ class visible cho viewAllBtn
+                }
+            };
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+             if (typeof window.onscroll === 'function') { window.onscroll(); } // Initial check
+        }
+
+        document.addEventListener("mousemove", function(e) {
+            const x = (e.clientX / window.innerWidth - 0.5) * 10;
+            const y = (e.clientY / window.innerHeight - 0.5) * 10;
+            document.body.style.backgroundPosition = `calc(50% + ${-x}px) calc(50% + ${-y}px)`;
+        });
+
+        const favicons = [
+            'images/logo/logo1.png', 'images/logo/logo2.png', 'images/logo/logo3.png',
+            'images/logo/logo4.png', 'images/logo/logo5.png'
+        ];
+        let currentFaviconIndex = 0;
+        const dynamicFavicon = document.getElementById('dynamic-favicon');
+        if (dynamicFavicon) {
+            setInterval(() => {
+                dynamicFavicon.setAttribute('href', favicons[currentFaviconIndex]);
+                currentFaviconIndex = (currentFaviconIndex + 1) % favicons.length;
+            }, 1000);
+        }
+
+        const progressBar = document.getElementById('progressBar');
+        if (progressBar) {
+            window.addEventListener('scroll', () => {
+                const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (window.scrollY / scrollTotal) * 100;
+                progressBar.style.width = `${scrolled}%`;
+            });
+        }
+
+        // Logic xử lý active state cho navigation links
+        const navLinksForActiveState = document.querySelectorAll('header nav .nav-item, #mobileMenu .nav-item');
+        const currentPageForActive = window.location.pathname.split('/').pop() || 'index.html';
+
+        navLinksForActiveState.forEach(link => {
+            link.classList.remove('active-nav-link', 'text-purple-600', 'font-semibold', 'bg-purple-50', 'border-b-2', 'border-purple-500');
+            link.classList.add('text-slate-600');
+
+            if (link.closest('#mobileMenu')) {
+                 link.classList.add('hover:text-purple-600', 'hover:bg-purple-50');
+            } else {
+                 link.classList.add('hover:text-purple-600');
+            }
+
+            const linkPath = (link.getAttribute('href') || "").split('/').pop() || 'index.html';
+            if (linkPath === currentPageForActive) {
+                link.classList.remove('text-slate-600', 'hover:text-purple-600', 'hover:bg-purple-50');
+                if (link.closest('#mobileMenu')) {
+                    link.classList.add('text-purple-600', 'font-semibold', 'bg-purple-50');
+                } else {
+                    link.classList.add('active-nav-link');
+                }
+            }
+        });
+
+        // Search Modal Logic
+        const searchButton = document.getElementById('searchButton');
+        const mobileSearchButton = document.getElementById('mobileSearchButton');
+        const searchModal = document.getElementById('searchModal');
+        const searchModalOverlay = document.getElementById('searchModalOverlay');
+        const searchModalContent = document.getElementById('searchModalContent');
+        const closeSearchModalButton = document.getElementById('closeSearchModal');
+        const searchInputField = document.getElementById('searchInputField'); // Đã đổi tên từ searchModalInput
+        const searchResultsContainer = document.getElementById('searchResultsContainer'); // Container kết quả trong modal
+
+        function openSearchModal() {
+            if (searchModal && searchModalContent && searchInputField) { // Thêm kiểm tra searchModalContent, searchInputField
+                searchModal.classList.remove('hidden');
+                setTimeout(() => {
+                    searchModal.classList.remove('opacity-0');
+                    searchModalContent.classList.remove('scale-95', 'opacity-0');
+                    searchInputField.focus();
+                    // Reset và hiển thị thông báo mặc định khi mở modal
+                    searchInputField.value = '';
+                    if(searchResultsContainer){
+                         searchResultsContainer.innerHTML = '<p class="text-center text-slate-600">Gõ để bắt đầu tìm kiếm thành viên.</p>';
+                    }
+                }, 10);
+            }
+        }
+
+        function closeSearchModal() {
+            if (searchModal && searchModalContent) { // Thêm kiểm tra searchModalContent
+                searchModal.classList.add('opacity-0');
+                searchModalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    searchModal.classList.add('hidden');
+                     // Tùy chọn: reset input và hiển thị lại thông báo mặc định khi đóng modal
+                     searchInputField.value = '';
+                     if(searchResultsContainer){
+                         searchResultsContainer.innerHTML = '<p class="text-center text-slate-600">Gõ để bắt đầu tìm kiếm thành viên.</p>';
+                     }
+                }, 300);
+            }
+        }
+
+        if (searchButton) searchButton.addEventListener('click', openSearchModal);
+        if (mobileSearchButton) mobileSearchButton.addEventListener('click', openSearchModal);
+        if (closeSearchModalButton) closeSearchModalButton.addEventListener('click', closeSearchModal);
+        if (searchModalOverlay) searchModalOverlay.addEventListener('click', closeSearchModal);
+
+        // Theme Toggle Logic
+        const themeToggleButtons = document.querySelectorAll('.theme-toggle');
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+        themeToggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const isDarkMode = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode ? 'dark' : 'light'); // Ensure theme is applied immediately
+            });
+        });
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            applyTheme('dark');
+        }
+        // --- END: Scripts chung đồng bộ ---
+
+        // --- START: Scripts riêng của trang Thành Viên ---
+        const mainContentWrapper = document.getElementById('mainContentWrapper');
+        const memberDetailView = document.getElementById('memberDetailView');
+        const backToListBtn = document.getElementById('backToListBtn');
+        // const viewAllBtnStyled = document.getElementById("viewAllBtnStyled"); // Đã khai báo ở trên là viewAllBtn
+        const selectOverlay = document.getElementById("selectOverlay");
+        const memberListPopup = document.getElementById("memberListPopup");
+        const closeSelectOverlayBtn = document.getElementById("closeSelectOverlayBtn");
+
+        let lastScrollY = 0;
+
+        function populateTeamCards() {
+            const teamBoxesQuery = document.querySelectorAll('.team-grid .team-box');
+            const teamBoxMap = {
+                "Tổ 1": teamBoxesQuery[0]?.querySelector('.space-y-4'),
+                "Tổ 2": teamBoxesQuery[1]?.querySelector('.space-y-4'),
+                "Tổ 3": teamBoxesQuery[2]?.querySelector('.space-y-4'),
+                "Tổ 4": teamBoxesQuery[3]?.querySelector('.space-y-4'),
+            };
+
+            allMemberData.forEach(member => {
+                // Gán ID cho từng thẻ thành viên gốc
+                const memberId = `member-${member.index}`; // Sử dụng index làm ID
+                member.id = memberId; // Thêm ID vào dữ liệu thành viên
+
+                if (member.isTeacher) {
+                     // Gán ID cho thẻ giáo viên chủ nhiệm
+                     const teacherSection = document.querySelector('.teacher-section');
+                     if(teacherSection) teacherSection.id = memberId;
+                     return; // Bỏ qua giáo viên trong danh sách tổ
+                }
+
+
+                if (!teamBoxMap[member.group]) {
+                    console.warn(`Không tìm thấy container cho tổ: ${member.group}`);
+                    return;
+                }
+
+                const memberCard = document.createElement('div');
+                memberCard.className = "member-card bg-white p-4 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-start gap-3 sm:gap-4 cursor-pointer";
+                memberCard.dataset.memberIndex = member.index;
+                memberCard.id = memberId; // Gán ID cho thẻ thành viên trong danh sách
+
+                const imgEl = document.createElement('img');
+                imgEl.src = member.src;
+                imgEl.alt = member.alt || `Ảnh của ${member.name}`;
+                imgEl.className = "profile w-16 h-20 sm:w-20 sm:h-24 object-cover rounded-md border-2 border-slate-200 flex-shrink-0";
+                imgEl.onerror = function() { this.src='https://placehold.co/80x96/cccccc/999999?text=Ảnh'; this.onerror=null; };
+
+                const infoDiv = document.createElement('div');
+                infoDiv.className = "flex-grow min-w-0";
+
+                const nameEl = document.createElement('h4');
+                nameEl.className = "text-sm sm:text-md font-semibold text-purple-600 mb-0.5 truncate";
+                nameEl.textContent = member.name;
+
+                const nicknameEl = document.createElement('p');
+                nicknameEl.className = "text-xs text-slate-500 mb-1 truncate";
+                nicknameEl.textContent = `(${member.nickname})`;
+
+                const memoryEl = document.createElement('p');
+                memoryEl.className = "text-xs text-slate-600 italic member-quote";
+                memoryEl.textContent = member.memory || "Chưa có kỷ niệm...";
+
+                infoDiv.appendChild(nameEl);
+                if (member.nickname && member.nickname !== "Không có" && member.nickname.trim() !== "") {
+                   infoDiv.appendChild(nicknameEl);
+                }
+                infoDiv.appendChild(memoryEl);
+                memberCard.appendChild(imgEl);
+                memberCard.appendChild(infoDiv);
+
+                memberCard.addEventListener('click', () => showMemberDetail(member.index));
+                if (teamBoxMap[member.group]) {
+                    teamBoxMap[member.group].appendChild(memberCard);
+                }
+            });
+
+            // Thêm listener cho giáo viên chủ nhiệm sau khi gán ID
+            const teacherProfileImg = document.querySelector('section.teacher-section img.profile');
+            const teacherProfileName = document.querySelector('section.teacher-section .info h2');
+            if (teacherProfileImg) teacherProfileImg.addEventListener('click', () => showMemberDetail(0));
+            if (teacherProfileName) teacherProfileName.addEventListener('click', () => showMemberDetail(0));
+        }
+
+        populateTeamCards();
+
+        function showMemberDetail(index) {
+            lastScrollY = window.scrollY;
+            const memberData = allMemberData.find(m => m.index === index);
+
+            if (!memberData) {
+                console.error("Không tìm thấy dữ liệu thành viên cho index:", index);
+                return;
+            }
+
+            if (mainContentWrapper) mainContentWrapper.style.visibility = 'hidden';
+            mainContentWrapper.classList.add('pointer-events-none');
+            if (memberDetailView) {
+                 memberDetailView.style.display = 'flex';
+                 memberDetailView.scrollTop = 0; // Scroll to top of detail view
+            }
+            document.body.style.overflow = 'hidden';
+
+            const detailImage = document.getElementById('detailImage');
+            if (detailImage) {
+                detailImage.src = memberData.src;
+                detailImage.alt = `Ảnh chân dung ${memberData.name}`;
+            }
+            const detailName = document.getElementById('detailName');
+            if (detailName) detailName.innerText = memberData.name;
+
+            const detailNickname = document.getElementById('detailNickname');
+            if (detailNickname) detailNickname.innerText = memberData.nickname || "Không có";
+
+            const detailBirthday = document.getElementById('detailBirthday');
+            if (detailBirthday) detailBirthday.innerText = memberData.birthday || "Chưa cập nhật";
+
+            const detailGroup = document.getElementById('detailGroup');
+            if (detailGroup) detailGroup.innerText = memberData.group || "Chưa cập nhật";
+
+            const detailPhone = document.getElementById('detailPhone');
+            if (detailPhone) detailPhone.innerText = memberData.phone || "Chưa cập nhật";
+
+            const detailAddress = document.getElementById('detailAddress');
+            if (detailAddress) detailAddress.innerText = memberData.address || "Chưa cập nhật";
+
+            const detailHobbies = document.getElementById('detailHobbies');
+            if (detailHobbies) detailHobbies.innerText = memberData.hobbies || "Chưa cập nhật";
+
+            const detailMemory = document.getElementById('detailMemory');
+            if (detailMemory) detailMemory.innerText = memberData.memory || "Chưa có kỷ niệm đáng nhớ.";
+
+            const fbSpan = document.getElementById('detailFacebook');
+            if (fbSpan) {
+                if (memberData.fb && memberData.fb.startsWith("http")) {
+                    fbSpan.innerHTML = `<a href="${memberData.fb}" target="_blank" rel="noopener noreferrer" class="text-purple-500 hover:underline">Xem Facebook</a>`;
+                } else {
+                    fbSpan.innerText = "Chưa cập nhật";
+                }
+            }
+        }
+
+        function showListView() {
+            if (memberDetailView) memberDetailView.style.display = 'none';
+            if (mainContentWrapper) mainContentWrapper.style.visibility = 'visible';
+            mainContentWrapper.classList.remove('pointer-events-none');
+            document.body.style.overflow = 'auto';
+            window.scrollTo({ top: lastScrollY, behavior: 'auto' });
+        }
+        if (backToListBtn) backToListBtn.addEventListener('click', showListView);
+
+        function showTeamListPopup() {
+            if (!memberListPopup || !selectOverlay) return; // Guard clause
+
+            memberListPopup.innerHTML = "";
+            const groups = {};
+            const leaders = ["Ngô Thị Khánh Linh", "Trần Yến Nhi", "Võ Thị Tú Quyên", "Đặng Hồng Hạnh"];
+
+            allMemberData.forEach(member => {
+                if (!groups[member.group]) {
+                    groups[member.group] = [];
+                }
+                groups[member.group].push(member);
+            });
+
+            if (groups["Giáo viên chủ nhiệm"]) {
+                const teacher = groups["Giáo viên chủ nhiệm"][0];
+                const tDiv = document.createElement("div");
+                tDiv.className = "col-span-1 sm:col-span-2 p-3 rounded-lg bg-pink-50 hover:bg-pink-100 transition-colors cursor-pointer flex items-center gap-3";
+                 // Thêm data-member-id cho GVCN
+                tDiv.dataset.memberId = teacher.id;
+
+                tDiv.innerHTML = `
+                    <img src="${teacher.src}" alt="${teacher.name}" class="w-10 h-10 rounded-full object-cover border-2 border-pink-200" onerror="this.src='https://placehold.co/40x40/fbcfe8/9d174d?text=GV'; this.onerror=null;">
+                    <span class="font-semibold text-pink-700">${teacher.name} (GVCN)</span>
+                `;
+                // Sử dụng handleSearchResultClick cho GVCN
+                tDiv.addEventListener('click', handleSearchResultClick);
+                memberListPopup.appendChild(tDiv);
+            }
+
+            const teamOrder = ["Tổ 1", "Tổ 2", "Tổ 3", "Tổ 4"];
+            const teamColors = {
+                "Tổ 1": {bg: "bg-yellow-500", text: "text-yellow-800", itemHover: "hover:bg-yellow-100", border: "border-yellow-500"},
+                "Tổ 2": {bg: "bg-green-500", text: "text-green-800", itemHover: "hover:bg-green-100", border: "border-green-500"},
+                "Tổ 3": {bg: "bg-blue-500", text: "text-blue-800", itemHover: "hover:bg-blue-100", border: "border-blue-500"},
+                "Tổ 4": {bg: "bg-red-500", text: "text-red-800", itemHover: "hover:bg-red-100", border: "border-red-500"}
+            };
+
+            teamOrder.forEach(groupName => {
+                if (groups[groupName]) {
+                    const teamData = groups[groupName];
+                    const colors = teamColors[groupName] || {bg: "bg-slate-500", text: "text-slate-800", itemHover: "hover:bg-slate-100", border: "border-slate-500"};
+
+                    const wrapper = document.createElement("div");
+                    wrapper.className = `team-list-group border ${colors.border} rounded-lg overflow-hidden shadow`;
+
+                    const h3 = document.createElement("h3");
+                    h3.className = `p-3 font-semibold text-white text-center ${colors.bg}`;
+                    h3.innerText = groupName;
+                    wrapper.appendChild(h3);
+
+                    const ul = document.createElement("ul");
+                    ul.className = "p-2 space-y-1 bg-white max-h-60 overflow-y-auto";
+                    teamData.sort((a,b) => a.name.localeCompare(b.name, 'vi'));
+
+                    teamData.forEach(mem => {
+                        const li = document.createElement("li");
+                        li.className = `p-2 rounded-md cursor-pointer ${colors.itemHover} transition-colors flex items-center gap-2 text-sm text-slate-700 hover:text-slate-900`;
+                        const isLeader = leaders.includes(mem.name);
+                         // Thêm data-member-id cho từng thành viên trong popup
+                        li.dataset.memberId = mem.id;
+
+                        li.innerHTML = `
+                            <img src="${mem.src}" alt="${mem.name}" class="w-7 h-7 rounded-full object-cover border border-slate-200 flex-shrink-0" onerror="this.src='https://placehold.co/28x28/cccccc/999999?text=AV'; this.onerror=null;">
+                            <span class="truncate">${mem.name} ${isLeader ? '👑' : ''}</span>
+                        `;
+                         // Sử dụng handleSearchResultClick cho từng thành viên trong popup
+                        li.addEventListener('click', handleSearchResultClick);
+
+                        ul.appendChild(li);
+                    });
+                    wrapper.appendChild(ul);
+                    memberListPopup.appendChild(wrapper);
+                }
+            });
+            selectOverlay.style.display = "flex";
+            document.body.style.overflow = 'hidden';
+        }
+
+        if (viewAllBtn) viewAllBtn.addEventListener('click', showTeamListPopup); // Sử dụng biến viewAllBtn đã khai báo
+        if (closeSelectOverlayBtn) {
+            closeSelectOverlayBtn.addEventListener('click', () => {
+                if(selectOverlay) selectOverlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+        if (selectOverlay) {
+            selectOverlay.addEventListener('click', function(event) {
+                if (event.target === selectOverlay) {
+                    selectOverlay.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // --- START: Chức năng Tìm kiếm trong Modal ---
+
+        // Hàm xử lý khi click vào kết quả tìm kiếm trong modal
+        function handleSearchResultClick(event) {
+            // Tìm thẻ cha có class 'member-card-search-result' hoặc 'team-list-group > div' (cho GVCN trong popup tổ)
+            const clickedElement = event.target.closest('.member-card-search-result, .team-list-group > div');
+            if (!clickedElement) return; // Nếu không phải click vào phần tử kết quả thì bỏ qua
+
+            const targetMemberId = clickedElement.dataset.memberId; // Lấy ID thành viên từ data attribute
+
+            if (targetMemberId) {
+                const targetElement = document.getElementById(targetMemberId); // Tìm thẻ gốc trên trang chính
+                if (targetElement) {
+                    // Cuộn trang đến vị trí của thẻ gốc
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth', // Cuộn mượt
+                        block: 'center' // Căn giữa phần tử trên màn hình
+                    });
+                    // Đóng modal sau khi cuộn
+                    closeSearchModal(); // Đóng modal tìm kiếm
+                    if (selectOverlay && selectOverlay.style.display === 'flex') {
+                         selectOverlay.style.display = 'none'; // Đóng cả modal xem theo tổ nếu đang mở
+                    }
+
+                } else {
+                    console.warn("Không tìm thấy phần tử gốc với ID:", targetMemberId);
+                }
+            }
+        }
+
+        // Hàm lọc thành viên và hiển thị trong modal tìm kiếm
+        function filterAndDisplaySearchResults(searchTerm) {
+            if (!searchResultsContainer) {
+                console.error("Không tìm thấy container kết quả tìm kiếm trong modal!");
+                return;
+            }
+
+            // Xóa kết quả cũ
+            searchResultsContainer.innerHTML = '';
+
+            const lowerSearchTerm = searchTerm.toLowerCase().trim();
+            let resultsFound = 0;
+
+            if (lowerSearchTerm === '') {
+                // Nếu ô tìm kiếm trống, hiển thị thông báo mặc định
+                 searchResultsContainer.innerHTML = '<p class="text-center text-slate-600">Gõ để bắt đầu tìm kiếm thành viên.</p>';
+                return; // Không cần lọc và hiển thị kết quả
+            }
+
+            // Lọc dữ liệu từ mảng allMemberData
+            const filteredMembers = allMemberData.filter(member => {
+                // Tìm kiếm trong tên, biệt danh, tổ, sở thích, kỷ niệm, địa chỉ
+                return member.name.toLowerCase().includes(lowerSearchTerm) ||
+                       (member.nickname && member.nickname.toLowerCase().includes(lowerSearchTerm)) ||
+                       (member.group && member.group.toLowerCase().includes(lowerSearchTerm)) ||
+                       (member.hobbies && member.hobbies.toLowerCase().includes(lowerSearchTerm)) ||
+                       (member.memory && member.memory.toLowerCase().includes(lowerSearchTerm)) ||
+                       (member.address && member.address.toLowerCase().includes(lowerSearchTerm));
+            });
+
+            if (filteredMembers.length > 0) {
+                filteredMembers.forEach(member => {
+                    // Tạo phần tử hiển thị kết quả (thẻ thu nhỏ)
+                    const resultCard = document.createElement('div');
+                    resultCard.className = 'member-card-search-result'; // Class mới cho style trong modal
+                    // Lưu ID gốc vào data attribute
+                    resultCard.dataset.memberId = member.id; // Sử dụng ID đã gán trong populateTeamCards
+
+                    resultCard.innerHTML = `
+                        <img src="${member.src}" alt="${member.name}" onerror="this.src='https://placehold.co/32x32/cccccc/999999?text=AV';" />
+                        <div class="info">
+                            <h4>${member.name} (${member.group})</h4>
+                            <p>${member.nickname ? `BD: ${member.nickname} - ` : ''}${member.memory || 'Chưa có kỷ niệm...'}</p>
+                        </div>
+                    `;
+
+                    // Thêm listener cho sự kiện click vào kết quả
+                    resultCard.addEventListener('click', handleSearchResultClick);
+
+                    searchResultsContainer.appendChild(resultCard);
+                    resultsFound++;
+                });
+            } else {
+                // Cập nhật thông báo nếu không tìm thấy kết quả
+                 searchResultsContainer.innerHTML = `<p class="text-center text-red-500">Không tìm thấy kết quả nào cho "${searchTerm}".</p>`;
+            }
+        }
+
+        // Lắng nghe sự kiện input trên ô tìm kiếm trong modal
+        if (searchInputField && searchResultsContainer) {
+            searchInputField.addEventListener('input', function() {
+                filterAndDisplaySearchResults(this.value); // Gọi hàm lọc và hiển thị kết quả
+            });
+        } else {
+             console.warn("Không tìm thấy input tìm kiếm hoặc container kết quả tìm kiếm trong modal để thêm listener.");
+        }
+
+        // --- END: Chức năng Tìm kiếm trong Modal ---
+
+
+        // --- END: Scripts riêng của trang Thành Viên ---
+    });
+    </script>
+</body>
+</html>

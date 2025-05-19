@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Liên Hệ - Kỷ yếu DK60</title>
+    <link href="images/logo/logo1.png" id="dynamic-favicon" rel="icon" type="image/png"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8b5cf6; 
+            --primary-light: #c4b5fd; 
+            --primary-dark: #6d28d9;  
+            --animation-time: 0.6s; 
+        }
+        
+        body {
+            font-family: 'Inter', Arial, sans-serif; 
+            background-color: #f0f4f8; 
+            color: #334155; 
+            margin: 0;
+            background-image: url('images/bg.png'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            transition: background-position 0.1s ease, opacity var(--animation-time) ease-in-out, background-color 0.3s ease, color 0.3s ease; 
+            opacity: 0; 
+            scroll-behavior: smooth; 
+        }
+
+        html.dark body { 
+            background-color: #1e293b; 
+            color: #e2e8f0; 
+        }
+        /* --- Dark Mode Styles (ĐỒNG BỘ THEO CSS GỐC CỦA USER) --- */
+        html.dark header, html.dark #mobileMenu, html.dark #main-header, html.dark #searchModalContent {
+            background-color: rgba(30, 41, 59, 0.9) !important; 
+        }
+        html.dark #searchModalContent {
+             background-color: #2c3e50 !important; 
+        }
+
+        /* Nav items bình thường trong dark mode (sẽ được JS thêm/bớt class text-slate-600) */
+        html.dark .text-slate-600 { color: #cbd5e1 !important; }
+        html.dark .nav-item:not(.active-nav-link):hover { /* Dành cho desktop non-active hover */
+            color: var(--primary-light) !important;
+        }
+        html.dark #mobileMenu .nav-item:not(.text-purple-600):hover { /* Dành cho mobile non-active hover */
+             color: var(--primary-light) !important;
+             background-color: rgba(109, 40, 217, 0.1) !important; /* bg-purple-50 hover dark */
+        }
+
+        /* Style cho nav-item active trong dark mode (THEO CSS GỐC CỦA USER) */
+        html.dark .active-nav-link { /* Cho desktop active text & dot */
+            color: var(--primary-light) !important; 
+        }
+        html.dark .active-nav-link::after { /* Cho desktop active dot */
+            background-color: var(--primary-light) !important; 
+        }
+        /* Cho mobile active trong dark mode (JS sẽ thêm text-purple-600, font-semibold, bg-purple-50) */
+        html.dark #mobileMenu .text-purple-600.font-semibold.bg-purple-50 {
+            color: var(--primary-light) !important;
+            background-color: rgba(76, 29, 149, 0.3) !important; /* html.dark .bg-purple-50 */
+        }
+        
+        html.dark .text-slate-700 { color: #e2e8f0 !important; } 
+        /* html.dark .text-slate-600 đã xử lý ở trên */
+        html.dark .text-slate-500 { color: #94a3b8 !important; } 
+        html.dark .text-purple-700 { color: var(--primary-light) !important; }
+        html.dark .text-purple-500 { color: var(--primary-light) !important; }
+        html.dark .border-purple-500 { border-color: var(--primary-light) !important; }
+        html.dark .focus\:ring-purple-500:focus { --tw-ring-color: var(--primary-light) !important; }
+        html.dark .bg-purple-100 { background-color: rgba(109, 40, 217, 0.3) !important; }
+        html.dark .bg-purple-600 { background-color: var(--primary-dark) !important; }
+        html.dark .hover\:bg-purple-700:hover { background-color: var(--primary-color) !important; }
+        html.dark .border-slate-300 { border-color: #4b5563 !important; }
+        html.dark .border-slate-200 { border-color: #4b5563 !important; }
+        html.dark .bg-white\/70 { background-color: rgba(30, 41, 59, 0.7) !important; }
+        html.dark .bg-white\/80 { background-color: transparent !important; }
+        html.dark .bg-white\/90 { background-color: rgba(30, 41, 59, 0.9) !important; }
+        html.dark .placeholder-slate-400::placeholder { color: #9ca3af !important; }
+
+        html.dark #searchModalInput {
+            background-color: #374151; 
+            color: #e5e7eb; 
+            border-color: #4b5563; 
+        }
+        html.dark #searchModalInput::placeholder {
+            color: #9ca3af; 
+        }
+        html:not(.dark) .theme-toggle .moon-icon { display: none; }
+        html.dark .theme-toggle .sun-icon { display: none; }
+        /* --- End Dark Mode Styles --- */
+
+        body.fade-in { opacity: 1; }
+        .fancy-title { font-family: 'Dancing Script', cursive; }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(203, 213, 225, 0.3); border-radius: 10px; }
+        html.dark ::-webkit-scrollbar-track { background: #2d3748; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        html.dark ::-webkit-scrollbar-thumb { background: var(--primary-dark); }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        html.dark ::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+
+        #backToTopBtn {
+            position: fixed; bottom: 20px; right: 20px; z-index: 50;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            opacity: 0; visibility: hidden; transform: scale(0.9);
+        }
+        #backToTopBtn.visible {
+            opacity: 1; visibility: visible; transform: scale(1);
+        }
+        #backToTopBtn:hover { transform: translateY(-5px) scale(1.05); }
+        
+        /* Styles for DESKTOP active nav link (THEO CSS GỐC CỦA USER) */
+        .nav-item.active-nav-link { 
+            position: relative; 
+            color: var(--primary-dark) !important; 
+            font-weight: 600 !important; 
+        }
+        .nav-item.active-nav-link::after { 
+            content: ""; 
+            position: absolute; 
+            bottom: -4px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 6px; 
+            height: 6px; 
+            background-color: var(--primary-color); 
+            border-radius: 50%; 
+        }
+        /* Mobile menu sẽ không có dấu chấm này, JS sẽ quản lý style active cho mobile */
+        #mobileMenu .nav-item.active-nav-link::after {
+            display: none;
+        }
+        
+        .glowing { animation: glow 2s ease-in-out infinite alternate; }
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary-light), 0 0 20px var(--primary-light); }
+            to { text-shadow: 0 0 10px #fff, 0 0 15px var(--primary-color), 0 0 20px var(--primary-color), 0 0 25px var(--primary-color); }
+        }
+        #searchModal {
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(5px); 
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+<div id="loading-overlay" class="fixed inset-0 bg-purple-900 z-[9999] flex items-center justify-center transition-opacity duration-700" style="background-image: url('images/bg.png'); background-size: cover; background-repeat: no-repeat;">
+    <div class="loading-content text-center flex flex-col items-center justify-center">
+        <img src="images/about/avatar.png" alt="Avatar của Luonghii" class="avatar rounded-full w-60 h-60 mb-4 object-cover">
+        <div>
+            <h1 class="fancy-title text-5xl text-white mb-4 glowing text-center">Memory of DK60<br>by Luonghiii</h1>
+            <div class="flex space-x-1 justify-center">
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0s"></div>
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                <div class="w-3 h-3 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <header class="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50 transition-all duration-300" id="main-header">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl sm:text-3xl font-bold fancy-title text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-600 transition-all duration-500">
+                        🎓 Ký ức DK60
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="nav-item text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Trang Chủ</a>
+                    <a href="about.html" class="nav-item text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Giới Thiệu</a>
+                    <a href="contact.html" class="nav-item text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Liên Hệ</a>
+                    <a href="thanh-vien-lop.html" class="nav-item text-slate-600 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Thành Viên</a>
+                </nav>
+                <div class="hidden md:flex space-x-3">
+                    <button id="searchButton" class="bg-purple-100 hover:bg-purple-200 text-purple-600 p-2 rounded-full transition-colors" title="Tìm kiếm">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </button>
+                    <button id="themeToggle" class="theme-toggle bg-purple-100 hover:bg-purple-200 text-purple-600 p-2 rounded-full transition-colors" title="Chế độ tối/sáng">
+                        <svg class="w-5 h-5 sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                        </svg>
+                        <svg class="w-5 h-5 moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" aria-label="Mở menu" class="text-slate-600 hover:text-purple-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden hidden bg-white/95 backdrop-blur-md shadow-lg">
+            <a href="index.html" class="nav-item block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Trang Chủ</a>
+            <a href="about.html" class="nav-item block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Giới Thiệu</a>
+            <a href="contact.html" class="nav-item block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Liên Hệ</a>
+            <a href="thanh-vien-lop.html" class="nav-item block text-slate-600 hover:text-purple-600 hover:bg-purple-50 px-4 py-3 text-sm font-medium transition-colors">Thành Viên</a>
+            <div class="flex space-x-3 p-4 border-t border-slate-100 html.dark:border-slate-700">
+                <button id="mobileSearchButton" class="bg-purple-100 hover:bg-purple-200 text-purple-600 p-2 rounded-full transition-colors flex-1" title="Tìm kiếm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+                <button id="mobileThemeToggle" class="theme-toggle bg-purple-100 hover:bg-purple-200 text-purple-600 p-2 rounded-full transition-colors flex-1" title="Chế độ tối/sáng">
+                     <svg class="w-5 h-5 mx-auto sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg>
+                    <svg class="w-5 h-5 mx-auto moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="progressBar" class="h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 w-0 fixed top-0 left-0 z-[60] transition-all duration-200"></div>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div class="text-sm text-slate-500 mb-6 flex items-center">
+             <a href="index.html" class="hover:text-purple-600 transition-colors">Trang chủ</a>
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 mx-2">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+             </svg>
+             <span class="text-purple-600 font-medium">Liên Hệ</span>
+        </div>
+
+        <div class="content-wrapper max-w-3xl mx-auto">
+            <section class="bg-white/80 backdrop-blur-md p-6 sm:p-10 rounded-xl shadow-xl">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-purple-700 fancy-title">📞 Liên Hệ Với Tớ</h2>
+
+                <form class="contact-form space-y-6"
+                      action="https://formsubmit.co/2057ff2a3335d8da4613cf773181bac5" 
+                      method="POST">
+
+                    <input type="hidden" name="_subject" value="Tin nhắn mới từ Kỷ yếu DK60!">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://luonghiii.github.io/thaihoa/weblop/thank-you.html"> 
+                    <input type="hidden" name="_captcha" value="false"> 
+                    
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Họ và Tên</label>
+                        <input type="text" name="name" id="name" placeholder="Bạn tên là gì?" required
+                               class="w-full px-4 py-2.5 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition bg-white/70 placeholder-slate-400 text-sm">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Địa chỉ email của bạn" required
+                               class="w-full px-4 py-2.5 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition bg-white/70 placeholder-slate-400 text-sm">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Lời nhắn</label>
+                        <textarea name="message" id="message" placeholder="Điều bạn muốn nhắn gửi..." required rows="5"
+                                  class="w-full px-4 py-2.5 border border-slate-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition bg-white/70 placeholder-slate-400 text-sm"></textarea>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-sm">
+                        Gửi Tin Nhắn <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+
+                <div class="contact-info mt-10 pt-8 border-t border-slate-200">
+                    <h3 class="text-xl font-semibold text-center text-purple-700 mb-6 fancy-title">☎ Thông Tin Liên Hệ Khác</h3>
+                    <div id="contact-details-list" class="space-y-4 text-sm text-slate-600">
+                        <p class="contact-item flex items-center justify-center sm:justify-start" data-searchable="Tây Hiếu, Thị xã Thái Hoà, tỉnh Nghệ An địa chỉ">
+                            <i class="fas fa-map-marker-alt w-5 text-center mr-3 text-purple-500"></i>
+                            <span>Tây Hiếu, Thị xã Thái Hoà, tỉnh Nghệ An</span>
+                        </p>
+                        <p class="contact-item flex items-center justify-center sm:justify-start" data-searchable="0916508081 điện thoại số phone">
+                            <i class="fas fa-phone-alt w-5 text-center mr-3 text-purple-500"></i>
+                            <a href="tel:0916508081" class="hover:text-purple-600 hover:underline">0916 508 081</a>
+                        </p>
+                        <p class="contact-item flex items-center justify-center sm:justify-start" data-searchable="luonghii123@gmail.com email mail">
+                            <i class="fas fa-envelope w-5 text-center mr-3 text-purple-500"></i>
+                            <a href="mailto:luonghii123@gmail.com" class="hover:text-purple-600 hover:underline">luonghii123@gmail.com</a>
+                        </p>
+                        <p class="contact-item flex items-center justify-center sm:justify-start" data-searchable="Bio của tớ profile cá nhân website">
+                            <i class="fas fa-globe w-5 text-center mr-3 text-purple-500"></i>
+                            <a href="https://luonghiii.github.io/web/profile/" target="_blank" rel="noopener noreferrer" class="hover:text-purple-600 hover:underline">Bio của tớ</a>
+                        </p>
+                         <p class="contact-item flex items-center justify-center sm:justify-start" data-searchable="Facebook cá nhân fb">
+                            <i class="fab fa-facebook-f w-5 text-center mr-3 text-purple-500"></i>
+                            <a href="https://www.facebook.com/100046707224598" target="_blank" rel="noopener noreferrer" class="hover:text-purple-600 hover:underline">Facebook cá nhân</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-300 py-8 mt-12 md:mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">&copy; <span id="currentYear"></span> Made with ❤️ by Luonghii & DK60 Collective</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" title="Về đầu trang"
+            class="p-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-full shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up">
+            <line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
+
+    <div id="searchModal" class="fixed inset-0 z-[9990] p-4 flex items-center justify-center hidden transition-opacity duration-300 ease-in-out opacity-0">
+        <div id="searchModalOverlay" class="absolute inset-0"></div>
+        <div id="searchModalContent" class="bg-white p-6 rounded-lg shadow-xl w-full max-w-lg relative transform transition-all duration-300 ease-in-out scale-95 opacity-0">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-purple-700 fancy-title">Tìm kiếm thông tin liên hệ</h3>
+                <button id="closeSearchModal" aria-label="Đóng tìm kiếm" class="text-slate-400 hover:text-red-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <input type="text" id="searchInputField" placeholder="Nhập email, sđt, địa chỉ,..." class="w-full p-3 border border-slate-300 rounded-md focus:ring-purple-500 focus:border-purple-500 mb-4 text-sm">
+            <div id="searchResultsContainer" class="text-sm text-slate-600 max-h-60 overflow-y-auto">
+                <p>Gõ để tìm kiếm trong các mục liên hệ bên dưới.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // --- START: Scripts chung đồng bộ từ các trang khác ---
+            const loadingOverlay = document.getElementById('loading-overlay');
+            if (loadingOverlay) {
+                setTimeout(() => {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                    }, parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--animation-time').replace('s',''))*1000 * 0.9); 
+                }, 1500); 
+            }
+
+            document.body.classList.add("fade-in");
+
+            const internalLinks = document.querySelectorAll("header nav .nav-item, #mobileMenu .nav-item");
+            internalLinks.forEach(link => {
+                link.addEventListener("click", function (e) {
+                    const href = this.getAttribute("href");
+                    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+                    if (href === currentPath || href.startsWith('#')) return;
+                    e.preventDefault();
+                    document.body.style.opacity = 0;
+                    setTimeout(() => { window.location.href = href; }, parseFloat(getComputedStyle(document.body).transitionDuration.replace('s',''))*1000 * 0.9);
+                });
+            });
+
+            const currentYearEl = document.getElementById('currentYear');
+            if (currentYearEl) {
+                currentYearEl.textContent = new Date().getFullYear();
+            }
+
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            if (backToTopBtn) {
+                window.onscroll = function() {
+                    const shouldBeVisible = document.body.scrollTop > 100 || document.documentElement.scrollTop > 100;
+                    if (shouldBeVisible) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                };
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                if (typeof window.onscroll === 'function') { window.onscroll(); }
+            }
+            
+            document.addEventListener("mousemove", function(e) {
+                const x = (e.clientX / window.innerWidth - 0.5) * 10; 
+                const y = (e.clientY / window.innerHeight - 0.5) * 10;
+                document.body.style.backgroundPosition = `calc(50% + ${-x}px) calc(50% + ${-y}px)`;
+            });
+
+            const favicons = [
+                'images/logo/logo1.png', 'images/logo/logo2.png', 'images/logo/logo3.png',
+                'images/logo/logo4.png', 'images/logo/logo5.png'
+            ];
+            let currentFaviconIndex = 0;
+            const dynamicFavicon = document.getElementById('dynamic-favicon');
+            if (dynamicFavicon) {
+                setInterval(() => {
+                    dynamicFavicon.setAttribute('href', favicons[currentFaviconIndex]);
+                    currentFaviconIndex = (currentFaviconIndex + 1) % favicons.length;
+                }, 1000); 
+            }
+
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                window.addEventListener('scroll', () => {
+                    const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (window.scrollY / scrollTotal) * 100;
+                    progressBar.style.width = `${scrolled}%`;
+                });
+            }
+            
+            // Logic xử lý active state cho navigation links (THEO STYLE GỐC CỦA USER - CÓ DẤU CHẤM)
+            const navLinksForActiveState = document.querySelectorAll('header nav .nav-item, #mobileMenu .nav-item');
+            const currentPageForActive = window.location.pathname.split('/').pop() || 'index.html'; 
+
+            navLinksForActiveState.forEach(link => {
+                // 1. Reset về trạng thái mặc định (không active)
+                link.classList.remove('active-nav-link'); // Class này sẽ được CSS xử lý màu, font-weight và dấu chấm cho desktop
+                link.classList.remove('text-purple-600', 'font-semibold'); // Bỏ class active cũ nếu có
+                link.classList.add('text-slate-600'); // Màu chữ mặc định (light mode)
+
+                if (link.closest('#mobileMenu')) {
+                    link.classList.remove('bg-purple-50'); // Bỏ nền active cũ của mobile
+                    link.classList.add('hover:text-purple-600', 'hover:bg-purple-50');
+                } else {
+                    link.classList.add('hover:text-purple-600');
+                }
+                link.classList.remove('border-b-2', 'border-purple-500'); // Bỏ style active cũ của contact.html (nếu có)
+
+
+                // 2. Áp dụng style active nếu đúng trang
+                const linkPath = link.getAttribute('href').split('/').pop() || 'index.html';
+                if (linkPath === currentPageForActive) {
+                    link.classList.remove('text-slate-600'); // Xóa màu mặc định
+
+                    if (link.closest('#mobileMenu')) {
+                        // Mobile: Dùng class Tailwind trực tiếp như file about.html gốc
+                        link.classList.add('text-purple-600', 'font-semibold', 'bg-purple-50');
+                        link.classList.remove('hover:text-purple-600', 'hover:bg-purple-50');
+                    } else {
+                        // Desktop: Dùng class active-nav-link để CSS xử lý (bao gồm dấu chấm)
+                        link.classList.add('active-nav-link');
+                        // Các class text-purple-600, font-semibold đã được định nghĩa trong .active-nav-link của CSS
+                    }
+                }
+            });
+
+
+            // Search Modal Logic
+            const searchButton = document.getElementById('searchButton');
+            const mobileSearchButton = document.getElementById('mobileSearchButton');
+            const searchModal = document.getElementById('searchModal');
+            const searchModalOverlay = document.getElementById('searchModalOverlay');
+            const searchModalContent = document.getElementById('searchModalContent');
+            const closeSearchModalButton = document.getElementById('closeSearchModal');
+            const searchInputField = document.getElementById('searchInputField');
+            const searchResultsContainer = document.getElementById('searchResultsContainer');
+            const contactDetailsList = document.getElementById('contact-details-list');
+
+
+            function openSearchModal() {
+                if (searchModal) {
+                    searchModal.classList.remove('hidden');
+                    setTimeout(() => { 
+                        searchModal.classList.remove('opacity-0');
+                        searchModalContent.classList.remove('scale-95', 'opacity-0');
+                        if(searchInputField) searchInputField.focus(); 
+                    }, 10);
+                }
+            }
+
+            function closeSearchModal() {
+                if (searchModal) {
+                    searchModal.classList.add('opacity-0');
+                    searchModalContent.classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => {
+                        searchModal.classList.add('hidden');
+                    }, 300); 
+                }
+            }
+
+            if (searchButton) searchButton.addEventListener('click', openSearchModal);
+            if (mobileSearchButton) mobileSearchButton.addEventListener('click', openSearchModal);
+            if (closeSearchModalButton) closeSearchModalButton.addEventListener('click', closeSearchModal);
+            if (searchModalOverlay) searchModalOverlay.addEventListener('click', closeSearchModal); 
+
+            // Theme Toggle Logic
+            const themeToggleButtons = document.querySelectorAll('.theme-toggle');
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
+            themeToggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const isDarkMode = document.documentElement.classList.toggle('dark');
+                    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                });
+            });
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                applyTheme('dark');
+            }
+            // --- END: Scripts chung đồng bộ ---
+
+            // --- START: Search functionality for Contact Page ---
+            if (searchInputField && contactDetailsList && searchResultsContainer) {
+                const allContactItemsOriginal = Array.from(contactDetailsList.querySelectorAll('.contact-item'));
+
+                searchInputField.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    
+                    allContactItemsOriginal.forEach(item => item.style.display = 'flex'); 
+                    searchResultsContainer.innerHTML = ''; 
+
+                    if (searchTerm === '') {
+                        searchResultsContainer.innerHTML = '<p>Gõ để tìm kiếm trong các mục liên hệ.</p>';
+                        return;
+                    }
+
+                    const matchedItems = allContactItemsOriginal.filter(item => {
+                        const searchableText = item.dataset.searchable ? item.dataset.searchable.toLowerCase() : (item.textContent || "").toLowerCase();
+                        return searchableText.includes(searchTerm);
+                    });
+
+                    if (matchedItems.length > 0) {
+                        matchedItems.forEach(item => {
+                            const clone = item.cloneNode(true); 
+                            searchResultsContainer.appendChild(clone);
+                        });
+                        allContactItemsOriginal.forEach(item => { 
+                            if (!matchedItems.includes(item)) {
+                                item.style.display = 'none';
+                            }
+                        });
+
+                    } else {
+                        searchResultsContainer.innerHTML = '<p class="text-red-500">Không tìm thấy thông tin liên hệ nào khớp.</p>';
+                        allContactItemsOriginal.forEach(item => item.style.display = 'none'); 
+                    }
+                });
+            }
+            // --- END: Search functionality for Contact Page ---
+        });
+    </script>
+
+</body>
+</html>
